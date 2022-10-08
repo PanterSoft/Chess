@@ -1,4 +1,4 @@
-![bannerImage](chess_banner.png)
+![bannerImage](chess_banner.jpeg)
 
 ---
 
