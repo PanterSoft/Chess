@@ -2,9 +2,9 @@
 
 ---
 
-[![codecov](https://codecov.io/gh/Pantersoft/mastermind/branch/06-ContinuousDeployment/graph/badge.svg?token=PUIFJ9PH30)](https://codecov.io/gh/LarsBuergerr/mastermind/tree/develop)
-![MAIN status](https://github.com/LarsBuergerr/mastermind/actions/workflows/coveralls.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/LarsBuergerr/mastermind/badge.svg?branch=06-ContinuousDeployment)](https://coveralls.io/github/LarsBuergerr/mastermind?branch=06-ContinuousDeployment)
+[![codecov](https://codecov.io/gh/Pantersoft/mastermind/branch/06-ContinuousDeployment/graph/badge.svg?token=PUIFJ9PH30)](https://codecov.io/gh/PanterSoft/Chess/tree/develop)
+![MAIN status](https://github.com/PanterSoft/Chess/actions/workflows/coveralls.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/PanterSoft/Chess/badge.svg?branch=06-ContinuousDeployment)](https://coveralls.io/github/PanterSoft/Chess?branch=06-ContinuousDeployment)
 
 ![RepoSize](https://img.shields.io/github/repo-size/PanterSoft/Chess)
 [![License](https://img.shields.io/github/license/PanterSoft/Chess?color=green)](https://cdn130.picsart.com/272563229032201.jpg?r1024x1024)
