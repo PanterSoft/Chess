@@ -3,7 +3,6 @@
 ---
 
 [![codecov](https://codecov.io/gh/Pantersoft/mastermind/branch/06-ContinuousDeployment/graph/badge.svg?token=PUIFJ9PH30)](https://codecov.io/gh/PanterSoft/Chess/tree/develop)
-![MAIN status](https://github.com/PanterSoft/Chess/actions/workflows/coveralls.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/PanterSoft/Chess/badge.svg?branch=06-ContinuousDeployment)](https://coveralls.io/github/PanterSoft/Chess?branch=06-ContinuousDeployment)
 
 ![RepoSize](https://img.shields.io/github/repo-size/PanterSoft/Chess)
