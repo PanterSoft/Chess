@@ -1,0 +1,30 @@
+2022.10.14 11:44:30 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/.metals/lsp.trace.json or /Users/nicomattes/Library/Caches/org.scalameta.metals/lsp.trace.json
+2022.10.14 11:44:30 INFO  logging to file /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/.metals/metals.log
+2022.10.14 11:44:30 INFO  Started: Metals version 0.11.9 in workspace '/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess' for client Visual Studio Code 1.72.2.
+2022.10.14 11:44:30 INFO  time: initialize in 0.61s
+2022.10.14 11:44:31 WARN  Build server is not auto-connectable.
+2022.10.14 11:44:35 INFO  running '/Users/nicomattes/Library/Java/JavaVirtualMachines/corretto-17.0.4.1/Contents/Home/bin/java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar /var/folders/jm/f5w8gf615lq689xssj7qfj440000gn/T/metals4062137789881649601/sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'
+2022.10.14 11:44:35 INFO  [info] welcome to sbt 1.7.1 (Amazon.com Inc. Java 17.0.4.1)
+2022.10.14 11:44:35 INFO  [info] loading settings for project chess-build-build from metals.sbt ...
+2022.10.14 11:44:37 INFO  [info] loading project definition from /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/project
+2022.10.14 11:44:37 INFO  [info] loading settings for project chess-build from metals.sbt ...
+2022.10.14 11:44:37 INFO  [info] loading project definition from /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project
+2022.10.14 11:44:38 INFO  [success] Generated .bloop/chess-build.json
+2022.10.14 11:44:38 INFO  [success] Total time: 1 s, completed 14.10.2022, 11:44:38
+2022.10.14 11:44:38 INFO  [info] loading settings for project root from build.sbt ...
+2022.10.14 11:44:38 INFO  [info] set current project to Chess (in build file:/Users/nicomattes/Documents/Cloud/Studium/3.%20Semester/Software%20Engineering/Projects/Chess/)
+2022.10.14 11:44:38 INFO  [success] Generated .bloop/root-test.json
+2022.10.14 11:44:38 INFO  [success] Generated .bloop/root.json
+2022.10.14 11:44:38 INFO  [success] Total time: 0 s, completed 14.10.2022, 11:44:39
+2022.10.14 11:44:39 INFO  time: ran 'sbt bloopInstall' in 4.39s
+2022.10.14 11:44:39 INFO  Attempting to connect to the build server...
+2022.10.14 11:44:39 INFO  Bloop uses /Users/nicomattes/Library/Java/JavaVirtualMachines/corretto-17.0.4.1/Contents/Home defined at /Users/nicomattes/.bloop/bloop.json
+2022.10.14 11:44:39 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/.metals/bsp.trace.json or /Users/nicomattes/Library/Caches/org.scalameta.metals/bsp.trace.json
+2022.10.14 11:44:39 INFO  Attempting to connect to the build server...
+2022.10.14 11:44:39 INFO  Bloop uses /Users/nicomattes/Library/Java/JavaVirtualMachines/corretto-17.0.4.1/Contents/Home defined at /Users/nicomattes/.bloop/bloop.json
+2022.10.14 11:44:39 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/.metals/bsp.trace.json or /Users/nicomattes/Library/Caches/org.scalameta.metals/bsp.trace.json
+2022.10.14 11:44:39 INFO  time: Connected to build server in 0.26s
+2022.10.14 11:44:39 INFO  Connected to Build server: Bloop v1.5.4
+2022.10.14 11:44:43 INFO  time: indexed workspace in 3.4s
+Okt. 14, 2022 11:44:44 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace

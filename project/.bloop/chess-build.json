@@ -2,15 +2,15 @@
     "version": "1.4.0",
     "project": {
         "name": "chess-build",
-        "directory": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project",
-        "workspaceDir": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project",
+        "directory": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project",
+        "workspaceDir": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project",
         "sources": [
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/scala",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/scala-2.12",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/scala-2",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/java",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/scala-sbt-1.0",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/target/scala-2.12/sbt-1.0/src_managed/main"
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/scala",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/scala-2.12",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/scala-2",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/java",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/scala-sbt-1.0",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/target/scala-2.12/sbt-1.0/src_managed/main"
         ],
         "dependencies": [
             
@@ -103,11 +103,11 @@
             "/Users/nicomattes/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar",
             "/Users/nicomattes/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.2/config-1.4.2.jar"
         ],
-        "out": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/.bloop/chess-build",
-        "classesDir": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/.bloop/chess-build/scala-2.12/sbt-1.0/classes",
+        "out": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/.bloop/chess-build",
+        "classesDir": "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/.bloop/chess-build/scala-2.12/sbt-1.0/classes",
         "resources": [
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/src/main/resources",
-            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project/target/scala-2.12/sbt-1.0/resource_managed/main"
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/src/main/resources",
+            "/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project/target/scala-2.12/sbt-1.0/resource_managed/main"
         ],
         "scala": {
             "organization": "org.scala-lang",
@@ -199,7 +199,7 @@
             "config": {
                 "home": "/Users/nicomattes/Library/Java/JavaVirtualMachines/corretto-17.0.4.1/Contents/Home",
                 "options": [
-                    "-Duser.dir=/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/chess/project"
+                    "-Duser.dir=/Users/nicomattes/Documents/Cloud/Studium/3. Semester/Software Engineering/Projects/Chess/project"
                 ]
             },
             "mainClass": [
