@@ -30,3 +30,6 @@ Okt. 14, 2022 11:44:44 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint not
 INFORMATION: Unsupported notification method: $/setTrace
 2022.10.14 11:57:16 INFO  compiling root (2 scala sources)
 2022.10.14 11:57:16 INFO  time: compiled root in 0.28s
+2022.10.14 12:07:05 INFO  time: evaluated worksheet 'PlayField.worksheet.sc' in 2.75s
+2022.10.14 12:07:07 INFO  time: evaluated worksheet 'PlayField.worksheet.sc' in 0.27s
+2022.10.14 12:07:24 INFO  time: evaluated worksheet 'PlayField.worksheet.sc' in 0.24s
