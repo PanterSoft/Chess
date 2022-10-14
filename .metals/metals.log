@@ -28,3 +28,5 @@
 2022.10.14 11:44:43 INFO  time: indexed workspace in 3.4s
 Okt. 14, 2022 11:44:44 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFORMATION: Unsupported notification method: $/setTrace
+2022.10.14 11:57:16 INFO  compiling root (2 scala sources)
+2022.10.14 11:57:16 INFO  time: compiled root in 0.28s
