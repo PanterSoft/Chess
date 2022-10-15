@@ -3,7 +3,7 @@
 ---
 
 ![RepoSize](https://img.shields.io/github/repo-size/PanterSoft/Chess)
-[![License](https://img.shields.io/github/license/PanterSoft/Chess?color=green)](https://img.shields.io/github/repo-size/PanterSoft/Chess/LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MI)
 ![Forks](https://img.shields.io/github/forks/PanterSoft/Chess?color=green&style=social)
 ![Watcher](https://img.shields.io/github/watchers/PanterSoft/Chess?style=social)
 
