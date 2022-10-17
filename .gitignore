@@ -1,6 +1,36 @@
-# ignore objects and archives, anywhere in the tree.
-    *.[oa]
+# bloop metals
 .bloop
+.bsp
+
+# metals
+project/metals.sbt
 .metals
-.vscode
-.metals/metals.lock.db
+
+# vs code
+*.class
+
+# scala 3
+.tasty
+
+# sbt
+project/project/
+project/target/
+target/
+
+# coursier
+null/
+
+# intellij idea
+*.long
+*.iml
+*.ipr
+*.iws
+.idea
+
+# mac
+.DS_Store
+
+# other?
+.history
+.scala_dependencies
+.cache-main
