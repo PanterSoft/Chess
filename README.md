@@ -13,4 +13,3 @@
 | [PanterSoft](https://github.com/PanterSoft)  |  [TeefanDev](https://github.com/TeefanDev) |
 |---|---|
 | ![image](https://github-readme-streak-stats.herokuapp.com/?user=PanterSoft) | ![image](https://github-readme-streak-stats.herokuapp.com/?user=TeefanDev)  |
-
