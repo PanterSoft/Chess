@@ -7,6 +7,9 @@ project/metals.sbt
 .metals
 
 # vs code
+.vscode
+
+#java
 *.class
 
 # scala 3
