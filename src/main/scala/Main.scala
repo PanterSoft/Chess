@@ -1,4 +1,4 @@
-package Chess
+package de.htwg.se.Chess
 
 import scala.compiletime.ops.string
 @main def Chess: Unit =

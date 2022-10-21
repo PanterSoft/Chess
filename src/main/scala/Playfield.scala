@@ -1,4 +1,4 @@
-package Chess
+package de.htwg.se.Chess
 /**
  *  8x8 Grid
  * /---+---+---+---+---+---+---+---\
