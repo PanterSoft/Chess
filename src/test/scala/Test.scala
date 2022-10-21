@@ -1,6 +1,8 @@
+package Chess
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import javax.swing.text.PlainView
+
 class ChessSpec extends AnyWordSpec:
   "Chess" should {
     """have a First row as String of form '/---+---+---+---+---+---+---+---\'""" in {
@@ -35,7 +37,7 @@ class ChessSpec extends AnyWordSpec:
 
     "have a Play Field as string of form '\n" + expected_field + "'" in {
 
-      play_field(8,8) shouldBe(expected_field + eol)
+      play_field() shouldBe(expected_field + eol)
     }
 
   }

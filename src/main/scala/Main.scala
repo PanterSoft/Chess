@@ -1,3 +1,5 @@
+package Chess
+
 import scala.compiletime.ops.string
 @main def Chess: Unit =
   println("Chess V0.1")
