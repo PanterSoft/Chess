@@ -15,8 +15,7 @@ class ChessSpec extends AnyWordSpec:
       border_row() shouldBe("+---+---+---+---+---+---+---+---+" + eol)
     }
 
-    """have a Play Field as string of form '
-/---+---+---+---+---+---+---+---\
+    val expected_field = """/---+---+---+---+---+---+---+---\
 |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   |
@@ -50,6 +49,16 @@ class ChessSpec extends AnyWordSpec:
 +---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   |
 \---+---+---+---+---+---+---+---/""" + eol)
+\---+---+---+---+---+---+---+---/"""
+
+    "have a Play Field as string of form '\n" + expected_field + "'" in {
+
+      play_field(8,8) shouldBe(expected_field + eol)
+    }
+
+    "have a Border row as string of form '|---+---+---+---+---+---+---+---|'" in {
+      border_row() shouldBe("+---+---+---+---+---+---+---+---+" + eol)
+>>>>>>> 29b81c6508e5e3bf99b7e29fe00c8dabe0d620a6
     }
 
   }
