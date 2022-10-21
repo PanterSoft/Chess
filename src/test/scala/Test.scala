@@ -38,8 +38,4 @@ class ChessSpec extends AnyWordSpec:
       play_field(8,8) shouldBe(expected_field + eol)
     }
 
-    "have a Border row as string of form '|---+---+---+---+---+---+---+---|'" in {
-      border_row() shouldBe("+---+---+---+---+---+---+---+---+" + eol)
-    }
-
   }
