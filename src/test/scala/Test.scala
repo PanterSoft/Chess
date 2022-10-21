@@ -31,7 +31,7 @@ class ChessSpec extends AnyWordSpec:
 |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   |
-\---+---+---+---+---+---+---+---/'"""
+\---+---+---+---+---+---+---+---/"""
 
     "have a Play Field as string of form '\n" + expected_field + "'" in {
 
