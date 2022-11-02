@@ -109,6 +109,7 @@ class Game {
 
         if (allowed_field(x_position_now, y_position_now, x_position_new, y_position_new) == false)
             return false
+
         // Check if Move from Figure is allowed on an empty board
         figure_type match
             case "K" => if (x_diff == 0 && y_diff == 1 || x_diff == 1 && y_diff == 0) return true// King
@@ -116,7 +117,8 @@ class Game {
             case "R" => if (x_diff == y_diff && x_diff >= 1) return true // Runner
             case "J" => if (x_diff == 3 && y_diff == 1 || x_diff == 1 && y_diff == 3) return true // Jumper
             case "T" => if (x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0) return true // Tower
-            case "F" => if(Bauer(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Farmer
+            case "F" => if(Farmer(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Farmer
+
         return false
 
     def get_player(x_position: Int, y_position: Int): String =
@@ -133,7 +135,7 @@ class Game {
             return true
         return false
 
-    def Bauer(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def Farmer(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
 
         val x_diff = Math.abs(x_position_now - x_position_new)
         val y_diff = Math.abs(y_position_now - y_position_new)

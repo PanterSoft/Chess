@@ -15,6 +15,11 @@ class ChessSpec extends AnyWordSpec:
       * Playfield Tests
       */
 
+    "have a Numbering row as string of form " +
+    "'   0    1    2    3    4    5      6    7'" in {
+      Game().border_row() shouldBe("+----+----+----+----+----+----+----+----+")
+    }
+
     """have a First row as String of form '/----+----+----+----+----+----+----+----\'""" in {
       Game().first_last_row() shouldBe("""/----+----+----+----+----+----+----+----\""" )
     }
@@ -107,5 +112,11 @@ class ChessSpec extends AnyWordSpec:
     "newGame() should init state array" in {
       Game().newGame() shouldBe (standard_game)
     }
+
+    "check_move(0, 0, 0, 1) should be false (T1 on F1)" in {
+      Game().check_move(0, 0, 0, 1) shouldBe (false) // diese tests sind pseudo tests vermute ich
+    }
+
+
 
 }
