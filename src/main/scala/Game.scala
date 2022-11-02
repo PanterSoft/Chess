@@ -31,42 +31,42 @@ class Game {
     def newGame() : Array[Array[String]] =
         // Initialize New Game
         // Player One
-        state(0)(0) = "T1"
-        state(1)(0) = "J1"
-        state(2)(0) = "R1"
+        state(0)(0) = "R1"
+        state(1)(0) = "k1"
+        state(2)(0) = "B1"
         state(3)(0) = "Q1"
         state(4)(0) = "K1"
-        state(5)(0) = "R1"
-        state(6)(0) = "J1"
-        state(7)(0) = "T1"
+        state(5)(0) = "B1"
+        state(6)(0) = "k1"
+        state(7)(0) = "R1"
 
-        state(0)(1) = "F1"
-        state(1)(1) = "F1"
-        state(2)(1) = "F1"
-        state(3)(1) = "F1"
-        state(4)(1) = "F1"
-        state(5)(1) = "F1"
-        state(6)(1) = "F1"
-        state(7)(1) = "F1"
+        state(0)(1) = "P1"
+        state(1)(1) = "P1"
+        state(2)(1) = "P1"
+        state(3)(1) = "P1"
+        state(4)(1) = "P1"
+        state(5)(1) = "P1"
+        state(6)(1) = "P1"
+        state(7)(1) = "P1"
 
         // Player Two
-        state(0)(7) = "T2"
-        state(1)(7) = "J2"
-        state(2)(7) = "R2"
+        state(0)(7) = "R2"
+        state(1)(7) = "k2"
+        state(2)(7) = "B2"
         state(3)(7) = "Q2"
         state(4)(7) = "K2"
-        state(5)(7) = "R2"
-        state(6)(7) = "J2"
-        state(7)(7) = "T2"
+        state(5)(7) = "B2"
+        state(6)(7) = "k2"
+        state(7)(7) = "R2"
 
-        state(0)(6) = "F2"
-        state(1)(6) = "F2"
-        state(2)(6) = "F2"
-        state(3)(6) = "F2"
-        state(4)(6) = "F2"
-        state(5)(6) = "F2"
-        state(6)(6) = "F2"
-        state(7)(6) = "F1"
+        state(0)(6) = "P2"
+        state(1)(6) = "P2"
+        state(2)(6) = "P2"
+        state(3)(6) = "P2"
+        state(4)(6) = "P2"
+        state(5)(6) = "P2"
+        state(6)(6) = "P2"
+        state(7)(6) = "P2"
 
         return state
 
@@ -100,24 +100,21 @@ class Game {
 
     def check_move(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
 
+        if (empty_field(x_position_now, y_position_now)) // Check if Position now is empty
+            return false
+
         val figure = this.state(x_position_now)(y_position_now)
         val figure_split = figure.splitAt(1)
         val figure_type = figure_split(0)
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if (allowed_field(x_position_now, y_position_now, x_position_new, y_position_new) == false)
-            return false
-
         // Check if Move from Figure is allowed on an empty board
         figure_type match
-            case "K" => if (x_diff == 0 && y_diff == 1 || x_diff == 1 && y_diff == 0) return true// King
-            case "Q" => if (x_diff == y_diff || x_diff == 0 && y_diff > 1 || x_diff > 1 && y_diff == 0) return true // Queen
-            case "R" => if (x_diff == y_diff && x_diff >= 1) return true // Runner
-            case "J" => if (x_diff == 3 && y_diff == 1 || x_diff == 1 && y_diff == 3) return true // Jumper
-            case "T" => if (x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0) return true // Tower
-            case "F" => if(Farmer(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Farmer
+            case "K" => if (King(x_position_now, y_position_now, x_position_new, y_position_new)) return true// King
+            case "Q" => if (Queen(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Queen
+            case "B" => if (Bishop(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Bishop
+            case "k" => if (Knight(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Knight
+            case "R" => if (Rook(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Rook
+            case "P" => if (Pawn(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Pawn
 
         return false
 
@@ -130,21 +127,71 @@ class Game {
             return true
         return false
 
-    def allowed_field(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
-        if (get_player(x_position_now, y_position_now) != get_player(x_position_new, y_position_new))
+    def empty_field(x_position: Int, y_position: Int): Boolean =
+        if (this.state(x_position)(y_position) == "  ")
             return true
         return false
 
-    def Farmer(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def King(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
 
         val x_diff = Math.abs(x_position_now - x_position_new)
         val y_diff = Math.abs(y_position_now - y_position_new)
 
-        if (x_diff == 0 && y_diff == 1 && get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || x_diff == 0 && y_diff == 1 && get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new) // Normal Move (1 Field)
+        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 0 && y_diff == 1 || x_diff == 1 && y_diff == 0))
             return true
-        else if (x_diff == 0 && y_diff == 2 && get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new && y_position_now == 1 || x_diff == 0 && y_diff == 2 && get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new && y_position_now == 6) // First Move (2 Fields)
+        else
+            return false
+
+    def Queen(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+
+        val x_diff = Math.abs(x_position_now - x_position_new)
+        val y_diff = Math.abs(y_position_now - y_position_new)
+
+        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff || x_diff == 0 && y_diff > 1 || x_diff > 1 && y_diff == 0))
             return true
-        else if (x_diff == 1 && y_diff == 1 && different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || x_diff == 1 && y_diff == 1 && different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new ) // Attack Move
+        else
+            return false
+
+    def Bishop(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+
+        val x_diff = Math.abs(x_position_now - x_position_new)
+        val y_diff = Math.abs(y_position_now - y_position_new)
+
+        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff && x_diff >= 1))
+            return true
+        else
+            return false
+
+    def Knight(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+
+        val x_diff = Math.abs(x_position_now - x_position_new)
+        val y_diff = Math.abs(y_position_now - y_position_new)
+
+        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 2 && y_diff == 1 || x_diff == 1 && y_diff == 2))
+            return true
+        else
+            return false
+
+    def Rook(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+
+        val x_diff = Math.abs(x_position_now - x_position_new)
+        val y_diff = Math.abs(y_position_now - y_position_new)
+
+        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0))
+            return true
+        else
+            return false
+
+    def Pawn(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+
+        val x_diff = Math.abs(x_position_now - x_position_new)
+        val y_diff = Math.abs(y_position_now - y_position_new)
+
+        if (x_diff == 0 && y_diff == 1 && (get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new)) // Normal Move (1 Field)
+            return true
+        else if (x_diff == 0 && y_diff == 2 && (get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new && y_position_now == 1 || get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new && y_position_now == 6)) // First Move (2 Fields)
+            return true
+        else if (x_diff == 1 && y_diff == 1 && (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new )) // Attack Move
             return true
         else
             return false

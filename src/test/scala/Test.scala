@@ -9,6 +9,8 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatest.matchers.should.Matchers
 
 class ChessSpec extends AnyWordSpec:
+  val Test = Game()
+
   "Chess" should {
 
     /**
@@ -65,58 +67,56 @@ class ChessSpec extends AnyWordSpec:
     }
     */
 
-    val test_array2 = Array.ofDim[String](8, 8)
+    val standard_game = Array.ofDim[String](8, 8)
     for (i <- 0 to 7; j <- 0 to 7)
-        test_array2(i)(j) = "  "
-    val standard_game = test_array2
+        standard_game(i)(j) = "  "
 
     // Initialize New Game
         // Player One
-        standard_game(0)(0) = "T1"
-        standard_game(1)(0) = "J1"
-        standard_game(2)(0) = "R1"
+        standard_game(0)(0) = "R1"
+        standard_game(1)(0) = "k1"
+        standard_game(2)(0) = "B1"
         standard_game(3)(0) = "Q1"
         standard_game(4)(0) = "K1"
-        standard_game(5)(0) = "R1"
-        standard_game(6)(0) = "J1"
-        standard_game(7)(0) = "T1"
+        standard_game(5)(0) = "B1"
+        standard_game(6)(0) = "k1"
+        standard_game(7)(0) = "R1"
 
-        standard_game(0)(1) = "F1"
-        standard_game(1)(1) = "F1"
-        standard_game(2)(1) = "F1"
-        standard_game(3)(1) = "F1"
-        standard_game(4)(1) = "F1"
-        standard_game(5)(1) = "F1"
-        standard_game(6)(1) = "F1"
-        standard_game(7)(1) = "F1"
+        standard_game(0)(1) = "P1"
+        standard_game(1)(1) = "P1"
+        standard_game(2)(1) = "P1"
+        standard_game(3)(1) = "P1"
+        standard_game(4)(1) = "P1"
+        standard_game(5)(1) = "P1"
+        standard_game(6)(1) = "P1"
+        standard_game(7)(1) = "P1"
 
         // Player Two
-        standard_game(0)(7) = "T2"
-        standard_game(1)(7) = "J2"
-        standard_game(2)(7) = "R2"
+        standard_game(0)(7) = "R2"
+        standard_game(1)(7) = "k2"
+        standard_game(2)(7) = "B2"
         standard_game(3)(7) = "Q2"
         standard_game(4)(7) = "K2"
-        standard_game(5)(7) = "R2"
-        standard_game(6)(7) = "J2"
-        standard_game(7)(7) = "T2"
+        standard_game(5)(7) = "B2"
+        standard_game(6)(7) = "k2"
+        standard_game(7)(7) = "R2"
 
-        standard_game(0)(6) = "F2"
-        standard_game(1)(6) = "F2"
-        standard_game(2)(6) = "F2"
-        standard_game(3)(6) = "F2"
-        standard_game(4)(6) = "F2"
-        standard_game(5)(6) = "F2"
-        standard_game(6)(6) = "F2"
-        standard_game(7)(6) = "F1"
+        standard_game(0)(6) = "P2"
+        standard_game(1)(6) = "P2"
+        standard_game(2)(6) = "P2"
+        standard_game(3)(6) = "P2"
+        standard_game(4)(6) = "P2"
+        standard_game(5)(6) = "P2"
+        standard_game(6)(6) = "P2"
+        standard_game(7)(6) = "P2"
+
 
     "newGame() should init state array" in {
-      Game().newGame() shouldBe (standard_game)
+      Test.newGame() shouldBe (standard_game)
     }
 
-    "check_move(0, 0, 0, 1) should be false (T1 on F1)" in {
-      Game().check_move(0, 0, 0, 1) shouldBe (false) // diese tests sind pseudo tests vermute ich
+    "check_move(0, 1, 0, 2) should be true (P1=> empty field)" in {
+      Test.move(0, 1, 0, 3) shouldBe (true)
     }
-
-
 
 }
