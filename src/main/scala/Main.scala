@@ -4,8 +4,6 @@ import scala.compiletime.ops.string
 
 
 @main def Chess: Unit =
-  println(play_field())
-  playerSetup()
   gameLoop()
 
   // Create new Game
