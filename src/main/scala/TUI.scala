@@ -2,7 +2,7 @@ package de.htwg.se.Chess
 
 import scala.io.StdIn.readLine
 
-def playerSetup($playerOne: String = "Testname1", $playerTwo: String = "Testname2") =
+def playerSetup() =
     println("Player One: enter your Name: ")
     val playerOne = readLine()
     println("Player Two: enter your Name: ")
@@ -10,25 +10,53 @@ def playerSetup($playerOne: String = "Testname1", $playerTwo: String = "Testname
     println(s"Welcome $playerOne and $playerTwo")
 
 def gameLoop() =
-    println("Game Start:")
+    println(welcomeMessage)
     while(true) {
-        println("->")
+        print("->")
         val in = readLine()
         commands(in)
     }
 
-def commands($in: String = "Feldbewegungen") =
+def commands(command: String) =
     println("Befehle wie 'K1 auf B5' Bewegt König 1 auf Feld B5.")
+    val command_in = new Array[String](4)
+    command_in() = command.split(" ");
+    command_in(0) match
+        case "start" => start()
+        case "exit" => exit()
+        case "help" => System.out.println(helpString)
+        case _ => System.err.println(errorMessage)
 
-    /*
-     *
-    System.out.println(welcomeMessage);
+def exit() =
+    println("Goodbye!")
+    System.exit(0)
 
-    Scanner sc = new Scanner(System.in);
-    while (true) {
-        System.out.print("-> ");
-        String in = sc.nextLine();
-        commands(in);
-    }
-     *
-     */
+def helpString: String =
+    """
+    ------------------------------------
+    |            HELP TABLE             |
+    |-----------------------------------|
+    |   start                           |
+    |   help              (Display help)|
+    |   exit             (Close process)|
+    |                                   |
+    |   after start current pos x y     |
+    |   then new pos x y {x y x y}      |
+    -------------------------------------
+    """
+
+def welcomeMessage: String =
+    """
+    ------------------------------------
+    |       Schach - Chess - Game       |
+    |-----------------------------------|
+    |      Textbased User Interface     |
+    |         HTWG Konstanz 2022        |
+    |              v1.0.0               |
+    -------------------------------------
+    """
+
+def errorMessage: String = "ERROR! Wrong usage! Try \"help\" !"
+
+def start() =
+    playerSetup()
