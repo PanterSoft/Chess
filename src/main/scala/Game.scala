@@ -1,7 +1,5 @@
 package de.htwg.se.Chess
 
-import scala.compiletime.ops.int
-
 /** Game State
   *    0    1    2    3    4    5    6    7
   * /----+----+----+----+----+----+----+----\
@@ -147,7 +145,7 @@ class Game {
         val x_diff = Math.abs(x_position_now - x_position_new)
         val y_diff = Math.abs(y_position_now - y_position_new)
 
-        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff || x_diff == 0 && y_diff > 1 || x_diff > 1 && y_diff == 0))
+        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff || x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0))
             return true
         else
             return false

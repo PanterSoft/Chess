@@ -114,9 +114,69 @@ class ChessSpec extends AnyWordSpec:
     "newGame() should init state array" in {
       Test.newGame() shouldBe (standard_game)
     }
+  }
 
-    "check_move(0, 1, 0, 2) should be true (P1=> empty field)" in {
-      Test.move(0, 1, 0, 3) shouldBe (true)
-    }
+  "check_move(0, 1, 0, 2) should be true (P1=> empty field)" in {
+    Test.move(0, 1, 0, 3) shouldBe (true)
+  }
+  "check_move(0, 0, 0, 2) should be true (R1=> empty field)" in {
+    Test.move(0, 0, 0, 2) shouldBe (true)
+  }
+  "check_move(6, 0, 7, 2) should be true (k1=> empty field)" in {
+    Test.move(6, 0, 7, 2) shouldBe (true)
+  }
+  "check_move(1, 1, 1, 2) should be true (P1=> empty field)" in {
+    Test.move(1, 1, 1, 2) shouldBe (true)
+  }
+  "check_move(2, 0, 1, 1) should be true (B1=> empty field)" in {
+    Test.move(2, 0, 1, 1) shouldBe (true)
+  }
+  "check_move(2, 1, 2, 3) should be true (P1=> empty field)" in {
+    Test.move(2, 1, 2, 3) shouldBe (true)
+  }
+  "check_move(3, 0, 2, 1) should be true (Q1=> empty field)" in {
+    Test.move(3, 0, 2, 1) shouldBe (true)
+  }
+  "check_move(2, 1, 2, 2) should be true (Q1=> empty field)" in {
+    Test.move(2, 1, 2, 2) shouldBe (true)
+  }
+  "check_move(4, 0, 3, 0) should be true (K1=> empty field)" in {
+    Test.move(4, 0, 3, 0) shouldBe (true)
+  }
+  "check_move(0, 6, 0, 5) should be true (P2 1 forward)" in {
+    Test.move(0, 6, 0, 5) shouldBe (true)
+  }
+  "check_move(1, 6, 1, 4) should be true (P2 2 forward)" in {
+    Test.move(1, 6, 1, 4) shouldBe (true)
+  }
+  "check_move(0, 3, 1, 4) should be true (P1 Attack P2)" in {
+    Test.move(0, 3, 1, 4) shouldBe (true)
+  }
+  "check_move(0, 5, 1, 4) should be true (P2 Attack P1)" in {
+    Test.move(0, 5, 1, 4) shouldBe (true)
+  }
 
-}
+
+  "check_move(3, 0, 2, 1) should be false (K1=> Blocked/ invalid Move)" in {
+    Test.move(3, 0, 2, 1) shouldBe (false)
+  }
+  "check_move(2, 2, 3, 1) should be false (Q1=> Blocked/ invalid Move)" in {
+    Test.move(2, 2, 3, 1) shouldBe (false)
+  }
+  "check_move(1, 0, 3, 1) should be false (k1=> Blocked/ invalid Move)" in {
+    Test.move(1, 0, 3, 1) shouldBe (false)
+  }
+  "check_move(0, 2, 1, 2) should be false (R1=> Blocked/ invalid Move)" in {
+    Test.move(0, 2, 1, 2) shouldBe (false)
+  }
+  "check_move(1, 1, 0, 2) should be false (B1=> Blocked/ invalid Move)" in {
+    Test.move(1, 1, 0, 2) shouldBe (false)
+  }
+  "check_move(4, 1, 4, 4) should be false (P1=> Blocked/ invalid Move)" in {
+    Test.move(4, 1, 4, 4) shouldBe (false)
+  }
+
+
+  "empty_field(4, 1) should be true (Empty Field)" in {
+    Test.empty_field(3, 5) shouldBe (true)
+  }
