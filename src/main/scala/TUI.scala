@@ -25,7 +25,6 @@ def gameLoop() =
 
 def commands(in: String) =
     val commando_array = in.split(" ")
-    println("start the game")
     commando_array(0) match
         case "start" => start()
         case "exit" => exit()
@@ -38,7 +37,7 @@ def exit() =
     System.exit(0)
 
 def helpString: String =
-    """
+    val str = """
     ------------------------------------
     |            HELP TABLE             |
     |-----------------------------------|
@@ -51,9 +50,10 @@ def helpString: String =
     |   then new pos x y {x y x y}      |
     -------------------------------------
     """
+    return str
 
 def welcomeMessage: String =
-    """
+    val str = """
     ------------------------------------
     |       Schach - Chess - Game       |
     |-----------------------------------|
@@ -62,8 +62,11 @@ def welcomeMessage: String =
     |              v1.0.0               |
     -------------------------------------
     """
+    return str
 
-def errorMessage: String = "ERROR! Wrong usage! Try \"help\" !"
+def errorMessage: String =
+    val str = "ERROR! Wrong usage! Try \"help\" !"
+    return str
 
 def start() =
     playerSetup()
