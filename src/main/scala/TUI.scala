@@ -15,7 +15,12 @@ def gameLoop() =
     println(welcomeMessage)
     while(true) {
         val in = readLine("->")
+        val commando_array = in.split(" ")
+
         commands(in)
+
+        if (commando_array(0) == "move")
+            println(game.board())
     }
 
 def commands(in: String) =
@@ -25,7 +30,7 @@ def commands(in: String) =
         case "start" => start()
         case "exit" => exit()
         case "help" => println(helpString)
-        case "move" => game.move(commando_array(1), commando_array(2), commando_array(3), commando_array(4))
+        case "move" => game.move(commando_array(1).toInt, commando_array(2).toInt, commando_array(3).toInt, commando_array(4).toInt)
         case _ => println(errorMessage)
 
 def exit() =
