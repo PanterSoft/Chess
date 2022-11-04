@@ -8,10 +8,10 @@ import scala.io.StdIn
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.matchers.should.Matchers
 
-class ChessSpec extends AnyWordSpec:
+class GameSpec extends AnyWordSpec:
   val Test = Game()
 
-  "Chess" should {
+  "Game" should {
 
     /**
       * Playfield Tests
@@ -114,6 +114,9 @@ class ChessSpec extends AnyWordSpec:
     "newGame() should init state array" in {
       Test.newGame() shouldBe (standard_game)
     }
+
+
+
   }
 
   "check_move(0, 1, 0, 2) should be true (P1=> empty field)" in {
