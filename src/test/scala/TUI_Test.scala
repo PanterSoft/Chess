@@ -1,9 +1,12 @@
-package de.htwg.se.Chess
+
+
+/**
+ *
+ * package de.htwg.se.Chess
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import javax.swing.text.PlainView
-
-class ChessSpec extends AnyWordSpec:
+  * ChessSpec extends AnyWordSpec:
     "TUI" should {
         """have a First row as String of form 'Player One: enter your Name:
             Testname1
@@ -18,10 +21,11 @@ class ChessSpec extends AnyWordSpec:
         """have 'Game Start: +
           ->'""" in {
             gameLoop() shouldBe("""Game Start
-            ->""" + eol)
+            ->""" + Game().eol)
         }
 
         "have 'Befehle wie 'K1 auf B5' Bewegt König 1 auf Feld B5.'" in {
-            commands("Feldbewegungen") shouldBe("Befehle wie 'K1 auf B5' Bewegt König 1 auf Feld B5." + eol)
+            commands("Feldbewegungen") shouldBe("Befehle wie 'K1 auf B5' Bewegt König 1 auf Feld B5." + Game().eol)
         }
     }
+  */
