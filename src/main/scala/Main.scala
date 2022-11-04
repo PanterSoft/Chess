@@ -1,6 +1,6 @@
 package de.htwg.se.Chess
 @main def Chess: Unit =
-  //gameLoop()
+  gameLoop()
 
   // Create new Game
   val game = new Game
