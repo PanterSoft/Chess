@@ -12,20 +12,17 @@ def playerSetup() =
 def gameLoop() =
     println(welcomeMessage)
     while(true) {
-        print("->")
-        val in = readLine()
+        val in = readLine("->")
         commands(in)
     }
 
-def commands(command: String) =
-    println("Befehle wie 'K1 auf B5' Bewegt König 1 auf Feld B5.")
-    val command_in = new Array[String](4)
-    command_in() = command.split(" ");
-    command_in(0) match
+def commands(in: String) =
+    println("start the game")
+    in match
         case "start" => start()
         case "exit" => exit()
-        case "help" => System.out.println(helpString)
-        case _ => System.err.println(errorMessage)
+        case "help" => println(helpString)
+        case _ => println(errorMessage)
 
 def exit() =
     println("Goodbye!")
