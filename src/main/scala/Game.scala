@@ -22,10 +22,11 @@ package de.htwg.se.Chess
   *
   */
 class Game {
-    val state = Array.ofDim[String](8, 8) // create a array of Dim 8x8
-    for (i <- 0 to 7; j <- 0 to 7)
-        state(i)(j) = "  "
 
+    val state = Array.ofDim[String](8, 8) // create a array of Dim 8x8
+    for (i <- 0 to 7; j <- 0 to 7) yield
+        state(i)(j) = "  "
+    //state.map(_.map(_=>"  "))
     def newGame() : Array[Array[String]] =
         // Initialize New Game
         // Player One
@@ -68,16 +69,15 @@ class Game {
 
         return state
 
-    def move(x_position_old: Int, y_position_old: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def move(x_position_old: Int, y_position_old: Int, x_position_new: Int, y_position_new: Int): String =
         val figure = this.state(x_position_old)(y_position_old)
 
         if (check_move(x_position_old, y_position_old, x_position_new, y_position_new))
             state(x_position_old)(y_position_old) = "  ";
             state(x_position_new)(y_position_new) = figure
-            return true
+            ""
         else
-            println("Invalid Move")
-            return false
+            "Invalid Move"
 
     /** Allowed Moves:
      * K: 1 field in x or y

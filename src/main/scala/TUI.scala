@@ -2,42 +2,32 @@ package de.htwg.se.Chess
 
 import scala.io.StdIn.readLine
 
+var  Game_quit = false
 val game = new Game
 
-def playerSetup() =
-    println("Player One: enter your Name: ")
-    val playerOne = readLine()
-    println("Player Two: enter your Name: ")
-    val playerTwo = readLine()
-    println(s"Welcome $playerOne and $playerTwo")
-
-def gameLoop() =
+def gameLoop()=
     println(welcomeMessage)
-    while(true) {
+    while(Game_quit == false) {
         val in = readLine("->")
         val commando_array = in.split(" ")
-
-        commands(in)
+        println(commands(in))
 
         if (commando_array(0) == "move")
             println(game.board())
     }
+    System.exit(0)
 
-def commands(in: String) =
+def commands(in: String): String =
     val commando_array = in.split(" ")
     commando_array(0) match
         case "start" => start()
-        case "exit" => exit()
-        case "help" => println(helpString)
+        case "exit" => Game_quit = true; "Goodbye :)"
+        case "help" => helpString
         case "move" => game.move(commando_array(1).toInt, commando_array(2).toInt, commando_array(3).toInt, commando_array(4).toInt)
-        case _ => println(errorMessage)
-
-def exit() =
-    println("Goodbye!")
-    System.exit(0)
+        case _ => errorMessage
 
 def helpString: String =
-    val str = """
+    """
     ------------------------------------
     |            HELP TABLE             |
     |-----------------------------------|
@@ -50,10 +40,9 @@ def helpString: String =
     |   then new pos x y {x y x y}      |
     -------------------------------------
     """
-    return str
 
 def welcomeMessage: String =
-    val str = """
+    """
     ------------------------------------
     |       Schach - Chess - Game       |
     |-----------------------------------|
@@ -62,13 +51,10 @@ def welcomeMessage: String =
     |              v1.0.0               |
     -------------------------------------
     """
-    return str
 
 def errorMessage: String =
-    val str = "ERROR! Wrong usage! Try \"help\" !"
-    return str
+    "ERROR! Wrong usage! Try \"help\" !"
 
-def start() =
-    playerSetup()
+def start(): String =
     game.newGame()
-    println(game.board())
+    game.board()
