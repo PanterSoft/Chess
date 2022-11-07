@@ -1,16 +1,16 @@
 package de.htwg.se.Chess
 @main def Chess: Unit =
-  val TUI = new tui
+  //val TUI = new tui
 
-  TUI.gameLoop()
+  //TUI.gameLoop()
 
   // Create new Game
-  //val game = new Game
-  //game.newGame()
-  //println(game.board())
+  val game = new Game().newGame()
+  println(Game().top_row())
+  //println(Game().board_to_string(game))
 //
-  //game.move(0, 1, 0, 3) // Pawn
-  //println(game.board())
+ // Pawn
+  //println(Game().board_to_string(Game().move(game, "A2", "A3")))
 //
   //game.move(0, 0, 0, 2) // Rook
   //println(game.board())

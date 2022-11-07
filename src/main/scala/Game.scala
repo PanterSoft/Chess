@@ -1,83 +1,42 @@
 package de.htwg.se.Chess
 
-/** Game State
-  *    0    1    2    3    4    5    6    7
-  * /----+----+----+----+----+----+----+----\
-  * | T1 | S1 | L1 | D1 | k1 | L1 | S1 | T1 | 0
-  * |----+----+----+----+----+----+----+----|
-  * | B1 | B1 | B1 | B1 | B1 | B1 | B1 | B1 | 1
-  * |----+----+----+----+----+----+----+----|
-  * |    |    |    |    |    |    |    |    | 2
-  * |----+----+----+----+----+----+----+----|
-  * |    |    |    |    |    |    |    |    | 3
-  * |----+----+----+----+----+----+----+----|
-  * |    |    |    |    |    |    |    |    | 4
-  * |----+----+----+----+----+----+----+----|
-  * |    |    |    |    |    |    |    |    | 5
-  * |----+----+----+----+----+----+----+----|
-  * | B2 | B2 | B2 | B2 | B2 | B2 | B2 | B2 | 6
-  * |----+----+----+----+----+----+----+----|
-  * | T2 | S2 | L2 | D2 | K2 | L2 | S2 | T2 | 7
-  * \----+----+----+----+----+----+----+----/
-  *
-  */
+import java.math.MathContext
+import scala.collection.immutable.VectorMap
+
 class Game {
 
-    val state = Array.ofDim[String](8, 8) // create a array of Dim 8x8
-    for (i <- 0 to 7; j <- 0 to 7) yield
-        state(i)(j) = "  "
-    //state.map(_.map(_=>"  "))
-    def newGame() : Array[Array[String]] =
+    def newGame() : VectorMap[String, String] =
         // Initialize New Game
-        // Player One
-        state(0)(0) = "R1"
-        state(1)(0) = "k1"
-        state(2)(0) = "B1"
-        state(3)(0) = "Q1"
-        state(4)(0) = "K1"
-        state(5)(0) = "B1"
-        state(6)(0) = "k1"
-        state(7)(0) = "R1"
+        val game_state = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
 
-        state(0)(1) = "P1"
-        state(1)(1) = "P1"
-        state(2)(1) = "P1"
-        state(3)(1) = "P1"
-        state(4)(1) = "P1"
-        state(5)(1) = "P1"
-        state(6)(1) = "P1"
-        state(7)(1) = "P1"
+        return merge_maps(empty_game_board, game_state)
 
-        // Player Two
-        state(0)(7) = "R2"
-        state(1)(7) = "k2"
-        state(2)(7) = "B2"
-        state(3)(7) = "Q2"
-        state(4)(7) = "K2"
-        state(5)(7) = "B2"
-        state(6)(7) = "k2"
-        state(7)(7) = "R2"
+    /** empty game board
+     *  8x8 Grid
+     * /----+----+----+----+----+----+----+----\
+     * | A1 | B1 | C1 | D1 | E1 | F1 | G1 | H1 |
+     * |----+----+----+----+----+----+----+----|
+     * | A2 | B2 | C2 | D2 | E2 | F2 | G2 | H2 |
+     * |----+----+----+----+----+----+----+----|
+     * | A3 | B3 | C3 | D3 | E3 | F3 | G3 | H3 |
+     * |----+----+----+----+----+----+----+----|
+     * | A4 | B4 | C4 | D4 | E4 | F4 | G4 | H4 |
+     * |----+----+----+----+----+----+----+----|
+     * | A5 | B5 | C5 | D5 | E5 | F5 | G5 | H5 |
+     * |----+----+----+----+----+----+----+----|
+     * | A6 | B6 | C6 | D6 | E6 | F6 | G6 | H6 |
+     * |----+----+----+----+----+----+----+----|
+     * | A7 | B7 | C7 | D7 | E7 | F7 | G7 | H7 |
+     * |----+----+----+----+----+----+----+----|
+     * | A8 | B8 | C8 | D8 | E8 | F8 | G8 | H8 |
+     * \----+----+----+----+----+----+----+----/
+    */
 
-        state(0)(6) = "P2"
-        state(1)(6) = "P2"
-        state(2)(6) = "P2"
-        state(3)(6) = "P2"
-        state(4)(6) = "P2"
-        state(5)(6) = "P2"
-        state(6)(6) = "P2"
-        state(7)(6) = "P2"
+    val empty_game_board = VectorMap("A1"->"  ", "B1"-> "  ", "C1"->"  ", "D1"->"  ", "E1"->"  ", "F1"->"  ", "G1"->"  ", "H1"->"  ", "A2"->"  ", "B2"->"  ", "C2"->"  ", "D2"->"  ", "E2"->"  ", "F2"->"  ", "G2"->"  ", "H2"->"  ", "A3"->"  ", "B3"-> "  ", "C3"->"  ", "D3"->"  ", "E3"->"  ", "F3"->"  ", "G3"->"  ", "H3"->"  ", "A4"->"  ", "B4"->"  ", "C4"->"  ", "D4"->"  ", "E4"->"  ", "F4"->"  ", "G4"->"  ", "H4"->"  ", "A5"->"  ", "B5"-> "  ", "C5"->"  ", "D5"->"  ", "E5"->"  ", "F5"->"  ", "G5"->"  ", "H5"->"  ", "A6"->"  ", "B6"->"  ", "C6"->"  ", "D6"->"  ", "E6"->"  ", "F6"->"  ", "G6"->"  ", "H6"->"  ", "A7"->"  ", "B7"-> "  ", "C7"->"  ", "D7"->"  ", "E7"->"  ", "F7"->"  ", "G7"->"  ", "H7"->"  ", "A8"->"  ", "B8"->"  ", "C8"->"  ", "D8"->"  ", "E8"->"  ", "F8"->"  ", "G8"->"  ", "H8"->"  ")
 
-        return state
+    def merge_maps(base_map: VectorMap[String, String], add_map: VectorMap[String, String]): VectorMap[String, String] =
+        return base_map.++(add_map)
 
-    def move(x_position_old: Int, y_position_old: Int, x_position_new: Int, y_position_new: Int): String =
-        val figure = this.state(x_position_old)(y_position_old)
-
-        if (check_move(x_position_old, y_position_old, x_position_new, y_position_new))
-            state(x_position_old)(y_position_old) = "  ";
-            state(x_position_new)(y_position_new) = figure
-            ""
-        else
-            "Invalid Move"
 
     /** Allowed Moves:
      * K: 1 field in x or y
@@ -96,178 +55,188 @@ class Game {
      * F: 1 Field in xy but only forward
     */
 
-    def check_move(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def move(game_state: VectorMap[String, String], pos_old: String, pos_new: String): VectorMap[String, String] =
+        val figure = game_state.get(pos_old)
 
-        if (empty_field(x_position_now, y_position_now)) // Check if Position now is empty
+        if (match_pattern(figure) != "Invalid" && check_move(game_state, pos_old, pos_new))
+            val game_state_new = game_state - pos_old + (pos_new -> match_pattern(figure))
+
+            return game_state_new
+
+        return game_state
+
+    def match_pattern(option: Option[String]) = option match {
+        case Some(s) => (s)
+        case None => ("Invalid")
+    }
+
+    def match_pattern(option: Option[Int]) = option match {
+        case Some(s) => (s)
+        case None => (0)
+    }
+
+    def check_move(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+
+        if (empty_field(game_state, pos_now)) // Check if Position now is empty
             return false
-
-        val figure = this.state(x_position_now)(y_position_now)
-        val figure_split = figure.splitAt(1)
-        val figure_type = figure_split(0)
 
         // Check if Move from Figure is allowed on an empty board
-        figure_type match
-            case "K" => if (King(x_position_now, y_position_now, x_position_new, y_position_new)) return true// King
-            case "Q" => if (Queen(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Queen
-            case "B" => if (Bishop(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Bishop
-            case "k" => if (Knight(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Knight
-            case "R" => if (Rook(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Rook
-            case "P" => if (Pawn(x_position_now, y_position_now, x_position_new, y_position_new)) return true // Pawn
+        get_figure_type(game_state, pos_now) match
+            case "K" => if (King(game_state, pos_now, pos_new)) return true// King
+            case "Q" => if (Queen(game_state, pos_now, pos_new)) return true // Queen
+            case "B" => if (Bishop(game_state, pos_now, pos_new)) return true // Bishop
+            case "k" => if (Knight(game_state, pos_now, pos_new)) return true // Knight
+            case "R" => if (Rook(game_state, pos_now, pos_new)) return true // Rook
+            case "P" => if (Pawn(game_state, pos_now, pos_new)) return true // Pawn
 
         return false
 
-    def get_player(x_position: Int, y_position: Int): String =
-        return this.state(x_position)(y_position).splitAt(1)(1)
+    def get_player(game_state: Map[String, String], pos: String): String =
+        val pos_tmp = match_pattern(game_state.get(pos))
 
-    def different_player(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+        if (pos_tmp != "Invalid")
+            return pos_tmp.splitAt(1)(1)
 
-        if(get_player(x_position_new, y_position_new) != get_player(x_position_now, y_position_now) && get_player(x_position_new, y_position_new) != "  ")
+        return "Invalid"
+
+    def get_figure_type(game_state: Map[String, String], pos: String): String =
+        val figure = match_pattern(game_state.get(pos))
+        return figure.splitAt(1)(0) // Figure or Invalid
+
+    def different_player(game_state: Map[String, String], pos_one: String, pos_two: String): Boolean =
+        if(get_player(game_state, pos_one) != get_player(game_state, pos_two) && get_player(game_state, pos_one) != "Invalid" && get_player(game_state, pos_two) != "Invalid")
             return true
         return false
 
-    def empty_field(x_position: Int, y_position: Int): Boolean =
-        if (this.state(x_position)(y_position) == "  ")
+    def empty_field(game_state: Map[String, String], pos: String): Boolean =
+        val pos_tmp = match_pattern(game_state.get(pos))
+        if ( pos_tmp != "Invalid" && pos_tmp == "  ")
             return true
         return false
 
-    def King(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def forward_move(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+        val y_now = match_pattern(game_state.get(pos_now)).splitAt(1)(0).toInt
+        val y_new = match_pattern(game_state.get(pos_new)).splitAt(1)(0).toInt
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 0 && y_diff == 1 || x_diff == 1 && y_diff == 0))
+        if (get_player(game_state, pos_now) == "1" && y_now < y_new || get_player(game_state, pos_now) == "2" && y_now > y_new)
             return true
-        else
+
+        return false
+
+    def x_diff(pos_now: String, pos_new: String): Int =
+        val x_map = Map("A"->1, "B"->2, "C"->3, "D"->4, "E"->5, "F"->6, "G"->7, "H"->8)
+
+        val x_now = match_pattern(x_map.get(pos_now))
+        val x_new = match_pattern(x_map.get(pos_new))
+
+        if (x_now != 0 && x_new != 0)
+            return Math.abs(x_now - x_new)
+
+        return 8 // Default value is 8 because max diff can be 1-8 = 7 => 8 is error State
+
+    def y_diff(pos_now: String, pos_new: String): Int =
+        val y_now = pos_now.splitAt(1)(1).toInt
+        val y_new = pos_new.splitAt(1)(1).toInt
+
+        return Math.abs(y_now - y_new)
+
+    def xy_equal(pos_now: String, pos_new: String): Boolean =
+        if (x_diff(pos_now, pos_new) != y_diff(pos_now, pos_new))
             return false
+        return true
 
-    def Queen(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
-
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff || x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0))
+    def x_or_y(pos_now: String, pos_new: String): Boolean =
+        if (x_diff(pos_now, pos_new) == 0 && y_diff(pos_now, pos_new) != 0 || x_diff(pos_now, pos_new) != 0 && y_diff(pos_now, pos_new) == 0)
             return true
-        else
-            return false
+        return false
 
-    def Bishop(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def x_y_maxlength(pos_now: String, pos_new: String): Int =
+        if (x_diff(pos_now, pos_new) > y_diff(pos_now, pos_new))
+            return x_diff(pos_now, pos_new)
+        return y_diff(pos_now, pos_new)
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
 
-        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == y_diff && x_diff >= 1))
+
+    def King(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+        if (different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new) == false && x_y_maxlength(pos_now, pos_new) == 1)
             return true
-        else
-            return false
+        return false
 
-    def Knight(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def Queen(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 2 && y_diff == 1 || x_diff == 1 && y_diff == 2))
+        if (different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new) || x_or_y(pos_now, pos_new))
             return true
-        else
-            return false
+        return false
 
-    def Rook(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def Bishop(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if(different_player(x_position_now, y_position_now, x_position_new, y_position_new) && (x_diff == 0 && y_diff >= 1 || x_diff >= 1 && y_diff == 0))
+        if(different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new))
             return true
-        else
-            return false
+        return false
 
-    def Pawn(x_position_now: Int, y_position_now: Int, x_position_new: Int, y_position_new: Int): Boolean =
+    def Knight(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
 
-        val x_diff = Math.abs(x_position_now - x_position_new)
-        val y_diff = Math.abs(y_position_now - y_position_new)
-
-        if (x_diff == 0 && y_diff == 1 && (get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new)) // Normal Move (1 Field)
+        if(different_player(game_state, pos_now, pos_new) && (x_diff(pos_now, pos_new) == 2 && y_diff(pos_now, pos_new) == 1 || x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) == 2))
             return true
-        else if (x_diff == 0 && y_diff == 2 && (get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new && y_position_now == 1 || get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new && y_position_now == 6)) // First Move (2 Fields)
+        return false
+
+    def Rook(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+
+        if(different_player(game_state, pos_now, pos_new) && x_or_y(pos_now, pos_new))
             return true
-        else if (x_diff == 1 && y_diff == 1 && (different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "1" && y_position_now < y_position_new || different_player(x_position_now, y_position_now, x_position_new, y_position_new) && get_player(x_position_now, y_position_now) == "2" && y_position_now > y_position_new )) // Attack Move
+        return false
+
+    def Pawn(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+
+        if ((get_player(game_state, pos_now) == "1" || get_player(game_state, pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || y_diff(pos_now, pos_new) == 2) && x_or_y(pos_now, pos_new)) // Move (1 or 2 Field)
             return true
-        else
-            return false
+        else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(game_state, pos_now, pos_new) && get_player(game_state, pos_now) == "1" && forward_move(game_state, pos_now, pos_new) || different_player(game_state, pos_now, pos_new) && get_player(game_state, pos_now) == "2" && forward_move(game_state, pos_now, pos_new))) // Attack Move
+            return true
+        return false
 
 
-    /** Playboard
-     *  8x8 Grid
-     * /---+---+---+---+---+---+---+---\
-     * |###|###|###|###|###|###|###|###|
-     * |---+---+---+---+---+---+---+---|
-     * |###|###|###|###|###|###|###|###|
-     * |---+---+---+---+---+---+---+---|
-     * |   |   |   |   |   |   |   |   |
-     * |---+---+---+---+---+---+---+---|
-     * |   |   |   |   |   |   |   |   |
-     * |---+---+---+---+---+---+---+---|
-     * |   |   |   |   |   |   |   |   |
-     * |---+---+---+---+---+---+---+---|
-     * |   |   |   |   |   |   |   |   |
-     * |---+---+---+---+---+---+---+---|
-     * |###|###|###|###|###|###|###|###|
-     * |---+---+---+---+---+---+---+---|
-     * |###|###|###|###|###|###|###|###|
-     * \---+---+---+---+---+---+---+---/
-     * 1x1 Grid
-     * /---\
-     * |   |
-     * \---/
-     * 2x2 Grid
-     * /---+---\
-     * |   |   |
-     * |---+---|
-     * |   |   |
-     * \---+---/
-    */
-    val eol = sys.props("line.separator")
-
-    def first_last_row(x_size:Int = 8, first:String = "/", last:String = "\\") = first + ("-" * 4 + "+") * (x_size - 1) + ("-" * 4) + last
-
-    def border_row(x_size:Int = 8) = ("+" + "-" * 4) * x_size + "+"
-
-    def cell_row(x_size:Int = 8, row_array: Array[Array[String]], row:Int): String =
-        val str1 = " |"
-        val str2 = " | "
-        var str3 = "| " // TODO: var should be val but how can this be solved ?
-        for (i <- 0 to (x_size - 1))
-            str3 = str3.concat(row_array(i)(row))
-            if (i != (x_size - 1))
-                str3 = str3.concat(str2)
-            else
-                str3 = str3.concat(str1)
-        return str3
-
-    def numbering_row(x_size: Int, y_size: Int): String =
-        var str = " "
-        for (i <- 0 to (x_size - 1))
-            str = str + "  " + i
-            if (i != (x_size - 1))
-                str = str + "  "
-        return str
 
 
-    def board(x_size:Int = 8, y_size:Int = 8): String =
-        var tmp = cell_row(x_size, state, 0) + " 0" + eol
-        tmp = tmp + border_row(x_size) + eol
 
-        for (i <- 1 to (x_size - 1))
-            tmp = tmp + cell_row(x_size, state, i) + " "+ i.toString() + eol
-            if (i != (x_size - 1))
-                tmp = tmp + border_row(x_size) + eol
-
-        return numbering_row(x_size, y_size) + eol + first_last_row(x_size) + eol + tmp + first_last_row(x_size, "\\", "/")
-
-}
-
-/**
+/** Game output
   *
-  * Map
-  * zip
+  *    A    B    C    D    E    F    G    H
+  * /----+----+----+----+----+----+----+----\
+  * | R1 | k1 | B1 | Q1 | K1 | B1 | k1 | R1 | 1
+  * +----+----+----+----+----+----+----+----+
+  * | P1 | P1 | P1 | P1 | P1 | P1 | P1 | P1 | 2
+  * +----+----+----+----+----+----+----+----+
+  * |    |    |    |    |    |    |    |    | 3
+  * +----+----+----+----+----+----+----+----+
+  * |    |    |    |    |    |    |    |    | 4
+  * +----+----+----+----+----+----+----+----+
+  * |    |    |    |    |    |    |    |    | 5
+  * +----+----+----+----+----+----+----+----+
+  * |    |    |    |    |    |    |    |    | 6
+  * +----+----+----+----+----+----+----+----+
+  * | P2 | P2 | P2 | P2 | P2 | P2 | P2 | P2 | 7
+  * +----+----+----+----+----+----+----+----+
+  * | R2 | k2 | B2 | Q2 | k2 | B2 | k2 | R2 | 8
+  * \----+----+----+----+----+----+----+----/
   *
   */
+
+    val eol = sys.props("line.separator")
+
+    def first_last_row(x_size:Int = 8, first:String = "/", last:String = "\\")= first + ("-" * 4 + "+") * (x_size - 1) + ("-" * 4) + last + eol
+
+    def border_row(x_size:Int = 8) = ("+" + "-" * 4) * x_size + "+" + eol
+
+
+    def board_to_string(map: VectorMap[String, String]): String =
+        val map_values = map.values.mkString("| ", " | ", " |").toString()
+
+        val cell_array = map_values.grouped(40).toArray
+
+
+        return top_row() + first_last_row(8) + cell_array(0) + "| 1\n" + border_row() + cell_array(1) + "| 2\n" + border_row() + cell_array(2) + "| 3\n" + border_row() + cell_array(3) + "| 4\n" + border_row() + cell_array(4) + "| 5\n" + border_row() + cell_array(5) + "| 6\n" + border_row() + cell_array(6) + "| 7\n" + border_row() + cell_array(7) + "| 8\n" + first_last_row(8, "\\", "/")
+
+    def top_row(): String =
+        return "   A    B    C    D    E    F    G    H  " + eol
+
+}
