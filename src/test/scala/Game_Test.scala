@@ -11,6 +11,7 @@ import scala.collection.immutable.VectorMap
 
 class GameSpec extends AnyWordSpec:
   val Test = Game()
+  val eol = sys.props("line.separator")
 
   val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
 
@@ -18,13 +19,30 @@ class GameSpec extends AnyWordSpec:
 
   val test_field = test_empty_map.++(test_map)
 
+  val expected_field = """   A    B    C    D    E    F    G    H
+/----+----+----+----+----+----+----+----\
+| R1 | k1 | B1 | Q1 | K1 | B1 | k1 | R1 | 1
++----+----+----+----+----+----+----+----+
+| P1 | P1 | P1 | P1 | P1 | P1 | P1 | P1 | 2
++----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    | 3
++----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    | 4
++----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    | 5
++----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    | 6
++----+----+----+----+----+----+----+----+
+| P2 | P2 | P2 | P2 | P2 | P2 | P2 | P2 | 7
++----+----+----+----+----+----+----+----+
+| R2 | k2 | B2 | Q2 | k2 | B2 | k2 | R2 | 8
+\----+----+----+----+----+----+----+----/"""
+
   "Game" should {
 
     /**
       * Playfield Tests
       */
-
-    val eol = sys.props("line.separator")
 
     "have a top_row as string of form " +
     "'   A    B    C    D    E    F    G    H  '" in {
@@ -53,6 +71,9 @@ class GameSpec extends AnyWordSpec:
     Test.empty_field(test_field, "A5") shouldBe (true)
   }
 
+  "board_to_string(test_field) should look like" in {
+    Test.board_to_string(test_field) shouldBe (expected_field)
+  }
 
 
   //"move(0, 1, 0, 2) should be true (P1=> empty field)" in {

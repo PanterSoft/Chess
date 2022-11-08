@@ -6,8 +6,8 @@ package de.htwg.se.Chess
 
   // Create new Game
   val game = new Game().newGame()
-  println(Game().top_row())
-  //println(Game().board_to_string(game))
+  //println(Game().top_row())
+  println(Game().board_to_string(game))
 //
  // Pawn
   //println(Game().board_to_string(Game().move(game, "A2", "A3")))
