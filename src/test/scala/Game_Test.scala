@@ -223,3 +223,21 @@ class GameSpec extends AnyWordSpec:
   "match_pattern(null) should be 0" in {
     Test.match_pattern(option_I) should be (0)
   }
+
+  val game_end_map_0 = VectorMap("E1"->"K1", "E8"->"K2")
+
+  "game_end(map) (K1 and K2 in Game)" in {
+    Test.game_winner(game_end_map_0) should be (0)
+  }
+
+  val game_end_map_1 = VectorMap("E1"->"K1")
+
+  "game_end(map) (K1 not in Game)" in {
+    Test.game_winner(game_end_map_1) should be (1)
+  }
+
+  val game_end_map_2 = VectorMap("E8"->"K2")
+
+  "game_end(map) (K2 not in Game)" in {
+    Test.game_winner(game_end_map_2) should be (2)
+  }

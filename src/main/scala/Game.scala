@@ -73,6 +73,21 @@ class Game {
 
         return game_state
 
+
+    def game_winner(map: VectorMap[String, String]): Int =
+        if (!map.values.exists(_ == "K2"))
+            return 1
+        else if (!map.values.exists(_ == "K1"))
+            return 2
+        else
+            return 0
+
+    //def check_turn(map: VectorMap[String, String]): Int =
+    //   if ()
+    //       return 1
+    //   else
+    //       return 2
+
     def match_pattern(option: Option[String]) = option match {
         case Some(s) => (s)
         case None => ("Invalid")
