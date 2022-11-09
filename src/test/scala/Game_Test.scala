@@ -8,6 +8,7 @@ import scala.io.StdIn
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.matchers.should.Matchers
 import scala.collection.immutable.VectorMap
+import scala.compiletime.ops.int
 
 class GameSpec extends AnyWordSpec:
   val Test = Game()
@@ -169,6 +170,25 @@ class GameSpec extends AnyWordSpec:
     Test.move(test_map_11, "A6", "B5") shouldBe (test_map_12)
   }
 
+  val test_map_13 = combine_map_test(test_map_12, "C2", "C3")
+
+  "move(map, C2, C3) (Q1 y-axis)" in {
+    Test.move(test_map_12, "C2", "C3") shouldBe (test_map_13)
+  }
+
+  val test_map_14 = combine_map_test(test_map_13, "D1", "D2")
+
+  "move(map, D1, D2) (Q1 y-axis)" in {
+    Test.move(test_map_13, "D1", "D2") shouldBe (test_map_14)
+  }
+
+
+  val test_map_15 = combine_map_test(test_map_14, "H3", "F4")
+
+  "move(map, H3, F4) (k1 horizontal)" in {
+    Test.move(test_map_14, "H3", "F4") shouldBe (test_map_15)
+  }
+
 // Invalid Moves
 
   "move(map, D1, C2) (K1=> Blocked/Invalid Move)" in {
@@ -197,10 +217,9 @@ class GameSpec extends AnyWordSpec:
 
 // Single Methode Tests
 
-  "match_pattern(1) should be 1" in {
-    Test.match_pattern(Option(1)) shouldBe (1)
-  }
+  val x_map = Map("A"->1)
+  val option_I = x_map.get("B")
 
   "match_pattern(null) should be 0" in {
-    Test.match_pattern(Option(0)) shouldBe (0)
+    Test.match_pattern(option_I) should be (0)
   }
