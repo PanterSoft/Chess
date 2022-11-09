@@ -5,7 +5,7 @@ import scala.collection.immutable.VectorMap
 
 class Game {
 
-    def newGame() : VectorMap[String, String] =
+    def newGame(): VectorMap[String, String] =
         // Initialize New Game
         val game_state = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
 
@@ -58,8 +58,16 @@ class Game {
     def move(game_state: VectorMap[String, String], pos_old: String, pos_new: String): VectorMap[String, String] =
         val figure = game_state.get(pos_old)
 
+        // Debug
+        //println(check_move(game_state, pos_old, pos_new))
+        //println(Knight(game_state, pos_old, pos_new))
+        //println(different_player(game_state, pos_old, pos_new))
+        //println(x_diff(pos_old, pos_new))
+        //println(y_diff(pos_old, pos_new))
+        // End Debug
+
         if (match_pattern(figure) != "Invalid" && check_move(game_state, pos_old, pos_new))
-            val game_state_new = game_state - pos_old + (pos_new -> match_pattern(figure))
+            val game_state_new = game_state + (pos_old -> "  ",  pos_new->match_pattern(figure))
 
             return game_state_new
 
@@ -75,7 +83,7 @@ class Game {
         case None => (0)
     }
 
-    def check_move(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def check_move(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
         if (empty_field(game_state, pos_now)) // Check if Position now is empty
             return false
@@ -91,7 +99,7 @@ class Game {
 
         return false
 
-    def get_player(game_state: Map[String, String], pos: String): String =
+    def get_player(game_state: VectorMap[String, String], pos: String): String =
         val pos_tmp = match_pattern(game_state.get(pos))
 
         if (pos_tmp != "Invalid")
@@ -99,24 +107,24 @@ class Game {
 
         return "Invalid"
 
-    def get_figure_type(game_state: Map[String, String], pos: String): String =
+    def get_figure_type(game_state: VectorMap[String, String], pos: String): String =
         val figure = match_pattern(game_state.get(pos))
         return figure.splitAt(1)(0) // Figure or Invalid
 
-    def different_player(game_state: Map[String, String], pos_one: String, pos_two: String): Boolean =
+    def different_player(game_state: VectorMap[String, String], pos_one: String, pos_two: String): Boolean =
         if(get_player(game_state, pos_one) != get_player(game_state, pos_two) && get_player(game_state, pos_one) != "Invalid" && get_player(game_state, pos_two) != "Invalid")
             return true
         return false
 
-    def empty_field(game_state: Map[String, String], pos: String): Boolean =
+    def empty_field(game_state: VectorMap[String, String], pos: String): Boolean =
         val pos_tmp = match_pattern(game_state.get(pos))
         if ( pos_tmp != "Invalid" && pos_tmp == "  ")
             return true
         return false
 
-    def forward_move(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
-        val y_now = match_pattern(game_state.get(pos_now)).splitAt(1)(0).toInt
-        val y_new = match_pattern(game_state.get(pos_new)).splitAt(1)(0).toInt
+    def forward_move(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
+        val y_now = pos_now.splitAt(1)(1)
+        val y_new = pos_new.splitAt(1)(1)
 
         if (get_player(game_state, pos_now) == "1" && y_now < y_new || get_player(game_state, pos_now) == "2" && y_now > y_new)
             return true
@@ -126,13 +134,10 @@ class Game {
     def x_diff(pos_now: String, pos_new: String): Int =
         val x_map = Map("A"->1, "B"->2, "C"->3, "D"->4, "E"->5, "F"->6, "G"->7, "H"->8)
 
-        val x_now = match_pattern(x_map.get(pos_now))
-        val x_new = match_pattern(x_map.get(pos_new))
+        val x_now = match_pattern(x_map.get(pos_now.splitAt(1)(0)))
+        val x_new = match_pattern(x_map.get(pos_new.splitAt(1)(0)))
 
-        if (x_now != 0 && x_new != 0)
-            return Math.abs(x_now - x_new)
-
-        return 8 // Default value is 8 because max diff can be 1-8 = 7 => 8 is error State
+        return Math.abs(x_now - x_new)
 
     def y_diff(pos_now: String, pos_new: String): Int =
         val y_now = pos_now.splitAt(1)(1).toInt
@@ -146,7 +151,7 @@ class Game {
         return true
 
     def x_or_y(pos_now: String, pos_new: String): Boolean =
-        if (x_diff(pos_now, pos_new) == 0 && y_diff(pos_now, pos_new) != 0 || x_diff(pos_now, pos_new) != 0 && y_diff(pos_now, pos_new) == 0)
+        if (x_diff(pos_now, pos_new) == 0 && y_diff(pos_now, pos_new) >= 0 || x_diff(pos_now, pos_new) >= 0 && y_diff(pos_now, pos_new) == 0)
             return true
         return false
 
@@ -157,38 +162,37 @@ class Game {
 
 
 
-    def King(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def King(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
         if (different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new) == false && x_y_maxlength(pos_now, pos_new) == 1)
             return true
         return false
 
-    def Queen(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def Queen(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
         if (different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new) || x_or_y(pos_now, pos_new))
             return true
         return false
 
-    def Bishop(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def Bishop(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
         if(different_player(game_state, pos_now, pos_new) && xy_equal(pos_now, pos_new))
             return true
         return false
 
-    def Knight(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
-
+    def Knight(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
         if(different_player(game_state, pos_now, pos_new) && (x_diff(pos_now, pos_new) == 2 && y_diff(pos_now, pos_new) == 1 || x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) == 2))
             return true
         return false
 
-    def Rook(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def Rook(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
         if(different_player(game_state, pos_now, pos_new) && x_or_y(pos_now, pos_new))
             return true
         return false
 
-    def Pawn(game_state: Map[String, String], pos_now: String, pos_new: String): Boolean =
+    def Pawn(game_state: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
-        if ((get_player(game_state, pos_now) == "1" || get_player(game_state, pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || y_diff(pos_now, pos_new) == 2) && x_or_y(pos_now, pos_new)) // Move (1 or 2 Field)
+        if ((get_player(game_state, pos_now) == "1" || get_player(game_state, pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || y_diff(pos_now, pos_new) == 2) && x_or_y(pos_now, pos_new) && forward_move(game_state, pos_now, pos_new)) // Move (1 or 2 Field)
             return true
         else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(game_state, pos_now, pos_new) && get_player(game_state, pos_now) == "1" && forward_move(game_state, pos_now, pos_new) || different_player(game_state, pos_now, pos_new) && get_player(game_state, pos_now) == "2" && forward_move(game_state, pos_now, pos_new))) // Attack Move
             return true
@@ -223,20 +227,16 @@ class Game {
 
     val eol = sys.props("line.separator")
 
+    def top_row(): String =
+        return "   A    B    C    D    E    F    G    H  " + eol
+
     def first_last_row(x_size:Int = 8, first:String = "/", last:String = "\\")= first + ("-" * 4 + "+") * (x_size - 1) + ("-" * 4) + last + eol
 
     def border_row(x_size:Int = 8) = ("+" + "-" * 4) * x_size + "+" + eol
 
-
     def board_to_string(map: VectorMap[String, String]): String =
         val map_values = map.values.mkString("| ", " | ", " |").toString()
-
         val cell_array = map_values.grouped(40).toArray
 
-
         return top_row() + first_last_row(8) + cell_array(0) + "| 1\n" + border_row() + cell_array(1) + "| 2\n" + border_row() + cell_array(2) + "| 3\n" + border_row() + cell_array(3) + "| 4\n" + border_row() + cell_array(4) + "| 5\n" + border_row() + cell_array(5) + "| 6\n" + border_row() + cell_array(6) + "| 7\n" + border_row() + cell_array(7) + "| 8\n" + first_last_row(8, "\\", "/")
-
-    def top_row(): String =
-        return "   A    B    C    D    E    F    G    H  " + eol
-
 }

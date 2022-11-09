@@ -9,14 +9,14 @@ package de.htwg.se.Chess
   //println(Game().top_row())
   println(Game().board_to_string(game))
 //
- // Pawn
-  //println(Game().board_to_string(Game().move(game, "A2", "A3")))
+  val test = Game().move(game, "A2", "A4") // Pawn
+  println(Game().board_to_string(test))
 //
-  //game.move(0, 0, 0, 2) // Rook
-  //println(game.board())
-//
-  //game.move(6, 0, 7, 2) // Knight
-  //println(game.board())
+  val test1 = Game().move(test, "B7", "B5") // Pawn
+  println(Game().board_to_string(test1))
+
+  val test2 = Game().move(test, "A4", "B5") // Pawn
+  println(Game().board_to_string(test2))
 //
   //game.move(1, 1, 1, 2) // Bauer
   //println(game.board())
