@@ -1,9 +1,20 @@
 package de.htwg.se.Chess
+
+import aview.TUI
+import controller.Controller
+import model.Game
+
 @main def Chess: Unit =
-  //val TUI = new tui
+  val field = new Game()
+  val conrtoller = new Controller(field)
+  val tui = TUI(Controller)
+  tui.gameLoop()
 
-  //TUI.gameLoop()
 
+
+
+//Nico Tests
+/**
   // Create new Game
   val game = new Game().newGame()
   //println(Game().top_row())
@@ -67,3 +78,5 @@ package de.htwg.se.Chess
 //
   //game.move(0, 5, 1, 4) // Pawn
   //println(game.board())
+
+  */

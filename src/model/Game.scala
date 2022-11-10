@@ -1,4 +1,4 @@
-package de.htwg.se.Chess.Model
+package de.htwg.se.Chess.model
 
 import java.math.MathContext
 import scala.collection.immutable.VectorMap

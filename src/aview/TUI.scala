@@ -1,4 +1,5 @@
 package de.htwg.se.Chess
+package aview
 
 import scala.io.StdIn.readLine
 
@@ -15,8 +16,9 @@ class tui {
             println(commands(in))
 
             if (commando_array(0) == "move")
-                println("Test print Gameboard")
-                //println(Game().board_to_string(game))
+                //ToDo:
+                //println("Test print Gameboard empty?")
+                println(Game().board_to_string(game))
         }
         System.exit(0)
 
@@ -26,7 +28,8 @@ class tui {
             case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
-            case "move" => println("Move Befehl")//Game().move(game, commando_array(1), commando_array//(2))
+            //ToDo:
+            case "move" => println("Move und aktualisiere Spielfeld")//Game().move(game, commando_array(1), commando_array(2))
             case _ => errorMessage
 
     def helpString: String =
@@ -60,6 +63,6 @@ class tui {
 
     def start(): String =
         println("Test print Gameboard and start Game")
-        //println(Game().board_to_string(game))
-        //Game().board_to_string(game)
+        println(Game().board_to_string(game))
+        Game().board_to_string(game)
 }
