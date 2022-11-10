@@ -4,5 +4,5 @@
 - name: Upload coverage data to Coveralls
   run: sbt coverageReport coveralls
   env:
-    COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    COVERALLS_REPO_TOKEN: ${{ zWCUxHsZyougs4DGYQCmEWu3l1XyFU5nu }}
     COVERALLS_FLAG_NAME: Scala ${{ matrix.scala }}
