@@ -1,7 +1,8 @@
 ![bannerImage](chess_banner.jpeg)
 
 ---
-
+[![Build Status](https://app.travis-ci.com/PanterSoft/Chess.svg?branch=main)](https://app.travis-ci.com/PanterSoft/Chess)
+[![Coverage Status](https://coveralls.io/repos/github/PanterSoft/Chess/badge.svg?branch=main)](https://coveralls.io/github/PanterSoft/Chess?branch=main)
 ![RepoSize](https://img.shields.io/github/repo-size/PanterSoft/Chess)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MI)
 ![Forks](https://img.shields.io/github/forks/PanterSoft/Chess?color=green&style=social)
