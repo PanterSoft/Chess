@@ -1,6 +1,6 @@
-package de.htwg.se.Chess
-package aview
+package de.htwg.se.Chess.aview
 
+import de.htwg.se.Chess.model.Game
 import scala.io.StdIn.readLine
 
 class tui {

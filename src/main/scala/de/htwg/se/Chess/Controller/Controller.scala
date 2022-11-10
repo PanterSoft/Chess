@@ -1,12 +1,8 @@
-package de.htwg.se.Chess
-package controller
+package de.htwg.se.Chess.Controller
 
-import model.Field
-import model.Move
-import model.Stone
-import util.Command
-import util.Observable
-import util.UndoManager
+import de.htwg.se.Chess.util.Command
+import de.htwg.se.Chess.util.util.Observable
+import de.htwg.se.Chess.util.util.UndoManager
 
 case class Controller(var field: Field) extends Observable:
   val players = new UndoManager[Field]

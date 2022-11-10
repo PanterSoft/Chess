@@ -1,7 +1,7 @@
 package de.htwg.se.Chess
 
-import aview.TUI
-import controller.Controller
+import de.htwg.se.Chess.aview.TUI
+import de.htwg.se.Chess.Controller.Controller
 import model.Game
 
 @main def Chess: Unit =
