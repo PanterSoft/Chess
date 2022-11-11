@@ -1,5 +1,5 @@
 name: Run tests
-  run: sbt clean coverage test
+run: sbt clean coverage test
 
 name: Upload coverage data to Coveralls
 run: sbt coverageReport coveralls
