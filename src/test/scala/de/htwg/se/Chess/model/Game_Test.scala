@@ -12,6 +12,7 @@ import scala.collection.immutable.VectorMap
 import scala.compiletime.ops.int
 
 class GameSpec extends AnyWordSpec:
+
   val Test = Game()
   val eol = sys.props("line.separator")
 

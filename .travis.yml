@@ -1,15 +1,2 @@
-language: scala
-scala:
-  - 3.2.2-RC1-bin-20221101-d84007c-NIGHTLY
-
-script:
-  - sbt clean coverage test
-#- sbt clean coverage test coverageReport
-
-#- "sbt clean coverage test"
-
-after_success:
-  - sbt coverageReport coveralls
-#- sbt coverageReport coveralls
-
-#- "sbt coverageReport coveralls"
+script: "sbt clean coverage test"
+after_success: "sbt coverageReport coveralls"

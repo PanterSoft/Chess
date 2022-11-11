@@ -2,8 +2,6 @@ val scala3Version = "3.2.2-RC1-bin-20221101-d84007c-NIGHTLY"
 
 import org.scoverage.coveralls.Imports.CoverallsKeys._
 
-coverallsToken := Some("zWCUxHsZyougs4DGYQCmEWu3l1XyFU5nu")
-
 lazy val root = project
   .in(file("."))
   .settings(
