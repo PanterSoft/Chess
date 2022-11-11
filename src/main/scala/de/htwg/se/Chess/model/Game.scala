@@ -63,14 +63,6 @@ class Game {
     def move(game_state: VectorMap[String, String], pos_old: String, pos_new: String): VectorMap[String, String] =
         val figure = game_state.get(pos_old)
 
-        // Debug
-        //println(check_move(game_state, pos_old, pos_new))
-        //println(Knight(game_state, pos_old, pos_new))
-        //println(different_player(game_state, pos_old, pos_new))
-        //println(x_diff(pos_old, pos_new))
-        //println(y_diff(pos_old, pos_new))
-        // End Debug
-
         if (match_pattern(figure) != "Invalid" && check_move(game_state, pos_old, pos_new))
             val game_state_new = game_state + (pos_old -> "  ",  pos_new->match_pattern(figure))
 
@@ -79,10 +71,10 @@ class Game {
         return game_state
 
 
-    def game_winner(map: VectorMap[String, String]): Int =
-        if (!map.values.exists(_ == "K2"))
+    def game_winner(game_map: VectorMap[String, String]): Int =
+        if (!game_map.values.exists(_ == "K2"))
             return 1
-        else if (!map.values.exists(_ == "K1"))
+        else if (!game_map.values.exists(_ == "K1"))
             return 2
         else
             return 0

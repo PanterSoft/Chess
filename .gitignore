@@ -39,4 +39,4 @@ null/
 .scala_dependencies
 .cache-main
 Notizen.txt
-.github
+.coveralls.yml
