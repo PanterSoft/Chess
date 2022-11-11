@@ -1,11 +1,16 @@
-package de.htwg.se.Chess
+package de.htwg.se.Chess.aview
 
 import scala.io.StdIn.readLine
+import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.model.Game
+import de.htwg.se.Chess.util.Observer
 
-class tui {
+class tui(controller: Controller) extends Observer{
+
+    controller.add(this)
 
     var game_quit = false
-    val game = new Game
+    //var map = controller.map
 
     def gameLoop()=
         println(welcomeMessage)
@@ -15,8 +20,8 @@ class tui {
             println(commands(in))
 
             if (commando_array(0) == "move")
-                println(game.board())
-        }
+                println(controller.board_to_string)
+            }
         System.exit(0)
 
     def commands(in: String): String =
@@ -25,7 +30,8 @@ class tui {
             case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
-            case "move" => game.move(commando_array(1).toInt, commando_array(2).toInt, commando_array(3).toInt, commando_array(4).toInt)
+            case "move" => controller.move(commando_array(1), commando_array(2))
+                        controller.board_to_string
             case _ => errorMessage
 
     def helpString: String =
@@ -58,7 +64,7 @@ class tui {
         "ERROR! Wrong usage! Try \"help\" !"
 
     def start(): String =
-        game.newGame()
-        println(game.board())
-        game.board()
+        controller.board_to_string
+
+    override def update: Unit =  println(controller.board_to_string)
 }
