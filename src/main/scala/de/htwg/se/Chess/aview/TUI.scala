@@ -10,6 +10,7 @@ class tui(controller: Controller) extends Observer{
     controller.add(this)
 
     var game_quit = false
+    //var map = controller.map
 
     def gameLoop()=
         println(welcomeMessage)
@@ -19,10 +20,7 @@ class tui(controller: Controller) extends Observer{
             println(commands(in))
 
             if (commando_array(0) == "move")
-                //ToDo:
-                //println("Test print Gameboard empty?")
-                //println(controller.board_to_string(game))
-                update
+                println(controller.board_to_string)
             }
         System.exit(0)
 
@@ -32,9 +30,8 @@ class tui(controller: Controller) extends Observer{
             case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
-            //ToDo:
-            case "move" => //println("Move und aktualisiere Spielfeld")
-                        controller.move(commando_array(1), commando_array(2))
+            case "move" => controller.move(commando_array(1), commando_array(2))
+                        controller.board_to_string
             case _ => errorMessage
 
     def helpString: String =
@@ -67,10 +64,7 @@ class tui(controller: Controller) extends Observer{
         "ERROR! Wrong usage! Try \"help\" !"
 
     def start(): String =
-        println("Test print Gameboard and start Game")
-        //println(Game().board_to_string(game))
         controller.board_to_string
-        update
 
     override def update: Unit =  println(controller.board_to_string)
 }
