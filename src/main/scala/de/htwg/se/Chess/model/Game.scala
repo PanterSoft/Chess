@@ -2,10 +2,11 @@ package de.htwg.se.Chess.model
 
 import java.math.MathContext
 import scala.collection.immutable.VectorMap
+import scala.annotation.newMain.apply
 
 class Game {
 
-    def newGame(): VectorMap[String, String] =
+    def new_game_map(): VectorMap[String, String] =
         // Initialize New Game
         val game_state = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
 
@@ -33,6 +34,10 @@ class Game {
     */
 
     val empty_game_board = VectorMap("A1"->"  ", "B1"-> "  ", "C1"->"  ", "D1"->"  ", "E1"->"  ", "F1"->"  ", "G1"->"  ", "H1"->"  ", "A2"->"  ", "B2"->"  ", "C2"->"  ", "D2"->"  ", "E2"->"  ", "F2"->"  ", "G2"->"  ", "H2"->"  ", "A3"->"  ", "B3"-> "  ", "C3"->"  ", "D3"->"  ", "E3"->"  ", "F3"->"  ", "G3"->"  ", "H3"->"  ", "A4"->"  ", "B4"->"  ", "C4"->"  ", "D4"->"  ", "E4"->"  ", "F4"->"  ", "G4"->"  ", "H4"->"  ", "A5"->"  ", "B5"-> "  ", "C5"->"  ", "D5"->"  ", "E5"->"  ", "F5"->"  ", "G5"->"  ", "H5"->"  ", "A6"->"  ", "B6"->"  ", "C6"->"  ", "D6"->"  ", "E6"->"  ", "F6"->"  ", "G6"->"  ", "H6"->"  ", "A7"->"  ", "B7"-> "  ", "C7"->"  ", "D7"->"  ", "E7"->"  ", "F7"->"  ", "G7"->"  ", "H7"->"  ", "A8"->"  ", "B8"->"  ", "C8"->"  ", "D8"->"  ", "E8"->"  ", "F8"->"  ", "G8"->"  ", "H8"->"  ")
+
+    def new_history_map(): VectorMap[String, String]=
+        return VectorMap()
+
 
     def merge_maps(base_map: VectorMap[String, String], add_map: VectorMap[String, String]): VectorMap[String, String] =
         return base_map.++(add_map)
@@ -82,11 +87,18 @@ class Game {
         else
             return 0
 
-    //def check_turn(map: VectorMap[String, String]): Int =
-    //   if ()
-    //       return 1
-    //   else
-    //       return 2
+    def add_to_history(current_map: VectorMap[String, String], pos_now: String, pos_new: String): VectorMap[String, String] =
+        val new_map = current_map + (pos_now -> pos_new)
+        return new_map
+
+
+    def check_turn(game_map: VectorMap[String, String], history_map: VectorMap[String, String]): Int =
+        val last_move = history_map.last(0)
+        val player = match_pattern(game_map.get(last_move))
+        if (player.splitAt(1)(1) == "1" && player != "Invalid")
+            return 1
+        else
+            return 2
 
     def match_pattern(option: Option[String]) = option match {
         case Some(s) => (s)

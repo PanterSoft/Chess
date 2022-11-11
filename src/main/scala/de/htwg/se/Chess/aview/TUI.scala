@@ -1,6 +1,10 @@
 package de.htwg.se.Chess.aview
+<<<<<<< HEAD:src/aview/TUI.scala
 package aview
+=======
+>>>>>>> 39c4d040faf2461cd379e8dc289bd7caf50662a8:src/main/scala/de/htwg/se/Chess/aview/TUI.scala
 
+import de.htwg.se.Chess.model.Game
 import scala.io.StdIn.readLine
 import de.htwg.se.sudoku.controller.Controller
 import de.htwg.se.sudoku.model.{Grid, GridCreator, Solver}

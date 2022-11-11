@@ -1,5 +1,4 @@
-package de.htwg.se.Scala
-package util
+package de.htwg.se.Scala.util
 
 trait Observer:
   def update: Unit
