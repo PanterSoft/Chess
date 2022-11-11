@@ -4,14 +4,18 @@ import de.htwg.se.Chess.util.Observable
 import scala.collection.immutable.VectorMap
 import de.htwg.se.Chess.model.Game
 
-val game = new Game().new_game_map()
-case class Controller(var map: VectorMap[String, String]) extends Observable:
+case class Controller(var field: Game) extends Observable:
 
-  def board_to_string : String = Game().board_to_string(game)
+  def board_to_string_c : String = field.board_to_string(field)
 
-  def move(posOld : String, posNew : String) : VectorMap[String, String] =
+  def move_c(posOld : String, posNew : String) : Unit =
+    field = field.move(field, posOld, posNew)
     notifyObservers
-    Game().move(game,posOld, posNew)
+
+  def start_c : Unit =
+    var field = field.new_game_map()
+    notifyObservers
+
 
   /*
   def addPlayer1(doThis: Move => Field, move: Move) =

@@ -5,10 +5,10 @@ import de.htwg.se.Chess.controller.Controller
 import model.Game
 
 @main def Chess: Unit =
-  val field = new Game().new_game_map()
+  val field = new Game()
   val controller = new Controller(field)
   val tui_main = tui(controller)
-
+  controller.notifyObservers
   tui_main.gameLoop()
 
 

@@ -8,7 +8,6 @@ import de.htwg.se.Chess.util.Observer
 class tui(controller: Controller) extends Observer{
 
     controller.add(this)
-    update
     var game_quit = false
     //var map = controller.map
 
@@ -29,7 +28,7 @@ class tui(controller: Controller) extends Observer{
             case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
-            case "move" => controller.move(in.split(" ")(1), in.split(" ")(2))
+            case "move" => controller.move_c(in.split(" ")(1), in.split(" ")(2))
                         //ToDo:
                         "Next Player"
                         //controller.board_to_string
@@ -66,7 +65,8 @@ class tui(controller: Controller) extends Observer{
         "ERROR! Wrong usage! Try \"help\" !"
 
     def start(): String =
-        controller.board_to_string
+        controller.start_c
+        controller.board_to_string_c
 
-    override def update: Unit =  println(controller.board_to_string)
+    override def update: Unit =  println(controller.board_to_string_c)
 }
