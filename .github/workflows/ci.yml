@@ -6,13 +6,3 @@ run: sbt coverageReport coveralls
 env:
   COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   COVERALLS_FLAG_NAME: Scala ${{ matrix.scala }}
-
-
-#name: Run tests
-#run: sbt clean coverage test
-#
-#name: Upload coverage data to Coveralls
-#run: sbt coverageReport coveralls
-#env:
-#  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#  COVERALLS_FLAG_NAME: Scala ${{ matrix.scala }}
