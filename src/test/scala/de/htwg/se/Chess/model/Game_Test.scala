@@ -247,14 +247,15 @@ class GameSpec extends AnyWordSpec:
     Test.new_history_map() should be (VectorMap())
   }
 
-  val empty_history_map = VectorMap()
+  val empty_history_map = VectorMap[String, String]()
   val history_test_map = VectorMap("A2"->"A3")
 
   "add_to_history(history_map, pos_now, pos_new) should return an updated Game History" in {
-    Test.new_history_map(empty_history_map, "A2", "A3") should be (history_test_map)
+    Test.add_to_history(empty_history_map, "A2", "A3") should be (history_test_map)
   }
 
-  val history_test_game = test_field() + "A2"->"A3"
+  val history_test_game = test_field + ("A2"->"A3")
+
   "check_turn(game_map, history_map) should return an updated Game History" in {
     Test.check_turn(history_test_game, history_test_map) should be (1)
   }
