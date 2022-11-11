@@ -1,13 +1,13 @@
 package de.htwg.se.Chess
 
-import de.htwg.se.Chess.aview.TUI
+import de.htwg.se.Chess.aview.tui
 import de.htwg.se.Chess.controller.Controller
 import model.Game
 
 @main def Chess: Unit =
-  val field = new Game()
-  val conrtoller = new Controller(field)
-  val tui_main = tui(Controller)
+  val field = new Game().new_game_map()
+  val controller = new Controller(field)
+  val tui_main = tui(controller)
 
   tui_main.gameLoop()
 
