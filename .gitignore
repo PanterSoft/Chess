@@ -40,3 +40,4 @@ null/
 .cache-main
 Notizen.txt
 .github
+.coveralls.yml
