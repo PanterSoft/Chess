@@ -8,7 +8,7 @@ import de.htwg.se.Chess.util.Observer
 class tui(controller: Controller) extends Observer{
 
     controller.add(this)
-
+    update
     var game_quit = false
     //var map = controller.map
 
@@ -19,20 +19,22 @@ class tui(controller: Controller) extends Observer{
             val commando_array = in.split(" ")
             println(commands(in))
 
-            if (commando_array(0) == "move")
-                println(controller.board_to_string)
+            //if (commando_array(0) == "move")
+            //    println(controller.board_to_string)
             }
         System.exit(0)
 
-    def commands(in: String): String =
-        val commando_array = in.split(" ")
-        commando_array(0) match
+    def commands(in: String) : String =
+        in.split(" ")(0) match {
             case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
-            case "move" => controller.move(commando_array(1), commando_array(2))
-                        controller.board_to_string
+            case "move" => controller.move(in.split(" ")(1), in.split(" ")(2))
+                        //ToDo:
+                        "Next Player"
+                        //controller.board_to_string
             case _ => errorMessage
+        }
 
     def helpString: String =
         """
