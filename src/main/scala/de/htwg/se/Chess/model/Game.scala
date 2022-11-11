@@ -94,11 +94,12 @@ class Game {
 
     def check_turn(game_map: VectorMap[String, String], history_map: VectorMap[String, String]): Int =
         val last_move = history_map.last(0)
-        val player = match_pattern(game_map.get(last_move))
-        if (player.splitAt(1)(1) == "1" && player != "Invalid")
-            return 1
-        else
+        val last_player = get_player(game_map, last_move)
+
+        if (last_player.splitAt(1)(1) == "1" && last_player != "Invalid")
             return 2
+        else
+            return 1
 
     def match_pattern(option: Option[String]) = option match {
         case Some(s) => (s)

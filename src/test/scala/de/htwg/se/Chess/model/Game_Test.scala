@@ -65,7 +65,7 @@ class GameSpec extends AnyWordSpec:
     }
 
     "newGame() should init state array" in {
-      Test.newGame() shouldBe (empty_map.++(test_map))
+      Test.new_game_map() shouldBe (empty_map.++(test_map))
     }
   }
 
@@ -241,4 +241,20 @@ class GameSpec extends AnyWordSpec:
 
   "game_end(map) (K2 not in Game)" in {
     Test.game_winner(game_end_map_2) should be (2)
+  }
+
+  "new_history_map() should return an empty VectorMap" in {
+    Test.new_history_map() should be (VectorMap())
+  }
+
+  val empty_history_map = VectorMap()
+  val history_test_map = VectorMap("A2"->"A3")
+
+  "add_to_history(history_map, pos_now, pos_new) should return an updated Game History" in {
+    Test.new_history_map(empty_history_map, "A2", "A3") should be (history_test_map)
+  }
+
+  val history_test_game = test_field() + "A2"->"A3"
+  "check_turn(game_map, history_map) should return an updated Game History" in {
+    Test.check_turn(history_test_game, history_test_map) should be (1)
   }
