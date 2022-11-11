@@ -1,22 +1,34 @@
 package de.htwg.se.Chess
+
+import de.htwg.se.Chess.aview.tui
+import de.htwg.se.Chess.controller.Controller
+import model.Game
+
 @main def Chess: Unit =
-  val TUI = new tui
+  val field = new Game().new_game_map()
+  val controller = new Controller(field)
+  val tui_main = tui(controller)
 
-  TUI.gameLoop()
+  tui_main.gameLoop()
 
+
+
+
+//Nico Tests
+/**
   // Create new Game
-  //val game = new Game
-  //game.newGame()
-  //println(game.board())
+  val game = new Game().newGame()
+  //println(Game().top_row())
+  println(Game().board_to_string(game))
 //
-  //game.move(0, 1, 0, 3) // Pawn
-  //println(game.board())
+  val test = Game().move(game, "A2", "A4") // Pawn
+  println(Game().board_to_string(test))
 //
-  //game.move(0, 0, 0, 2) // Rook
-  //println(game.board())
-//
-  //game.move(6, 0, 7, 2) // Knight
-  //println(game.board())
+  val test1 = Game().move(test, "B7", "B5") // Pawn
+  println(Game().board_to_string(test1))
+
+  val test2 = Game().move(test, "A4", "B5") // Pawn
+  println(Game().board_to_string(test2))
 //
   //game.move(1, 1, 1, 2) // Bauer
   //println(game.board())
@@ -67,3 +79,5 @@ package de.htwg.se.Chess
 //
   //game.move(0, 5, 1, 4) // Pawn
   //println(game.board())
+
+  */
