@@ -1,4 +1,4 @@
-package de.htwg.se.Scala.util
+package de.htwg.se.Chess.util
 
 trait Observer:
   def update: Unit

@@ -1,21 +1,15 @@
 package de.htwg.se.Chess.aview
-<<<<<<< HEAD:src/aview/TUI.scala
-package aview
-=======
->>>>>>> 39c4d040faf2461cd379e8dc289bd7caf50662a8:src/main/scala/de/htwg/se/Chess/aview/TUI.scala
 
-import de.htwg.se.Chess.model.Game
 import scala.io.StdIn.readLine
-import de.htwg.se.sudoku.controller.Controller
-import de.htwg.se.sudoku.model.{Grid, GridCreator, Solver}
-import de.htwg.se.sudoku.util.Observer
+import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.model.Game
+import de.htwg.se.Chess.util.Observer
 
 class tui(controller: Controller) extends Observer{
 
     controller.add(this)
 
     var game_quit = false
-    val game = new Game().newGame()
 
     def gameLoop()=
         println(welcomeMessage)
@@ -40,7 +34,7 @@ class tui(controller: Controller) extends Observer{
             case "help" => helpString
             //ToDo:
             case "move" => //println("Move und aktualisiere Spielfeld")
-                        controller.move(game, commando_array(1), commando_array(2))
+                        controller.move(commando_array(1), commando_array(2))
             case _ => errorMessage
 
     def helpString: String =
@@ -75,8 +69,8 @@ class tui(controller: Controller) extends Observer{
     def start(): String =
         println("Test print Gameboard and start Game")
         //println(Game().board_to_string(game))
-        controller.board_to_string(game)
+        controller.board_to_string
         update
 
-    override def update: Unit =  println(controller.board_to_string(game))
+    override def update: Unit =  println(controller.board_to_string)
 }
