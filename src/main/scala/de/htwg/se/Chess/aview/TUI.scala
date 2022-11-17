@@ -39,23 +39,23 @@ class tui(controller: Controller) extends Observer{
 
     val eol = sys.props("line.separator")
 
-    def helpString: String ="""  ------------------------------------
+    def helpString: String ="""  /-----------------------------------\
   |            HELP TABLE             |
   |-----------------------------------|
   |   help              (Display help)|
   |   exit             (Close process)|
   |                                   |
   |   move Pos_now Pos_new (make Move)|
-  -------------------------------------
+  \-----------------------------------/
         """
 
-    def welcomeMessage: String = """  ------------------------------------
+    def welcomeMessage: String = """  /-----------------------------------\
   |       Schach - Chess - Game       |
   |-----------------------------------|
   |      Textbased User Interface     |
   |         HTWG Konstanz 2022        |
   |              v1.0.0               |
-  -------------------------------------""" + eol
+  \-----------------------------------/""" + eol
 
     def errorMessage: String =
         "ERROR! Wrong usage! Try \"help\" !"
