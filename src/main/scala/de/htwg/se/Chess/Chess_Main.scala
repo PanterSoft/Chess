@@ -18,6 +18,7 @@ object Chess {
     while
       input = readLine("->")
       tui_main.process(input)
-    do(input != "exit")
+      input != "exit"
+    do()
   }
 }
