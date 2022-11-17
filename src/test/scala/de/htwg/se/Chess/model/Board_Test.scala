@@ -3,18 +3,13 @@ package de.htwg.se.Chess.model
 import de.htwg.se.Chess.model.Board
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import javax.swing.text.PlainView
-import java.io.ByteArrayInputStream
-import scala.io.StdIn.readLine
-import scala.io.StdIn
 import org.scalatest.matchers.must.Matchers
-import org.scalatest.matchers.should.Matchers
 import scala.collection.immutable.VectorMap
-import scala.compiletime.ops.int
+
 
 class GameSpec extends AnyWordSpec:
 
-  val Test = new Board()
+  val Test = new Board
   val eol = sys.props("line.separator")
 
   val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
@@ -43,7 +38,6 @@ class GameSpec extends AnyWordSpec:
 \----+----+----+----+----+----+----+----/""" + eol
 
   "Game" should {
-
     /**
       * Playfield Tests
       */
@@ -65,18 +59,14 @@ class GameSpec extends AnyWordSpec:
     "have a Border row as string of form '|----+----+----+----+----+----+----+----|'" in {
       Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
     }
-
-    "newGame() should init state array" in {
-      Test.new_game_map() shouldBe (empty_map.++(test_map))
-    }
   }
 
   "board_to_string(test_field)" in {
-    Test.board_to_string(test_field) shouldBe (expected_field)
+    Test.board_to_string() shouldBe (expected_field)
   }
 
   "empty_field(test_field, 'A5') should be true (Empty Field)" in {
-    Test.empty_field(test_field, "A5") shouldBe (true)
+    Test.empty_field("A5") shouldBe (true)
   }
 
   "match_pattern() Invalid" in {
@@ -87,135 +77,137 @@ class GameSpec extends AnyWordSpec:
     Test.match_pattern(Option("P1")) shouldBe ("P1")
   }
 
-  def combine_map_test(test_map: VectorMap[String, String], pos_old: String, pos_new: String): VectorMap[String, String]=
-    val figure = test_map.get(pos_old)
-    val map_new = test_map + (pos_old -> "  ", pos_new -> Test.match_pattern(figure))
+  def combine_map_test(test_map: Board, pos_old: String, pos_new: String): Board =
+    val figure = test_map.board.get(pos_old)
+    val map_new = test_map.board + (pos_old -> "  ", pos_new -> Test.match_pattern(figure))
     val map_test_combined = empty_map.++(map_new)
-    return map_test_combined
+    return Board(map_test_combined)
 
-  val test_map_0 = combine_map_test(test_map, "A2", "A4")
+  val test_map_0 = combine_map_test(Board(test_field), "A2", "A4")
 
   // Valid Moves
 
   "move(map, A2, A4) (P1=> empty field)" in {
-    Test.move(test_field, "A2", "A4") shouldBe (test_map_0)
+    Test.move("A2", "A4") shouldBe (test_map_0)
   }
 
   val test_map_1 = combine_map_test(test_map_0, "A1", "A3")
 
   "move(map, A1, A3) (R1=> empty field)" in {
-     Test.move(test_map_0, "A1", "A3") shouldBe (test_map_1)
+    test_map_0.move("A1", "A3") shouldBe (test_map_1)
   }
 
   val test_map_2 = combine_map_test(test_map_1, "G1", "H3")
 
   "move(map, G1, H3) (k1=> empty field)" in {
-    Test.move(test_map_1, "G1", "H3") shouldBe (test_map_2)
+    test_map_1.move("G1", "H3") shouldBe (test_map_2)
   }
 
   val test_map_3 = combine_map_test(test_map_2, "B2", "B3")
 
   "move(map, B2, B3) (P1=> empty field)" in {
-    Test.move(test_map_2, "B2", "B3") shouldBe (test_map_3)
+    test_map_2.move("B2", "B3") shouldBe (test_map_3)
   }
 
   val test_map_4 = combine_map_test(test_map_3, "C1", "B2")
 
   "move(map, C1, B2) (B1=> empty field)" in {
-    Test.move(test_map_3, "C1", "B2") shouldBe (test_map_4)
+    test_map_3.move("C1", "B2") shouldBe (test_map_4)
   }
 
   val test_map_5 = combine_map_test(test_map_4, "C2", "C4")
 
   "move(map, C2, C4) (P1=> empty field)" in {
-    Test.move(test_map_4, "C2", "C4") shouldBe (test_map_5)
+    test_map_4.move("C2", "C4") shouldBe (test_map_5)
   }
 
   val test_map_6 = combine_map_test(test_map_5, "D1", "C2")
 
   "move(map, D1, C2) (Q1=> empty field)" in {
-    Test.move(test_map_5, "D1", "C2") shouldBe (test_map_6)
+    test_map_5.move("D1", "C2") shouldBe (test_map_6)
   }
 
   val test_map_7 = combine_map_test(test_map_6, "D2", "D3")
 
-  "move(map, D2, D3) (Q1=> empty field)" in {
-    Test.move(test_map_6, "D2", "D3") shouldBe (test_map_7)
+  "move(map, D2, D3) (P1=> empty field)" in {
+    test_map_6.move("D2", "D3") shouldBe (test_map_7)
   }
 
   val test_map_8 = combine_map_test(test_map_7, "E1", "D1")
 
   "move(map, E1, D1) (K1=> empty field)" in {
-    Test.move(test_map_7, "E1", "D1") shouldBe (test_map_8)
+    test_map_7.move("E1", "D1") shouldBe (test_map_8)
   }
 
   val test_map_9 = combine_map_test(test_map_8, "A7", "A6")
 
   "move(map, A7, A6) (P2 one forward)" in {
-    Test.move(test_map_8, "A7", "A6") shouldBe (test_map_9)
+    test_map_8.move("A7", "A6") shouldBe (test_map_9)
   }
 
   val test_map_10 = combine_map_test(test_map_9, "B7", "B5")
 
   "move(map, B7, B5) (P2 two forward)" in {
-    Test.move(test_map_9, "B7", "B5") shouldBe (test_map_10)
+    test_map_9.move("B7", "B5") shouldBe (test_map_10)
   }
 
   val test_map_11 = combine_map_test(test_map_10, "A4", "B5")
 
   "move(map, A4, B5) (P1 Attack P2)" in {
-    Test.move(test_map_10, "A4", "B5") shouldBe (test_map_11)
+    test_map_10.move("A4", "B5") shouldBe (test_map_11)
   }
 
   val test_map_12 = combine_map_test(test_map_11, "A6", "B5")
 
   "move(map, A6, B5) (P2 Attack P1)" in {
-    Test.move(test_map_11, "A6", "B5") shouldBe (test_map_12)
+    test_map_11.move("A6", "B5") shouldBe (test_map_12)
   }
 
   val test_map_13 = combine_map_test(test_map_12, "C2", "C3")
 
   "move(map, C2, C3) (Q1 y-axis)" in {
-    Test.move(test_map_12, "C2", "C3") shouldBe (test_map_13)
+    test_map_12.move("C2", "C3") shouldBe (test_map_13)
   }
 
   val test_map_14 = combine_map_test(test_map_13, "D1", "D2")
 
-  "move(map, D1, D2) (Q1 y-axis)" in {
-    Test.move(test_map_13, "D1", "D2") shouldBe (test_map_14)
+  "move(map, D1, D2) (K1 y-axis)" in {
+    test_map_13.move("D1", "D2") shouldBe (test_map_14)
   }
 
 
   val test_map_15 = combine_map_test(test_map_14, "H3", "F4")
 
   "move(map, H3, F4) (k1 horizontal)" in {
-    Test.move(test_map_14, "H3", "F4") shouldBe (test_map_15)
+    test_map_14.move("H3", "F4") shouldBe (test_map_15)
   }
 
 // Invalid Moves
 
+  val start_field = Board(test_field)
+
   "move(map, D1, C2) (K1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "D1", "C2") shouldBe (test_map_12)
+    start_field.move("D1", "C2") shouldBe (start_field)
   }
 
   "move(map, C3, D2) (Q1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "C3", "D2") shouldBe (test_map_12)
+    start_field.move("C3", "D2") shouldBe (start_field)
   }
 
   "move(map, B1, D2) (k1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "B1", "A3") shouldBe (test_map_12)
+    start_field.move("B1", "D2") shouldBe (start_field)
   }
 
   "move(map, A3, B3) (R1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "A3", "B3") shouldBe (test_map_12)
+    start_field.move("A3", "B3") shouldBe (start_field)
   }
 
-  "move(map, B1, A3) (B1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "B1", "A3") shouldBe (test_map_12)
+  "move(map, C1, B2) (B1=> Blocked/Invalid Move)" in {
+    start_field.move("C1", "B2") shouldBe (start_field)
   }
 
   "move(map, E2, E5) (k1=> Blocked/Invalid Move)" in {
-    Test.move(test_map_12, "E2", "E5") shouldBe (test_map_12)
+    start_field.move("E2", "E5") shouldBe (start_field)
   }
 
 // Single Methode Tests
@@ -245,19 +237,3 @@ class GameSpec extends AnyWordSpec:
     Test.game_winner(game_end_map_2) should be (2)
   }
 
-  "new_history_map() should return an empty VectorMap" in {
-    Test.new_history_map() should be (VectorMap())
-  }
-
-  val empty_history_map = VectorMap[String, String]()
-  val history_test_map = VectorMap("A2"->"A3")
-
-  "add_to_history(history_map, pos_now, pos_new) should return an updated Game History" in {
-    Test.add_to_history(empty_history_map, "A2", "A3") should be (history_test_map)
-  }
-
-  val history_test_game = test_field + ("A2"->"A3")
-
-  "check_turn(game_map, history_map) should return an updated Game History" in {
-    Test.check_turn(history_test_game, history_test_map) should be (1)
-  }

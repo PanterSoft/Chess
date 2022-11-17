@@ -38,25 +38,6 @@ case class Board(val board: VectorMap[String, String]) {
         else
             return 0
 
-
-    def new_history_map(): VectorMap[String, String]=
-        return VectorMap()
-
-
-    def add_to_history(current_map: VectorMap[String, String], pos_now: String, pos_new: String): VectorMap[String, String] =
-        val new_map = current_map + (pos_now -> pos_new)
-        return new_map
-
-
-    def check_turn(game_map: VectorMap[String, String], history_map: VectorMap[String, String]): Int =
-        val last_move = history_map.last(0)
-        val last_player = get_player(last_move)
-
-        if (last_player.splitAt(1)(1) == "1" && last_player != "Invalid")
-            return 2
-        else
-            return 1
-
     def move(pos_old: String, pos_new: String): Board =
         val figure = board.get(pos_old)
 
