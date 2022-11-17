@@ -3,6 +3,7 @@ package de.htwg.se.Chess
 import de.htwg.se.Chess.aview.tui
 import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.model.Board
+import de.htwg.se.Chess.model.History
 
 import scala.io.StdIn.readLine
 
@@ -17,6 +18,7 @@ object Chess {
     while
       input = readLine("->")
       tui_main.process(input)
-    do(input != "exit")
+      input != "exit"
+    do()
   }
 }

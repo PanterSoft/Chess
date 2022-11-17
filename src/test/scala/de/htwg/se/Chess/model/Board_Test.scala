@@ -7,7 +7,7 @@ import org.scalatest.matchers.must.Matchers
 import scala.collection.immutable.VectorMap
 
 
-class GameSpec extends AnyWordSpec:
+class BoardSpec extends AnyWordSpec:
 
   val Test = new Board
   val eol = sys.props("line.separator")
@@ -37,28 +37,27 @@ class GameSpec extends AnyWordSpec:
 | R2 | k2 | B2 | Q2 | k2 | B2 | k2 | R2 | 8
 \----+----+----+----+----+----+----+----/""" + eol
 
-  "Game" should {
-    /**
-      * Playfield Tests
-      */
+  /**
+  * Playfield Tests
+  */
+  "have a top_row as string of form " +
+  "   A    B    C    D    E    F    G    H  " in {
+    Test.top_row() shouldBe("   A    B    C    D    E    F    G    H  " + eol)
+  }
 
-    "have a top_row as string of form " +
-    "'   A    B    C    D    E    F    G    H  '" in {
-      Test.top_row() shouldBe("   A    B    C    D    E    F    G    H  " + eol)
-    }
+  "have a border_row as string of form " +
+  "+----+----+----+----+----+----+----+----+" in {
+    Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" +eol)
+  }
 
-    "have a border_row as string of form " +
-    "'   +----+----+----+----+----+----+----+----+'" in {
-      Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
-    }
+  "have a First row as String of form " +
+  """/----+----+----+----+----+----+----+----\""" in {
+    Test.first_last_row() shouldBe(
+      """/----+----+----+----+----+----+----+----\""" + eol)
+  }
 
-    """have a First row as String of form '/----+----+----+----+----+----+----+----\'""" in {
-      Test.first_last_row() shouldBe("""/----+----+----+----+----+----+----+----\""" + eol)
-    }
-
-    "have a Border row as string of form '|----+----+----+----+----+----+----+----|'" in {
-      Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
-    }
+  "have a Border row as string of form |----+----+----+----+----+----+---+----|" in {
+    Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" +eol)
   }
 
   "board_to_string(test_field)" in {
