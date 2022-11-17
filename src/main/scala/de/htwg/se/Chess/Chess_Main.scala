@@ -3,9 +3,10 @@ package de.htwg.se.Chess
 import de.htwg.se.Chess.aview.tui
 import de.htwg.se.Chess.controller.Controller
 import model.Game
+import de.htwg.se.Chess.model.Board
 
 @main def Chess: Unit =
-  val field = new Game()
+  val field = new Board()
   val controller = new Controller(field)
   val tui_main = tui(controller)
   controller.notifyObservers

@@ -25,7 +25,6 @@ class tui(controller: Controller) extends Observer{
 
     def commands(in: String) : String =
         in.split(" ")(0) match {
-            case "start" => start()
             case "exit" => game_quit = true; "Goodbye :)"
             case "help" => helpString
             case "move" => controller.move_c(in.split(" ")(1), in.split(" ")(2))
@@ -40,7 +39,6 @@ class tui(controller: Controller) extends Observer{
         ------------------------------------
         |            HELP TABLE             |
         |-----------------------------------|
-        |   start                           |
         |   help              (Display help)|
         |   exit             (Close process)|
         |                                   |
@@ -63,10 +61,6 @@ class tui(controller: Controller) extends Observer{
 
     def errorMessage: String =
         "ERROR! Wrong usage! Try \"help\" !"
-
-    def start(): String =
-        controller.start_c
-        controller.board_to_string_c
 
     override def update: Unit =  println(controller.board_to_string_c)
 }
