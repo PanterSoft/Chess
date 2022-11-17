@@ -37,30 +37,25 @@ class tui(controller: Controller) extends Observer{
             case _ => Some(errorMessage)
         }
 
-    def helpString: String =
-        """
-        ------------------------------------
-        |            HELP TABLE             |
-        |-----------------------------------|
-        |   help              (Display help)|
-        |   exit             (Close process)|
-        |                                   |
-        |   move(x1 y1 x2 y2                |
-        |   after start current pos x y     |
-        |   then new pos x y {x y x y}      |
-        -------------------------------------
+    val eol = sys.props("line.separator")
+
+    def helpString: String ="""  ------------------------------------
+  |            HELP TABLE             |
+  |-----------------------------------|
+  |   help              (Display help)|
+  |   exit             (Close process)|
+  |                                   |
+  |   move Pos_now Pos_new (make Move)|
+  -------------------------------------
         """
 
-    def welcomeMessage: String =
-        """
-        ------------------------------------
-        |       Schach - Chess - Game       |
-        |-----------------------------------|
-        |      Textbased User Interface     |
-        |         HTWG Konstanz 2022        |
-        |              v1.0.0               |
-        -------------------------------------
-        """
+    def welcomeMessage: String = """  ------------------------------------
+  |       Schach - Chess - Game       |
+  |-----------------------------------|
+  |      Textbased User Interface     |
+  |         HTWG Konstanz 2022        |
+  |              v1.0.0               |
+  -------------------------------------""" + eol
 
     def errorMessage: String =
         "ERROR! Wrong usage! Try \"help\" !"
