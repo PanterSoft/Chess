@@ -9,7 +9,6 @@ class tui(controller: Controller) extends Observer{
 
     controller.add(this)
     var game_quit = false
-    //var map = controller.map
 
     def gameLoop()=
         println(welcomeMessage)

@@ -19,10 +19,16 @@ class HistorySpec extends AnyWordSpec:
 
     //val history_test_game = test_field + ("A2"->"A3")
 
-    "check_turn(game_map, history_map) should return 1 (Player One)" in {
+    "check_turn() should return 1 (Player One first move )" in {
         history.check_turn() should be (1)
     }
 
-    "check_turn(game_map, history_map) should return 2 (Player Two)" in {
+    "check_turn() should return 2 (Player Two)" in {
         History(history_test_map).check_turn() should be (2)
+    }
+
+    val history_test_map_2 = history_test_map + ("A3"->"A4")
+
+    "check_turn() should return 1 (Player One second move)" in {
+        History(history_test_map_2).check_turn() should be (1)
     }
