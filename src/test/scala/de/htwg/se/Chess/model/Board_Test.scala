@@ -1,5 +1,6 @@
 package de.htwg.se.Chess.model
 
+import de.htwg.se.Chess.model.Board
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import javax.swing.text.PlainView
@@ -13,7 +14,7 @@ import scala.compiletime.ops.int
 
 class GameSpec extends AnyWordSpec:
 
-  val Test = Game()
+  val Test = new Board()
   val eol = sys.props("line.separator")
 
   val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
@@ -49,20 +50,20 @@ class GameSpec extends AnyWordSpec:
 
     "have a top_row as string of form " +
     "'   A    B    C    D    E    F    G    H  '" in {
-      Game().top_row() shouldBe("   A    B    C    D    E    F    G    H  " + eol)
+      Test.top_row() shouldBe("   A    B    C    D    E    F    G    H  " + eol)
     }
 
     "have a border_row as string of form " +
     "'   +----+----+----+----+----+----+----+----+'" in {
-      Game().border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
+      Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
     }
 
     """have a First row as String of form '/----+----+----+----+----+----+----+----\'""" in {
-      Game().first_last_row() shouldBe("""/----+----+----+----+----+----+----+----\""" + eol)
+      Test.first_last_row() shouldBe("""/----+----+----+----+----+----+----+----\""" + eol)
     }
 
     "have a Border row as string of form '|----+----+----+----+----+----+----+----|'" in {
-      Game().border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
+      Test.border_row() shouldBe("+----+----+----+----+----+----+----+----+" + eol)
     }
 
     "newGame() should init state array" in {

@@ -2,7 +2,7 @@ package de.htwg.se.Chess.aview
 
 import scala.io.StdIn.readLine
 import de.htwg.se.Chess.controller.Controller
-import de.htwg.se.Chess.model.Game
+import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 
 class tui(controller: Controller) extends Observer{
