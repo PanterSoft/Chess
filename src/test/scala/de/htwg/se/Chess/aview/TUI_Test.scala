@@ -56,10 +56,6 @@ class TUISpec extends AnyWordSpec:
   |   move Pos_now Pos_new (make Move)|
   \-----------------------------------/""" + eol
 
-    /*"commands(help) should create'\n" + expected_help_field + "'" in {
-        tui_test.commands("help") shouldBe (expected_help_field)
-    }*/
-
     val expected_welcome_message = """  /-----------------------------------\
   |       Schach - Chess - Game       |
   |-----------------------------------|
