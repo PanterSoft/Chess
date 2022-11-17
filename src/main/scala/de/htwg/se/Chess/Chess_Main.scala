@@ -9,7 +9,7 @@ import de.htwg.se.Chess.model.Board
   val field = new Board()
   val controller = new Controller(field)
   val tui_main = tui(controller)
-  controller.notifyObservers
+  //controller.notifyObservers
   tui_main.gameLoop()
 
 

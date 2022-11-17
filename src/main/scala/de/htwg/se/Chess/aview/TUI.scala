@@ -13,25 +13,29 @@ class tui(controller: Controller) extends Observer{
 
     def gameLoop()=
         println(welcomeMessage)
+        update
         while(game_quit == false) {
             val in = readLine("->")
             val commando_array = in.split(" ")
-            println(commands(in))
+            commands(in) match {
+                case None =>
+                case Some(s) => println(s)
+            }
 
             //if (commando_array(0) == "move")
             //    println(controller.board_to_string)
             }
         System.exit(0)
 
-    def commands(in: String) : String =
-        in.split(" ")(0) match {
-            case "exit" => game_quit = true; "Goodbye :)"
-            case "help" => helpString
-            case "move" => controller.move_c(in.split(" ")(1), in.split(" ")(2))
+    def commands(in: String) : Option[String] =
+        in.split(" ").toList match {
+            case "exit" :: Nil => game_quit = true; Some("Goodbye :)")
+            case "help" :: Nil=> Some(helpString)
+            case "move" :: pos_old :: pos_new :: Nil => controller.move_c(pos_old, pos_new); None
                         //ToDo:
-                        "Next Player"
+                        //"Next Player"
                         //controller.board_to_string
-            case _ => errorMessage
+            case _ => Some(errorMessage)
         }
 
     def helpString: String =
