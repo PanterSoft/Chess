@@ -41,34 +41,28 @@ class TUISpec extends AnyWordSpec:
 | R2 | k2 | B2 | Q2 | k2 | B2 | k2 | R2 | 8
 \----+----+----+----+----+----+----+----/""" + eol
 
-    val expected_help_field = """
-        ------------------------------------
-        |            HELP TABLE             |
-        |-----------------------------------|
-        |   help              (Display help)|
-        |   exit             (Close process)|
-        |                                   |
-        |   move(x1 y1 x2 y2                |
-        |   after start current pos x y     |
-        |   then new pos x y {x y x y}      |
-        -------------------------------------
-        """
+    val expected_help_field = """  /-----------------------------------\
+  |            HELP TABLE             |
+  |-----------------------------------|
+  |   help              (Display help)|
+  |   exit             (Close process)|
+  |                                   |
+  |   move Pos_now Pos_new (make Move)|
+  \-----------------------------------/""" + eol
 
     /*"commands(help) should create'\n" + expected_help_field + "'" in {
         tui_test.commands("help") shouldBe (expected_help_field)
     }*/
 
-    val expected_welcome_message = """
-        ------------------------------------
-        |       Schach - Chess - Game       |
-        |-----------------------------------|
-        |      Textbased User Interface     |
-        |         HTWG Konstanz 2022        |
-        |              v1.0.0               |
-        -------------------------------------
-        """
+    val expected_welcome_message = """  /-----------------------------------\
+  |       Schach - Chess - Game       |
+  |-----------------------------------|
+  |      Textbased User Interface     |
+  |         HTWG Konstanz 2022        |
+  |              v1.0.0               |
+  \-----------------------------------/""" + eol
 
-    "welcomeMessage() should create a String" + expected_welcome_message in {
+    "welcomeMessage() should create a String\n" + expected_welcome_message in {
         tui_test.welcomeMessage shouldBe (expected_welcome_message)
     }
 
@@ -87,18 +81,16 @@ class TUISpec extends AnyWordSpec:
         tui_test.commands("start") shouldBe (expected_field)
     }*/
 
-    "readin and handling input" should {
-        "recognize the input 'move A2 A3' as moving the stone X from cell A2 to cell A3" in {
+    "recognize the input 'move A2 A3' as moving the stone X from cell A2 to cell A3" in {
             //tui_test.commands("move A2 A3") should be(Left(controller.move_c(A2, pos_new)))
             //controller.doAndPublish(controller.execMove, Move(Stone.X, Some(2), 3))
-        }
-        "recognize invalid input" in {
-            tui_test.commands("hello world") should be(Right("ERROR! Wrong usage! Try \"help\" !"))
-        }
-        "recognize the input 'help' as returning a help signal" in {
-            tui_test.commands("help") should be(Right("help"))
-        }
-        "recognize the input 'q' as returning a quit signal" in {
-            tui_test.commands("exit") should be(Right("exit"))
-        }
+    }
+    "recognize invalid input" in {
+        tui_test.commands("hello world") should be(Right("ERROR! Wrong usage!Try \"help\" !"))
+    }
+    "recognize the input 'help' as returning a help signal" in {
+        tui_test.commands("help") should be(Right("help"))
+    }
+    "recognize the input 'q' as returning a quit signal" in {
+        tui_test.commands("exit") should be(Right("exit"))
     }
