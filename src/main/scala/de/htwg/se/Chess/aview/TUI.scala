@@ -20,10 +20,7 @@ class tui(controller: Controller) extends Observer{
                 case None =>
                 case Some(s) => println(s)
             }
-
-            //if (commando_array(0) == "move")
-            //    println(controller.board_to_string)
-            }
+        }
         System.exit(0)
 
     def commands(in: String) : Option[String] =
@@ -57,7 +54,7 @@ class tui(controller: Controller) extends Observer{
   \-----------------------------------/""" + eol
 
     def errorMessage: String =
-        "ERROR! Wrong usage! Try \"help\" !"
+        "ERROR! Wrong usage! Try help !"
 
     override def update: Unit =  println(controller.board_to_string_c)
 }
