@@ -28,9 +28,6 @@ jobs:
         distribution: 'temurin'
         cache: 'sbt'
 
-    #- name: Run tests
-    #  run: sbt test
-
     - name: Run tests
       run: sbt clean coverage test
 
