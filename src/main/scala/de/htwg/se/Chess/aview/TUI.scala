@@ -7,12 +7,13 @@ import de.htwg.se.Chess.util.Observer
 
 class tui(controller: Controller) extends Observer{
 
+    val eol = sys.props("line.separator")
+
     controller.add(this)
+    println(welcomeMessage)
+    update
 
     def process(in: String): Unit =
-        println(welcomeMessage)
-        update
-        val commando_array = in.split(" ")
         commands(in) match {
             case None =>
             case Some(s) => println(s)
@@ -23,13 +24,8 @@ class tui(controller: Controller) extends Observer{
             case "exit" :: Nil => Some("Goodbye :)")
             case "help" :: Nil=> Some(helpString)
             case "move" :: pos_old :: pos_new :: Nil => controller.move_c(pos_old, pos_new); None
-                        //ToDo:
-                        //"Next Player"
-                        //controller.board_to_string
             case _ => Some(errorMessage)
         }
-
-    val eol = sys.props("line.separator")
 
     def helpString: String = """  /-----------------------------------\
   |            HELP TABLE             |
