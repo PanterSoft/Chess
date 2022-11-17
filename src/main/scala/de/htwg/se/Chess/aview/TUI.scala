@@ -14,7 +14,6 @@ class tui(controller: Controller) extends Observer{
     update
 
     def process(in: String): Unit =
-        val commando_array = in.split(" ")
         commands(in) match {
             case None =>
             case Some(s) => println(s)
@@ -25,9 +24,6 @@ class tui(controller: Controller) extends Observer{
             case "exit" :: Nil => Some("Goodbye :)")
             case "help" :: Nil=> Some(helpString)
             case "move" :: pos_old :: pos_new :: Nil => controller.move_c(pos_old, pos_new); None
-                        //ToDo:
-                        //"Next Player"
-                        //controller.board_to_string
             case _ => Some(errorMessage)
         }
 
