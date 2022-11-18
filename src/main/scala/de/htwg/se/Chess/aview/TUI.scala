@@ -2,6 +2,7 @@ package de.htwg.se.Chess.aview
 
 import scala.io.StdIn.readLine
 import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.controller.GameStatus
 import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 
@@ -47,5 +48,9 @@ class tui(controller: Controller) extends Observer{
     def errorMessage: String =
         "ERROR! Wrong usage! Try help !"
 
-    override def update: Unit =  println(controller.board_to_string_c)
+    override def update: Boolean =
+        println(controller.board_to_string_c)
+        println(GameStatus.message(controller.gameStatus))
+        controller.gameStatus=GameStatus.IDLE
+        true
 }
