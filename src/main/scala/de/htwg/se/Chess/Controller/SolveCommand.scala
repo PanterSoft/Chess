@@ -13,15 +13,12 @@ class SolveCommand(controller: Controller) extends Command {
   }
 
   override def undoMove: Unit = {
-    //println("test undo")
-    //println(memento.board_to_string())
     val new_memento = controller.field
     controller.field = memento
     memento = new_memento
   }
 
   override def redoMove: Unit = {
-    println("test redo")
     val new_memento = controller.field
     controller.field = memento
     memento = new_memento

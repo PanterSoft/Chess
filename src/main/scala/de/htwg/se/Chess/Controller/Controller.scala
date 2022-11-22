@@ -19,7 +19,7 @@ case class Controller(var field: Board, var history: History) extends Observable
     field = field.move(pos_now, pos_new)
     if (old_field != field)
       history = history.add_to_history(pos_now, pos_new)
-    notifyObservers
+    //notifyObservers
 
   def domove: Unit = {
     undoManager.doMove(new SolveCommand(this))
