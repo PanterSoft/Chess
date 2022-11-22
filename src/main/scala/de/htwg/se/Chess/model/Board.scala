@@ -183,9 +183,10 @@ case class Board(val board: VectorMap[String, String]) {
         return false
 
     def pawn(pos_now: String, pos_new: String): Boolean =
-        if ((get_player(pos_now) == "1" || get_player(pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || y_diff(pos_now, pos_new) == 2) && x_or_y(pos_now, pos_new) && forward_move(pos_now, pos_new)) // Move (1 or 2 Field)
+
+        if ((get_player(pos_now) == "1" || get_player(pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || (y_diff(pos_now, pos_new) == 2 && pos_now.splitAt(1)(1) == "2")) && x_or_y(pos_now, pos_new) && forward_move(pos_now, pos_new)) // Move (1 or 2 Field)
             return true
-        else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(pos_now, pos_new) && get_player(pos_now) == "1" && forward_move(pos_now, pos_new) || different_player(pos_now, pos_new) && get_player(pos_now) == "2" && forward_move(pos_now, pos_new))) // Attack Move
+        else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(pos_now, pos_new) && get_player(pos_now) == "1" && forward_move(pos_now, pos_new) && empty_field(pos_new) != true || different_player(pos_now, pos_new) && get_player(pos_now) == "2" && forward_move(pos_now, pos_new) && empty_field(pos_new) != true)) // Attack Move
             return true
         return false
 
