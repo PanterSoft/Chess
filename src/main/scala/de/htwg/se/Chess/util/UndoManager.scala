@@ -7,7 +7,7 @@ class UndoManager {
     undoStack = command::undoStack
     command.doMove
   }
-  def undoStep  = {
+  def undoStep = {
     undoStack match {
       case  Nil =>
       case head::stack => {
