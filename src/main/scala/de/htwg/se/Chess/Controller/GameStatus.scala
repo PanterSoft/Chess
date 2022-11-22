@@ -8,7 +8,7 @@ object GameStatus extends Enumeration{
     IDLE -> "",
     SOLVED1 ->"Player 1 wins!!!",
     SOLVED2 ->"Player 2 wins!!!",
-    NOT_SOLVED ->"No winner yet.")
+    NOT_SOLVED ->"")
 
   def message(gameStatus: GameStatus) = {
     map(gameStatus)

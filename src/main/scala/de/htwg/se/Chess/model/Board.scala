@@ -48,6 +48,14 @@ case class Board(val board: VectorMap[String, String]) {
         case None => (0)
     }
 
+    def game_finished(game_map: VectorMap[String, String]): Int =
+        if (!game_map.values.exists(_ == "K2"))
+            return 1
+        else if (!game_map.values.exists(_ == "K1"))
+            return 2
+        else
+            return 0
+
     def check_move(board: VectorMap[String, String], pos_now: String, pos_new: String): Boolean =
 
         if (empty_field(pos_now)) // Check if Position now is empty
