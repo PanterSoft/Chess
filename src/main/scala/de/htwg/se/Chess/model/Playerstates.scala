@@ -9,12 +9,12 @@ class PlayerSystem {
 
     def changeState(): Unit = currentState.changeState()
 
-    def displayState(): Unit = currentState.displayState()
+    def displayState(): String = currentState.displayState()
 }
 
 trait State {
   def changeState(): Unit
-  def displayState(): Unit
+  def displayState(): String
 }
 
 class PlayerOne(playersystem: PlayerSystem, reciever: Reciever) extends State {
@@ -40,22 +40,8 @@ val playersystem:PlayerSystem = new PlayerSystem()
 def change_player(): Unit =
     playersystem.changeState()
 
-def at_turn(): Int =
+def at_turn(): String =
     if(playersystem.currentState.isInstanceOf[PlayerOne])
-        1
+        "1"
     else
-        2
-
-
-
-/* implement in TUI
-
-val playersystem:PlayerSystem = new PlayerSystem()
-
-    println(at_turn())
-    change_player()
-    println(at_turn())
-    change_player()
-    println(at_turn())
-
-*/
+        "2"

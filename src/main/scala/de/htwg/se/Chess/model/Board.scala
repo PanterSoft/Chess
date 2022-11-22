@@ -29,11 +29,12 @@ case class Board(val board: VectorMap[String, String]) {
     def this() =
         this(VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A3"->"  ", "B3"-> "  ", "C3"->"  ", "D3"->"  ", "E3"->"  ", "F3"->"  ", "G3"->"  ", "H3"->"  ", "A4"->"  ", "B4"->"  ", "C4"->"  ", "D4"->"  ", "E4"->"  ", "F4"->"  ", "G4"->"  ", "H4"->"  ", "A5"->"  ", "B5"-> "  ", "C5"->"  ", "D5"->"  ", "E5"->"  ", "F5"->"  ", "G5"->"  ", "H5"->"  ", "A6"->"  ", "B6"->"  ", "C6"->"  ", "D6"->"  ", "E6"->"  ", "F6"->"  ", "G6"->"  ", "H6"->"  ", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"K2", "F8"->"B2", "G8"->"k2", "H8"->"R2"))
 
-    def move(pos_old: String, pos_new: String): Board =
-        val figure = board.get(pos_old)
+    def move(pos_now: String, pos_new: String): Board =
+        val figure = board.get(pos_now)
 
-        if (match_pattern(figure) != "Invalid" && check_move(board, pos_old, pos_new))
-            Board(Board(board.updated(pos_old, "  ")).board.updated(pos_new, match_pattern(figure)))
+        if (match_pattern(figure) != "Invalid" && check_move(board, pos_now, pos_new) && at_turn() == get_player(pos_now))
+            change_player()
+            Board(Board(board.updated(pos_now, "  ")).board.updated(pos_new, match_pattern(figure)))
         else
             Board(board)
 
@@ -175,13 +176,13 @@ case class Board(val board: VectorMap[String, String]) {
         return false
 
     def rook(pos_now: String, pos_new: String): Boolean =
+        // rook can move over other figures
 
         if(different_player(pos_now, pos_new) && x_or_y(pos_now, pos_new))
             return true
         return false
 
     def pawn(pos_now: String, pos_new: String): Boolean =
-
         if ((get_player(pos_now) == "1" || get_player(pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || y_diff(pos_now, pos_new) == 2) && x_or_y(pos_now, pos_new) && forward_move(pos_now, pos_new)) // Move (1 or 2 Field)
             return true
         else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(pos_now, pos_new) && get_player(pos_now) == "1" && forward_move(pos_now, pos_new) || different_player(pos_now, pos_new) && get_player(pos_now) == "2" && forward_move(pos_now, pos_new))) // Attack Move
