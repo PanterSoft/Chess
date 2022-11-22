@@ -5,7 +5,7 @@ trait Originator:
 
     def restore(m: Memento): Unit
 
-    def game_state_$eq(board: Board): Boolean
+   //def game_state_=(board: Board): Unit
 
 case class BoardOriginator(var board: Board) extends Originator:
 
