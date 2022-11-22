@@ -1,11 +1,10 @@
 package de.htwg.se.Chess.aview
 
-import scala.io.StdIn.readLine
 import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.controller.SolveCommand
 import de.htwg.se.Chess.controller.GameStatus
 import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
-import de.htwg.se.Chess.controller.SolveCommand
 
 class tui(controller: Controller) extends Observer{
 
@@ -34,7 +33,7 @@ class tui(controller: Controller) extends Observer{
                 if (before_move == after_move)
                     println("No valid move.")
                 else
-                    controller.solve
+                    controller.check_winner
                 None
             //case "solve" :: Nil => controller.solve; None
             case _ => Some(errorMessage)

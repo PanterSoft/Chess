@@ -1,15 +1,16 @@
 package de.htwg.se.Chess.controller
 
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.util.UndoManager
+import de.htwg.se.Chess.controller._
 import de.htwg.se.Chess.controller.GameStatus._
 import scala.collection.immutable.VectorMap
 import de.htwg.se.Chess.model._
+import javax.swing.undo.UndoManager
 
 case class Controller(var field: Board, var history: History) extends Observable:
 
   var gameStatus: GameStatus = IDLE
-  private val undoManager = new UndoManager
+  private val history_manager = new HistoryManager
   val playersystem:PlayerSystem = new PlayerSystem()
 
   def board_to_string_c : String = field.board_to_string()
@@ -22,23 +23,23 @@ case class Controller(var field: Board, var history: History) extends Observable
     //notifyObservers
 
   def domove: Unit = {
-    undoManager.doMove(new SolveCommand(this))
+    history_manager.doMove(new SolveCommand(this))
   }
 
-  def solve: Unit = {
+  def check_winner: Unit = {
     val success = field.game_finished(field.board)
-    if (success == 1) gameStatus = SOLVED1
-    else if (success == 2) gameStatus= SOLVED2
-      else gameStatus = NOT_SOLVED
+    if (success == 1) gameStatus = PLAYER1
+    else if (success == 2) gameStatus= PLAYER2
+      else gameStatus = NO_WINNER
     notifyObservers
   }
 
   def undo: Unit = {
-    undoManager.undoMove
+    history_manager.undoMove
     notifyObservers
   }
 
   def redo: Unit = {
-    undoManager.redoMove
+    history_manager.redoMove
     notifyObservers
   }
