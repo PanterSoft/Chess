@@ -23,8 +23,18 @@ class tui(controller: Controller) extends Observer{
     def commands(in: String) : Option[String] =
         in.split(" ").toList match {
             case "exit" :: Nil => Some("Goodbye :)")
-            case "help" :: Nil=> Some(helpString)
-            case "move" :: pos_old :: pos_new :: Nil => controller.move_c(pos_old, pos_new); None
+            case "help" :: Nil => Some(helpString)
+            case "undo" :: Nil => controller.undo; None
+            case "redo" :: Nil => controller.redo; None
+            //case "solve" :: controller.solve; None
+            case "move" :: pos_old :: pos_new :: Nil => val before_move = controller.field
+                controller.move_c(pos_old, pos_new);
+                val after_move = controller.field
+                if (before_move == after_move)
+                    println("No valid move.")
+                else
+                    controller.solve;
+                None
             case _ => Some(errorMessage)
         }
 
@@ -33,6 +43,8 @@ class tui(controller: Controller) extends Observer{
   |-----------------------------------|
   |   help              (Display help)|
   |   exit             (Close process)|
+  |   undo            (Undo Operation)|
+  |   redo            (Redo Operation)|
   |                                   |
   |   move Pos_now Pos_new (make Move)|
   \-----------------------------------/""" + eol
