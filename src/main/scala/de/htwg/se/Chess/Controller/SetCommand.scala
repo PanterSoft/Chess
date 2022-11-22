@@ -12,4 +12,5 @@ class SetCommand(pos_old:String, pos_new:String, controller: Controller) extends
 
   override def redoMove: Unit =
     controller.field = controller.field.move(pos_old, pos_new)
+
 }

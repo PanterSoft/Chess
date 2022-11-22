@@ -5,6 +5,7 @@ import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.controller.GameStatus
 import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
+import de.htwg.se.Chess.controller.SolveCommand
 
 class tui(controller: Controller) extends Observer{
 
@@ -26,15 +27,16 @@ class tui(controller: Controller) extends Observer{
             case "help" :: Nil => Some(helpString)
             case "undo" :: Nil => controller.undo; None
             case "redo" :: Nil => controller.redo; None
-            //case "solve" :: controller.solve; None
-            case "move" :: pos_old :: pos_new :: Nil => val before_move = controller.field
-                controller.move_c(pos_old, pos_new);
+            case "move" :: pos_old :: pos_new :: Nil => controller.domove
+                val before_move = controller.field
+                controller.move_c(pos_old, pos_new)
                 val after_move = controller.field
                 if (before_move == after_move)
                     println("No valid move.")
                 else
-                    controller.solve;
+                    controller.solve
                 None
+            //case "solve" :: Nil => controller.solve; None
             case _ => Some(errorMessage)
         }
 

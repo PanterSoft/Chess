@@ -19,11 +19,17 @@ case class Controller(var field: Board, var history: History) extends Observable
     field = field.move(pos_now, pos_new)
     if (old_field != field)
       history = history.add_to_history(pos_now, pos_new)
-    //notifyObservers
+    notifyObservers
+
+  def domove: Unit = {
+    undoManager.doMove(new SolveCommand(this))
+  }
 
   def solve: Unit = {
-    //Solve Command zu spät aufgerufen
-    undoManager.doMove(new SolveCommand(this))
+    val success = field.game_finished(field.board)
+    if (success == 1) gameStatus = SOLVED1
+    else if (success == 2) gameStatus= SOLVED2
+      else gameStatus = NOT_SOLVED
     notifyObservers
   }
 
