@@ -20,11 +20,5 @@ object Chess {
       tui_main.process(input)
       input != "exit"
     do()
-
-    // Memento Test
-    //val caretaker: CareTaker = new BoardCareTaker()
-    //val originator: Originator = new BoardOriginator(field)
-    //println(originator)
-
   }
 }
