@@ -11,13 +11,13 @@ import org.scalatest.matchers.should.Matchers._
 class ControllerSpec extends AnyWordSpec:
 
   val controller = Controller(new Board(), new History())
-  val observer = new Observer {
-    var updated: Boolean = false
-
-    def isUpdated: Boolean = updated
-    override def update: Unit = updated = true
-  }
-  controller.add(observer)
+  //val observer = new Observer {
+  //  var updated: Boolean = false
+//
+  //  def isUpdated: Boolean = updated
+  //  override def update: Unit = updated = true
+  //}
+  //controller.add(observer)
 
   val eol = sys.props("line.separator")
 
