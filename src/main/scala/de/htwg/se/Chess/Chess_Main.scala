@@ -13,20 +13,18 @@ object Chess {
   val tui_main = new tui(controller)
 
   def main(args: Array[String]): Unit = {
-    /* TUI
+    /* TUI */
     var input: String = ""
     while
       input = readLine("->")
       tui_main.process(input)
       input != "exit"
     do()
-    */
-
 
     // Memento Test
-    val caretaker: CareTaker = new BoardCareTaker()
-    val originator: Originator = new BoardOriginator(field)
-    println(originator)
+    //val caretaker: CareTaker = new BoardCareTaker()
+    //val originator: Originator = new BoardOriginator(field)
+    //println(originator)
 
   }
 }

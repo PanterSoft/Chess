@@ -1,7 +1,7 @@
 package de.htwg.se.Chess.util
 
 trait Command {
-  def doStep:Unit
-  def undoStep:Unit
-  def redoStep:Unit
+  def doMove:Unit
+  def undoMove:Unit
+  def redoMove:Unit
 }
