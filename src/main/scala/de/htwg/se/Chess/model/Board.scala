@@ -126,6 +126,23 @@ case class Board(val board: VectorMap[String, String]) {
         return y_diff(pos_now, pos_new)
 
 
+    def check_x(pos_now: String, x: String): Boolean =
+        if (pos_now.splitAt(1)(0) == x)
+            true
+        else
+            false
+
+    //def blocked_way(pos_now: String, pos_new: String): Boolean =
+//
+    //    val blocked_map_x: VectorMap[String, String] =
+    //        board.collect(s=>check_x(s._1, pos_now.splitAt(1)(0)))
+//
+    //    if (true)
+    //        true
+    //    else
+    //        false
+
+
 
     def king(pos_now: String, pos_new: String): Boolean =
         if (different_player(pos_now, pos_new) && xy_equal(pos_now, pos_new) == false && x_y_maxlength(pos_now, pos_new) == 1)
