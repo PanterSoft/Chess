@@ -1,15 +1,15 @@
 package de.htwg.se.Chess.controller
 
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.controller._
-import de.htwg.se.Chess.controller.GameStatus._
 import scala.collection.immutable.VectorMap
+import de.htwg.se.Chess.controller._
 import de.htwg.se.Chess.model._
-import javax.swing.undo.UndoManager
+import de.htwg.se.Chess.controller.GameState._
+
 
 case class Controller(var field: Board, var history: History) extends Observable:
 
-  var gameStatus: GameStatus = IDLE
+  var game_state: GameStatus = IDLE
   private val history_manager = new HistoryManager
   val playersystem:PlayerSystem = new PlayerSystem()
 
@@ -28,9 +28,9 @@ case class Controller(var field: Board, var history: History) extends Observable
 
   def check_winner: Unit = {
     val success = field.game_finished(field.board)
-    if (success == 1) gameStatus = PLAYER1
-    else if (success == 2) gameStatus= PLAYER2
-      else gameStatus = NO_WINNER
+    if (success == 1) game_state = PLAYER1
+    else if (success == 2) game_state = PLAYER2
+      else game_state = NO_WINNER
     notifyObservers
   }
 
