@@ -7,9 +7,10 @@ import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.GameState._
 
 
+
 case class Controller(var field: Board, var history: History) extends Observable:
 
-  var game_state: GameStatus = IDLE
+  var game_state: GameState = IDLE
   private val history_manager = new HistoryManager
   val playersystem:PlayerSystem = new PlayerSystem()
 
