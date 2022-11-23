@@ -2,7 +2,7 @@ package de.htwg.se.Chess.aview
 
 import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.controller.SolveCommand
-import de.htwg.se.Chess.controller.GameStatus
+import de.htwg.se.Chess.controller.GameState
 import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 
@@ -63,7 +63,7 @@ class tui(controller: Controller) extends Observer{
 
     override def update: Boolean =
         println(controller.board_to_string_c)
-        println(GameStatus.message(controller.gameStatus))
-        controller.gameStatus=GameStatus.IDLE
+        println(GameState.message(controller.game_state))
+        controller.game_state=GameState.IDLE
         true
 }
