@@ -32,8 +32,7 @@ case class Board(val board: VectorMap[String, String]) {
     def move(pos_now: String, pos_new: String): Board =
         val figure = board.get(pos_now)
 
-        if (match_pattern(figure) != "Invalid" && check_move(board, pos_now, pos_new) && at_turn() == get_player(pos_now))
-            change_player()
+        if (match_pattern(figure) != "Invalid" && check_move(board, pos_now, pos_new))
             Board(Board(board.updated(pos_now, "  ")).board.updated(pos_new, match_pattern(figure)))
         else
             Board(board)
@@ -141,18 +140,6 @@ case class Board(val board: VectorMap[String, String]) {
         else
             false
 
-    //def blocked_way(pos_now: String, pos_new: String): Boolean =
-//
-    //    val blocked_map_x: VectorMap[String, String] =
-    //        board.collect(s=>check_x(s._1, pos_now.splitAt(1)(0)))
-//
-    //    if (true)
-    //        true
-    //    else
-    //        false
-
-
-
     def king(pos_now: String, pos_new: String): Boolean =
         if (different_player(pos_now, pos_new) && xy_equal(pos_now, pos_new) == false && x_y_maxlength(pos_now, pos_new) == 1)
             return true
@@ -184,7 +171,7 @@ case class Board(val board: VectorMap[String, String]) {
 
     def pawn(pos_now: String, pos_new: String): Boolean =
 
-        if ((get_player(pos_now) == "1" || get_player(pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || (y_diff(pos_now, pos_new) == 2 && pos_now.splitAt(1)(1) == "2")) && x_or_y(pos_now, pos_new) && forward_move(pos_now, pos_new)) // Move (1 or 2 Field)
+        if ((get_player(pos_now) == "1" || get_player(pos_now) == "2") && (y_diff(pos_now, pos_new) == 1 || (y_diff(pos_now, pos_new) == 2)) && x_or_y(pos_now, pos_new) && forward_move(pos_now, pos_new)) // Move (1 or 2 Field)
             return true
         else if (x_diff(pos_now, pos_new) == 1 && y_diff(pos_now, pos_new) ==   1 && (different_player(pos_now, pos_new) && get_player(pos_now) == "1" && forward_move(pos_now, pos_new) && empty_field(pos_new) != true || different_player(pos_now, pos_new) && get_player(pos_now) == "2" && forward_move(pos_now, pos_new) && empty_field(pos_new) != true)) // Attack Move
             return true

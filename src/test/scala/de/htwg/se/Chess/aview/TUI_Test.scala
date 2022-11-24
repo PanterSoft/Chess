@@ -52,6 +52,8 @@ class TUISpec extends AnyWordSpec:
   |-----------------------------------|
   |   help              (Display help)|
   |   exit             (Close process)|
+  |   undo            (Undo Operation)|
+  |   redo            (Redo Operation)|
   |                                   |
   |   move Pos_now Pos_new (make Move)|
   \-----------------------------------/""" + eol

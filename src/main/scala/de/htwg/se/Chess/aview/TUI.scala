@@ -26,16 +26,17 @@ class tui(controller: Controller) extends Observer{
             case "help" :: Nil => Some(helpString)
             case "undo" :: Nil => controller.undo; None
             case "redo" :: Nil => controller.redo; None
-            case "move" :: pos_old :: pos_new :: Nil => controller.domove
+            case "move" :: pos_old :: pos_new :: Nil => controller.domove // problem wenn man move A2 A4e eingibt dann stürzt das programm ab
                 val before_move = controller.field
-                controller.move_c(pos_old, pos_new)
+                if (controller.last_turn() == controller.get_player_c(pos_old))
+                    controller.move_c(pos_old, pos_new)
+                    controller.change_player()
                 val after_move = controller.field
                 if (before_move == after_move)
                     println("No valid move.")
                 else
                     controller.check_winner
                 None
-            //case "solve" :: Nil => controller.solve; None
             case _ => Some(errorMessage)
         }
 

@@ -17,8 +17,6 @@ class HistorySpec extends AnyWordSpec:
         history.add_to_history("A2", "A3") should be (History(history_test_map))
     }
 
-    //val history_test_game = test_field + ("A2"->"A3")
-
     "check_turn() should return 1 (Player One first move )" in {
         history.check_turn() should be (1)
     }

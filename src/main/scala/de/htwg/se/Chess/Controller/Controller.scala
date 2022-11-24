@@ -27,6 +27,18 @@ case class Controller(var field: Board, var history: History) extends Observable
     history_manager.doMove(new SolveCommand(this))
   }
 
+  def get_player_c(pos_now: String): String =
+    field.get_player(pos_now)
+
+  def change_player(): Unit =
+    playersystem.changeState()
+
+  def last_turn(): String =
+    if(playersystem.previousState.isInstanceOf[PlayerOne])
+        "2"
+    else
+        "1"
+
   def check_winner: Unit = {
     val success = field.game_finished(field.board)
     if (success == 1) game_state = PLAYER1

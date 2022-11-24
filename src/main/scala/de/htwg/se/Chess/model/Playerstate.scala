@@ -34,14 +34,3 @@ class PlayerTwo(playersystem: PlayerSystem, reciever: Reciever) extends State {
     def displayState() =
         reciever.on()
 }
-
-val playersystem:PlayerSystem = new PlayerSystem()
-
-def change_player(): Unit =
-    playersystem.changeState()
-
-def at_turn(): String =
-    if(playersystem.currentState.isInstanceOf[PlayerOne])
-        "1"
-    else
-        "2"
