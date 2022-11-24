@@ -35,7 +35,6 @@ class tui(controller: Controller) extends Observer{
                 else
                     controller.check_winner
                 None
-            //case "solve" :: Nil => controller.solve; None
             case _ => Some(errorMessage)
         }
 
