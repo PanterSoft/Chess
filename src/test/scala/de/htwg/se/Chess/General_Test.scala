@@ -1,24 +1,24 @@
-package de.htwg.se.Chess.controller
+package de.htwg.se.Chess
 
-import de.htwg.se.Chess.model.Board
-import de.htwg.se.Chess.model.History
-import de.htwg.se.Chess.util.Observer
+import de.htwg.se.Chess.aview.tui
+import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.model._
 
 import scala.language.reflectiveCalls
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import de.htwg.se.Chess.Chess
 
-class ControllerSpec extends AnyWordSpec:
-  // Game Init
-  val field_test = new Board()
-  val history_test = new History()
-  val controller_test = new Controller(field_test, history_test)
-  //val tui_main_test = new tui(controller_test)
 
-  val eol = sys.props("line.separator")
+class GeneralGameSpec extends AnyWordSpec:
+    val field_test = new Board()
+    val history_test = new History()
+    val controller_test = new Controller(field_test, history_test)
+    val tui_main_test = new tui(controller_test)
 
-  val expected_field = "   A    B    C    D    E    F    G    H  " + """
+
+    val eol = sys.props("line.separator")
+
+    val expected_field = "   A    B    C    D    E    F    G    H  " + """
 /----+----+----+----+----+----+----+----\
 | R1 | k1 | B1 | Q1 | K1 | B1 | k1 | R1 | 1
 +----+----+----+----+----+----+----+----+
@@ -37,7 +37,7 @@ class ControllerSpec extends AnyWordSpec:
 | R2 | k2 | B2 | Q2 | K2 | B2 | k2 | R2 | 8
 \----+----+----+----+----+----+----+----/""" + eol
 
-  val expected_field2 = "   A    B    C    D    E    F    G    H  " + """
+    val expected_field2 = "   A    B    C    D    E    F    G    H  " + """
 /----+----+----+----+----+----+----+----\
 | R1 | k1 | B1 | Q1 | K1 | B1 | k1 | R1 | 1
 +----+----+----+----+----+----+----+----+
@@ -56,16 +56,16 @@ class ControllerSpec extends AnyWordSpec:
 | R2 | k2 | B2 | Q2 | K2 | B2 | k2 | R2 | 8
 \----+----+----+----+----+----+----+----/""" + eol
 
-  "notify its Observer after move" in {
-    controller_test.move_c("A2", "A3")
-    controller_test.board_to_string_c should be(expected_field)
-  }
+    "notify its Observer after move" in {
+        controller_test.move_c("A2", "A3")
+        controller_test.board_to_string_c should be(expected_field)
+    }
 
-  "handle undo/redo of a field correctly" in {
-    controller_test.move_c("A2", "A3")
-    controller_test.board_to_string_c should be (expected_field)
-    controller_test.undo
-    controller_test.board_to_string_c should be (expected_field2)
+    "handle undo/redo of a field correctly" in {
+        controller_test.move_c("A2", "A3")
+        controller_test.board_to_string_c should be (expected_field)
+        controller_test.undo
+        controller_test.board_to_string_c should be (expected_field2)
     //controller.check_winner should be(0)
     //controller.redo
     //controller.board_to_string_c should be (expected_field)
@@ -78,4 +78,4 @@ class ControllerSpec extends AnyWordSpec:
     //controller.move_c("E3", "E7")
     //controller.move_c("B2", "B3")
     //controller.move_c("E7", "E8")
-  }
+    }
