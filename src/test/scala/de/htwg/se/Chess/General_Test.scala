@@ -57,32 +57,6 @@ class GeneralGameSpec extends AnyWordSpec:
         History(history_test_map_2).check_turn() should be (1)
     }
 
-    /* Controller Test */
-
-    "notify its Observer after move" in {
-        controller_test.move_c("A2", "A3")
-        controller_test.field should be(expected_field)
-    }
-
-    "handle undo/redo of a field correctly" in {
-        //controller_test.move_c("A2", "A3")
-        //controller_test.field should be (expected_field)
-        //controller_test.undo
-        //controller_test.field should be (init_test_field)
-    //controller.redo
-    //controller.board_to_string_c should be (expected_field)
-    //controller.move_c("D2", "D4") // Player 1
-    //controller.move_c("A3", "A4") // Player 2
-    //controller.move_c("D1", "D3")
-    //controller.move_c("A4", "A5")
-    //controller.move_c("D3", "E3")
-    //controller.move_c("A5", "A6")
-    //controller.move_c("E3", "E7")
-    //controller.move_c("B2", "B3")
-    //controller.move_c("E7", "E8")
-    }
-
-
     /* TUI Tests */
 
      def match_pattern(test: Option[String])=
@@ -110,40 +84,70 @@ class GeneralGameSpec extends AnyWordSpec:
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-    "welcomeMessage() should create a String\n" + expected_welcome_message in {
-        tui_main_test.welcomeMessage shouldBe (expected_welcome_message)
-    }
-
-    "recognize invalid input" in {
-        match_pattern(tui_main_test.commands("hello")) should be
-        ("ERROR! Wrong usage! Try help !")
-    }
-    "recognize the input 'help' as returning a help signal" in {
-        match_pattern(tui_main_test.commands("help")) should be(expected_help_field)
-    }
-    "recognize the input 'exit' as returning a quit signal" in {
-        match_pattern(tui_main_test.commands("exit")) should be("Goodbye :)")
-    }
+    //"recognize invalid input" in {
+    //    match_pattern(tui_main_test.commands("hello")) should be
+    //    ("ERROR! Wrong usage! Try help !")
+    //}
+    //"recognize the input 'help' as returning a help signal" in {
+    //    match_pattern(tui_main_test.commands("help")) should be//(expected_help_field)
+    //}
+    //"recognize the input 'exit' as returning a quit signal" in {
+    //    match_pattern(tui_main_test.commands("exit")) should be("Goodbye :)")
+    //}
 
     /* TUI Game Tests */
 
-    //val test_map_0 = combine_map_test(Board(init_test_field), "B2", "B3")
-//
-    //"Check move via TUI (B2 => B3)" in {
-    //    tui_main_test.process("move B2 B3")
-    //    controller_test.field should be (test_map_0)
-    //}
-//
-    //val test_map_1 = combine_map_test(Board(init_test_field), "D7", "D6")
-//
-    //"Check move via TUI (D7 => D6)" in {
-    //    tui_main_test.process("move D7 D6")
-    //    controller_test.field should be (test_map_1)
-    //}
-//
-    //val test_map_2 = combine_map_test(Board(init_test_field), "B3", "B4")
-//
-    //"Check move via TUI (B3 => B4)" in {
-    //    tui_main_test.process("move B3 B4")
-    //    controller_test.field should be (test_map_2)
-    //}
+    val test_map_0 = combine_map_test(Board(init_test_field), "B2", "B3")
+
+    "Check move via TUI (B2 => B3)" in {
+        tui_main_test.process("move B2 B3")
+        controller_test.field should be (test_map_0)
+    }
+
+    val test_map_1 = combine_map_test(test_map_0, "D7", "D6")
+
+    "Check move via TUI (D7 => D6)" in {
+        tui_main_test.process("move D7 D6")
+        controller_test.field should be (test_map_1)
+    }
+
+    val test_map_2 = combine_map_test(test_map_1, "B3", "B4")
+
+    "Check move via TUI (B3 => B4)" in {
+        tui_main_test.process("move B3 B4")
+        controller_test.field should be (test_map_2)
+    }
+
+    val test_map_3 = combine_map_test(test_map_2, "C7", "C5")
+
+    "Check move via TUI (C7 => C5)" in {
+        tui_main_test.process("move C7 C5")
+        controller_test.field should be (test_map_3)
+    }
+
+    val test_map_4 = combine_map_test(test_map_3, "B4", "C5")
+
+    "Check move via TUI (B4 => C5)" in {
+        tui_main_test.process("move B4 C5")
+        controller_test.field should be (test_map_4)
+    }
+
+    val test_map_5 = combine_map_test(test_map_4, "D6", "C5")
+
+    "Check move via TUI (D6 => C5)" in {
+        tui_main_test.process("move D6 C5")
+        controller_test.field should be (test_map_5)
+    }
+
+    val test_map_6 = combine_map_test(test_map_5, "H2", "H4")
+
+    "Check move via TUI (H2 => H4)" in {
+        tui_main_test.process("move H2 H4")
+        controller_test.field should be (test_map_6)
+    }
+
+
+
+
+
+    /* PlayerState Tests */

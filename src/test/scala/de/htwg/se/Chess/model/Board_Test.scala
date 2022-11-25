@@ -143,7 +143,6 @@ class BoardSpec extends AnyWordSpec:
     test_map_8.move("A7", "A6") shouldBe (test_map_9)
   }
 
-  println(test_map_9.board_to_string())
   val test_map_10 = combine_map_test(test_map_9, "B7", "B5")
 
   "move(map, B7, B5) (P2 two forward)" in {
