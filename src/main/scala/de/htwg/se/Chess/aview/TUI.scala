@@ -59,8 +59,7 @@ class tui(controller: Controller) extends Observer{
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-    def errorMessage: String =
-        "ERROR! Wrong usage! Try help !"
+    def errorMessage: String = "ERROR! Wrong usage! Try help !"
 
     override def update: Boolean =
         println(controller.board_to_string_c)

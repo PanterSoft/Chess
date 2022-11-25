@@ -1,15 +1,15 @@
 package de.htwg.se.Chess.model
 
-trait Reciever {
+trait Receiver {
 def on(): String
 }
 
-class PlayerOneReciever extends Reciever {
+class PlayerOneReceiver extends Receiver {
     def on(): String =
         return "1"
 }
 
-class PlayerTwoReciever extends Reciever {
+class PlayerTwoReceiver extends Receiver {
     def on(): String =
         return "2"
 }
