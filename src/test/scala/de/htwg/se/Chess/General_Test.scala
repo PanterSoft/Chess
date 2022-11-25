@@ -88,9 +88,9 @@ class GeneralGameSpec extends AnyWordSpec:
     //    match_pattern(tui_main_test.commands("hello")) should be
     //    ("ERROR! Wrong usage! Try help !")
     //}
-    "recognize the input 'help' as returning a help signal" in {
-        tui_main_test.process("help") should be(expected_help_field)
-    }
+    //"recognize the input 'help' as returning a help signal" in {
+    //    tui_main_test.commands("help") should be(expected_help_field)
+    //}
     //"recognize the input 'exit' as returning a quit signal" in {
     //    match_pattern(tui_main_test.commands("exit")) should be("Goodbye :)")
     //}
@@ -146,14 +146,68 @@ class GeneralGameSpec extends AnyWordSpec:
         controller_test.field should be (test_map_6)
     }
 
+
+    val test_map_7 = combine_map_test(test_map_6, "G7", "G6")
+
+    "Check move via TUI (G7 => G6)" in {
+        tui_main_test.process("move G7 G6")
+        controller_test.field should be (test_map_7)
+    }
+
+    val test_map_8 = combine_map_test(test_map_7, "E2", "E4")
+
+    "Check move via TUI (E2 => E4)" in {
+        tui_main_test.process("move E2 E4")
+        controller_test.field should be (test_map_8)
+    }
+
+
+
+    val test_map_9 = combine_map_test(test_map_8, "D8", "D3")
+
+    "Check move via TUI (D8 => D3)" in {
+        tui_main_test.process("move D8 D3")
+        controller_test.field should be (test_map_9)
+    }
+
+    val test_map_10 = combine_map_test(test_map_9, "H4", "H5")
+
+    "Check move via TUI (H4 => H5)" in {
+        tui_main_test.process("move H4 H5")
+        controller_test.field should be (test_map_10)
+    }
+
+    val test_map_11 = combine_map_test(test_map_10, "D3", "E3")
+
+    "Check move via TUI (D3 => E3)" in {
+        tui_main_test.process("move D3 E3")
+        controller_test.field should be (test_map_11)
+    }
+
+    val test_map_12 = combine_map_test(test_map_11, "E1", "E2")
+
+    "Check move via TUI (E1 => E2)" in {
+        tui_main_test.process("move E1 E2")
+        controller_test.field should be (test_map_12)
+    }
+
+    val test_map_13 = combine_map_test(test_map_12, "E3", "E2")
+
+    "Check move via TUI (E3 => E2)" in {
+        tui_main_test.process("move E3 E2")
+        controller_test.field should be (test_map_13)
+    }
+
+    println(test_map_13.board_to_string())
+
     // Undo/Redo Tests
 
     "undo last move" in {
         controller_test.undo
-        controller_test.field should be (test_map_5)
+        controller_test.field should be (test_map_12)
     }
 
     "redo undo move" in {
         controller_test.redo
-        controller_test.field should be (test_map_6)
+        controller_test.field should be (test_map_13)
     }
