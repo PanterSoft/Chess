@@ -17,7 +17,7 @@
 //class TUISpec extends AnyWordSpec:
 //    val eol = sys.props("line.separator")
 //
-//    val field = new Board()
+//    val field = Board()
 //    val history = new History()
 //    val controller = new Controller(field, history)
 //    val tui_test = tui(controller)

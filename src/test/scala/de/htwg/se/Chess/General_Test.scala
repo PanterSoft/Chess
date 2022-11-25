@@ -13,7 +13,7 @@ import org.scalatest.matchers.should.Matchers._
 
 class GeneralGameSpec extends AnyWordSpec:
     // Test Init
-    val field_test = new Board()
+    val field_test = Board()
     val history_test = new History()
     val controller_test = new Controller(field_test, history_test)
     val tui_main_test = new tui(controller_test)
@@ -88,9 +88,9 @@ class GeneralGameSpec extends AnyWordSpec:
     //    match_pattern(tui_main_test.commands("hello")) should be
     //    ("ERROR! Wrong usage! Try help !")
     //}
-    //"recognize the input 'help' as returning a help signal" in {
-    //    match_pattern(tui_main_test.commands("help")) should be//(expected_help_field)
-    //}
+    "recognize the input 'help' as returning a help signal" in {
+        tui_main_test.process("help") should be(expected_help_field)
+    }
     //"recognize the input 'exit' as returning a quit signal" in {
     //    match_pattern(tui_main_test.commands("exit")) should be("Goodbye :)")
     //}
@@ -146,8 +146,14 @@ class GeneralGameSpec extends AnyWordSpec:
         controller_test.field should be (test_map_6)
     }
 
+    // Undo/Redo Tests
 
+    "undo last move" in {
+        controller_test.undo
+        controller_test.field should be (test_map_5)
+    }
 
-
-
-    /* PlayerState Tests */
+    "redo undo move" in {
+        controller_test.redo
+        controller_test.field should be (test_map_6)
+    }

@@ -11,7 +11,7 @@
 
 //class ControllerSpec extends AnyWordSpec:
 //  // Game Init
-//  val field_test = new Board()
+//  val field_test = Board()
 //  val history_test = new History()
 //  val controller_test = new Controller(field_test, history_test)
 //  //val tui_main_test = new tui(controller_test)//

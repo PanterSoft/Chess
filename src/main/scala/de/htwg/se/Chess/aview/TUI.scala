@@ -37,7 +37,7 @@ class tui(controller: Controller) extends Observer{
                 //Some("Goodbye :)")
             case "help" :: Nil => agent.handleEvent(events(1)); None
                 //Some(helpString)
-            case "undo" :: Nil => agent.handleEvent(events(2)); None
+            case "undo" :: Nil => agent.handleEvent(events(2))
                 controller.undo; None
             case "redo" :: Nil => agent.handleEvent(events(3))
                 controller.redo; None
@@ -92,21 +92,21 @@ case class Event(level: Int, title: String)
 //Base handler class
 abstract class Handler {
   val successor: Option[Handler]
-  def handleEvent(event: Event): Unit
+  def handleEvent(event: Event): String
 }
 
 //Customer service agent
 class Agent(val successor: Option[Handler]) extends Handler {
-  override def handleEvent(event: Event): Unit = {
+  override def handleEvent(event: Event): String = {
     event match {
-      case e if e.level < 2 => println("Goodbye :)")
+      case e if e.level < 2 => "Goodbye :)"
         //println("CS Agent Handled event 1: " + e.title)
-      case e if e.level < 3 => println(helpString)
+      case e if e.level < 3 => helpString
         //println("CS Agent Handled event 2: " + e.title)
       case e if e.level > 1 => {
         successor match {
           case Some(h: Handler) => h.handleEvent(e)
-          case None => println(errorMessage)
+          case None => errorMessage
         }
       }
     }
@@ -116,16 +116,16 @@ class Agent(val successor: Option[Handler]) extends Handler {
 class Supervisor(val successor: Option[Handler]) extends Handler {
     //val tui = new tui(controller: Controller)
     //controller.add(this)
-    override def handleEvent(event: Event): Unit = {
+    override def handleEvent(event: Event): String = {
         event match {
-            case e if e.level < 3 =>
+            case e if e.level < 3 => ""
             //println("Supervisor handled event 1: " + e.title)
             case e if e.level < 4 =>
-                println("Supervisor handled event 2: " + e.title)
+                "Supervisor handled event 2: " + e.title
             case e if e.level > 2 => {
                 successor match {
                 case Some(h: Handler) => h.handleEvent(e)
-                case None => println(errorMessage)
+                case None => errorMessage
                 }
             }
         }
@@ -133,13 +133,13 @@ class Supervisor(val successor: Option[Handler]) extends Handler {
 }
 
 class Boss(val successor: Option[Handler]) extends Handler {
-  override def handleEvent(event: Event): Unit = {
+  override def handleEvent(event: Event): String = {
     event match {
       case e if e.level < 5 =>
-        println("Boss handled event: " + e.title)
+        "Boss handled event: " + e.title
       case e if e.level > 3 => successor match {
         case Some(h: Handler) => h.handleEvent(e)
-        case None => println(errorMessage)
+        case None => errorMessage
       }
     }
   }
