@@ -203,11 +203,18 @@ class GeneralGameSpec extends AnyWordSpec:
     // Undo/Redo Tests
 
     "undo last move" in {
-        controller_test.undo
+        tui_main_test.commands("undo")
         controller_test.field should be (test_map_12)
     }
 
     "redo undo move" in {
-        controller_test.redo
+        tui_main_test.commands("redo")
+        controller_test.field should be (test_map_13)
+    }
+
+    // Invalid Moves
+
+    "Check move via TUI (A2 => A5) (Invalid)" in {
+        tui_main_test.process("move A2 A5")
         controller_test.field should be (test_map_13)
     }
