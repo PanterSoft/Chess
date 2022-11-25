@@ -8,8 +8,7 @@ import scala.io.StdIn.readLine
 
 object Chess {
   val field = Board()
-  val history = new History()
-  val controller = new Controller(field, history)
+  val controller = new Controller(field)
   val tui_main = new tui(controller)
 
   def main(args: Array[String]): Unit = {

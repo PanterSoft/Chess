@@ -31,22 +31,20 @@ class tui(controller: Controller) extends Observer{
           Event(5, "sth else"),
           Event(4, "move")
         )
-        //events foreach {(e : Event) => agent.handleEvent(e)}
+
         in.split(" ").toList match {
             case "exit" :: Nil => Some(agent.handleEvent(events(0)))
-                //Some("Goodbye :)")
             case "help" :: Nil => Some(agent.handleEvent(events(1)))
-                //Some(helpString)
             case "undo" :: Nil => agent.handleEvent(events(2))
                 controller.undo; None
             case "redo" :: Nil => agent.handleEvent(events(3))
                 controller.redo; None
             case "move" :: pos_old :: pos_new :: Nil => agent.handleEvent(events(5))
-                controller.domove // problem wenn man move A2 A4e eingibt dann stürzt das programm ab
                 val before_move = controller.field
                 if (controller.last_turn() == controller.get_player_c(pos_old))
+                    controller.domove
                     controller.move_c(pos_old, pos_new)
-                    controller.change_player()
+
                 val after_move = controller.field
                 if (before_move == after_move)
                     println("No valid move.")
@@ -54,7 +52,6 @@ class tui(controller: Controller) extends Observer{
                     controller.check_winner
                 None
             case _ => Some(agent.handleEvent(events(4)))
-                //Some(errorMessage)
         }
 
     override def update: Boolean =
@@ -100,9 +97,7 @@ class Agent(val successor: Option[Handler]) extends Handler {
   override def handleEvent(event: Event): String = {
     event match {
       case e if e.level < 2 => "Goodbye :)"
-        //println("CS Agent Handled event 1: " + e.title)
       case e if e.level < 3 => helpString
-        //println("CS Agent Handled event 2: " + e.title)
       case e if e.level > 1 => {
         successor match {
           case Some(h: Handler) => h.handleEvent(e)
@@ -114,12 +109,9 @@ class Agent(val successor: Option[Handler]) extends Handler {
 }
 
 class Supervisor(val successor: Option[Handler]) extends Handler {
-    //val tui = new tui(controller: Controller)
-    //controller.add(this)
     override def handleEvent(event: Event): String = {
         event match {
             case e if e.level < 3 => ""
-            //println("Supervisor handled event 1: " + e.title)
             case e if e.level < 4 =>
                 "Supervisor handled event 2: " + e.title
             case e if e.level > 2 => {
@@ -135,8 +127,7 @@ class Supervisor(val successor: Option[Handler]) extends Handler {
 class Boss(val successor: Option[Handler]) extends Handler {
   override def handleEvent(event: Event): String = {
     event match {
-      case e if e.level < 5 =>
-        "Boss handled event: " + e.title
+      case e if e.level < 5 => ""
       case e if e.level > 3 => successor match {
         case Some(h: Handler) => h.handleEvent(e)
         case None => errorMessage

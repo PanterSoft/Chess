@@ -8,7 +8,7 @@ import de.htwg.se.Chess.controller.GameState._
 
 
 
-case class Controller(var field: Board, var history: History) extends Observable:
+case class Controller(var field: Board) extends Observable:
 
   var game_state: GameState = IDLE
   private val history_manager = new HistoryManager
@@ -17,11 +17,9 @@ case class Controller(var field: Board, var history: History) extends Observable
   def board_to_string_c : String = field.board_to_string()
 
   def move_c(pos_now : String, pos_new : String) : Unit =
-    //val old_field = field
     field = field.move(pos_now, pos_new)
-    //if (old_field != field)
-    //  history = history.add_to_history(pos_now, pos_new)
-    //notifyObservers
+    change_player()
+    notifyObservers
 
   def domove: Unit = {
     history_manager.doMove(new SolveCommand(this))
@@ -49,12 +47,12 @@ case class Controller(var field: Board, var history: History) extends Observable
 
   def undo: Unit = {
     history_manager.undoMove
-    playersystem.changeState()
     notifyObservers
+    change_player()
   }
 
   def redo: Unit = {
     history_manager.redoMove
-    playersystem.changeState()
     notifyObservers
+    change_player()
   }

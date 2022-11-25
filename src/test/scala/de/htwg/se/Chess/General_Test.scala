@@ -14,8 +14,7 @@ import org.scalatest.matchers.should.Matchers._
 class GeneralGameSpec extends AnyWordSpec:
     // Test Init
     val field_test = Board()
-    val history_test = new History()
-    val controller_test = new Controller(field_test, history_test)
+    val controller_test = new Controller(field_test)
     val tui_main_test = new tui(controller_test)
 
     val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1","A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"K2", "F8"->"B2", "G8"->"k2", "H8"->"R2")
@@ -33,29 +32,6 @@ class GeneralGameSpec extends AnyWordSpec:
     val eol = sys.props("line.separator")
 
     val expected_field = combine_map_test(Board(init_test_field), "A2", "A3")
-
-    /* History Tests */
-
-    val empty_history_map = VectorMap[String, String]()
-    val history_test_map = VectorMap("A2"->"A3")
-
-    "add_to_history(history_map, pos_now, pos_new) should return an updated //Game History" in {
-        history_test.add_to_history("A2", "A3") should be (History(history_test_map))
-    }
-
-    "check_turn() should return 1 (Player One first move )" in {
-        history_test.check_turn() should be (1)
-    }
-
-    "check_turn() should return 2 (Player Two)" in {
-        History(history_test_map).check_turn() should be (2)
-    }
-
-    val history_test_map_2 = history_test_map + ("A3"->"A4")
-
-    "check_turn() should return 1 (Player One second move)" in {
-        History(history_test_map_2).check_turn() should be (1)
-    }
 
     /* TUI Tests */
 
@@ -193,12 +169,10 @@ class GeneralGameSpec extends AnyWordSpec:
 
     val test_map_13 = combine_map_test(test_map_12, "E3", "E2")
 
-    "Check move via TUI (E3 => E2)" in {
+    "Check move via TUI (E3 => E2) (Player 2 Wins)" in {
         tui_main_test.process("move E3 E2")
         controller_test.field should be (test_map_13)
     }
-
-    println(test_map_13.board_to_string())
 
     // Undo/Redo Tests
 
@@ -212,9 +186,45 @@ class GeneralGameSpec extends AnyWordSpec:
         controller_test.field should be (test_map_13)
     }
 
+    val test_map_14 = combine_map_test(test_map_13, "E2", "E1")
+
+    "Check move via TUI (E2 => E1)" in {
+        tui_main_test.commands("undo")
+        tui_main_test.process("move E2 E1")
+        controller_test.field should be (test_map_14)
+    }
+
+    val test_map_15 = combine_map_test(test_map_14, "E7", "E6")
+
+    "Check move via TUI (E7 => E6)" in {
+        tui_main_test.process("move E7 E6")
+        controller_test.field should be (test_map_15)
+    }
+
+    val test_map_16 = combine_map_test(test_map_15, "F1", "B5")
+
+    "Check move via TUI (F1 => B5)" in {
+        tui_main_test.process("move F1 B5")
+        controller_test.field should be (test_map_16)
+    }
+
+    val test_map_17 = combine_map_test(test_map_16, "A7", "A6")
+
+    "Check move via TUI (A7 => A6)" in {
+        tui_main_test.process("move A7 A6")
+        controller_test.field should be (test_map_17)
+    }
+
+    val test_map_18 = combine_map_test(test_map_17, "B5", "E8")
+
+    "Check move via TUI (B5 => E8) (Player 1 Wins)" in {
+        tui_main_test.process("move B5 E8")
+        controller_test.field should be (test_map_18)
+    }
+
     // Invalid Moves
 
     "Check move via TUI (A2 => A5) (Invalid)" in {
-        tui_main_test.process("move A2 A5")
-        controller_test.field should be (test_map_13)
+      tui_main_test.process("move A2 A5")
+      controller_test.field should be (test_map_18)
     }
