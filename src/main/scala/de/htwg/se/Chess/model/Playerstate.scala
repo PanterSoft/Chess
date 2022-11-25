@@ -1,11 +1,11 @@
 package de.htwg.se.Chess.model
 
 class PlayerSystem {
-    var intialReciever:Reciever=new PlayerOneReciever()
-    var player_one:State=new PlayerOne(this,intialReciever)
-    var player_two:State=new PlayerTwo(this,new PlayerTwoReciever)
-    var currentState:State=new PlayerOne(this,intialReciever)
-    var previousState:State=new PlayerTwo(this,intialReciever)
+    var intialReceiver:Receiver=new PlayerOneReceiver()
+    var player_one:State=new PlayerOne(this,intialReceiver)
+    var player_two:State=new PlayerTwo(this,new PlayerTwoReceiver)
+    var currentState:State=new PlayerOne(this,intialReceiver)
+    var previousState:State=new PlayerTwo(this,intialReceiver)
 
     def changeState(): Unit = currentState.changeState()
 
@@ -17,20 +17,20 @@ trait State {
   def displayState(): String
 }
 
-class PlayerOne(playersystem: PlayerSystem, reciever: Reciever) extends State {
+class PlayerOne(playersystem: PlayerSystem, receiver: Receiver) extends State {
     def changeState() =
-        //reciever.off()
+        //receiver.off()
         playersystem.previousState=this;
         playersystem.currentState=playersystem.player_two
     def displayState() =
-        reciever.on()
+        receiver.on()
 }
 
-class PlayerTwo(playersystem: PlayerSystem, reciever: Reciever) extends State {
+class PlayerTwo(playersystem: PlayerSystem, receiver: Receiver) extends State {
     def changeState() =
-        //reciever.off()
+        //receiver.off()
         playersystem.previousState = this;
         playersystem.currentState = playersystem.player_one
     def displayState() =
-        reciever.on()
+        receiver.on()
 }
