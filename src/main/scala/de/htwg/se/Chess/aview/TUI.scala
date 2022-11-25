@@ -66,7 +66,7 @@ class tui(controller: Controller) extends Observer{
 
 val eol = sys.props("line.separator")
 
-def helpString: String = """  /-----------------------------------\
+val helpString: String = """  /-----------------------------------\
   |            HELP TABLE             |
   |-----------------------------------|
   |   help              (Display help)|
@@ -77,7 +77,7 @@ def helpString: String = """  /-----------------------------------\
   |   move Pos_now Pos_new (make Move)|
   \-----------------------------------/""" + eol
 
-def welcomeMessage: String = """  /-----------------------------------\
+val welcomeMessage: String = """  /-----------------------------------\
   |       Schach - Chess - Game       |
   |-----------------------------------|
   |      Textbased User Interface     |
@@ -85,7 +85,7 @@ def welcomeMessage: String = """  /-----------------------------------\
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-def errorMessage: String =
+val errorMessage: String =
     "ERROR! Wrong usage! Try help !"
 
 case class Event(level: Int, title: String)
