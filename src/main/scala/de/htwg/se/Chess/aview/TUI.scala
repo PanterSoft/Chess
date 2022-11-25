@@ -7,8 +7,9 @@ import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 
 class tui(controller: Controller) extends Observer{
-
-    val eol = sys.props("line.separator")
+    val boss = new Boss(None)
+    val supervisor = new Supervisor(Some(boss))
+    val agent = new Agent(Some(supervisor))
 
     controller.add(this)
     println(welcomeMessage)
@@ -21,12 +22,27 @@ class tui(controller: Controller) extends Observer{
         }
 
     def commands(in: String) : Option[String] =
+        //println("Passing events")
+        val events = Array(
+          Event(1, "exit"),
+          Event(2, "help"),
+          Event(3, "undo"),
+          Event(3, "redo"),
+          Event(5, "sth else"),
+          Event(4, "move")
+        )
+        //events foreach {(e : Event) => agent.handleEvent(e)}
         in.split(" ").toList match {
-            case "exit" :: Nil => Some("Goodbye :)")
-            case "help" :: Nil => Some(helpString)
-            case "undo" :: Nil => controller.undo; None
-            case "redo" :: Nil => controller.redo; None
-            case "move" :: pos_old :: pos_new :: Nil => controller.domove // problem wenn man move A2 A4e eingibt dann stürzt das programm ab
+            case "exit" :: Nil => agent.handleEvent(events(0)); None
+                //Some("Goodbye :)")
+            case "help" :: Nil => agent.handleEvent(events(1)); None
+                //Some(helpString)
+            case "undo" :: Nil => agent.handleEvent(events(2)); None
+                controller.undo; None
+            case "redo" :: Nil => agent.handleEvent(events(3))
+                controller.redo; None
+            case "move" :: pos_old :: pos_new :: Nil => agent.handleEvent(events(5))
+                controller.domove // problem wenn man move A2 A4e eingibt dann stürzt das programm ab
                 val before_move = controller.field
                 if (controller.last_turn() == controller.get_player_c(pos_old))
                     controller.move_c(pos_old, pos_new)
@@ -37,10 +53,20 @@ class tui(controller: Controller) extends Observer{
                 else
                     controller.check_winner
                 None
-            case _ => Some(errorMessage)
+            case _ => agent.handleEvent(events(4)); None
+                //Some(errorMessage)
         }
 
-    def helpString: String = """  /-----------------------------------\
+    override def update: Boolean =
+        println(controller.board_to_string_c)
+        println(GameState.message(controller.game_state))
+        controller.game_state=GameState.IDLE
+        true
+}
+
+val eol = sys.props("line.separator")
+
+def helpString: String = """  /-----------------------------------\
   |            HELP TABLE             |
   |-----------------------------------|
   |   help              (Display help)|
@@ -51,7 +77,7 @@ class tui(controller: Controller) extends Observer{
   |   move Pos_now Pos_new (make Move)|
   \-----------------------------------/""" + eol
 
-    def welcomeMessage: String = """  /-----------------------------------\
+def welcomeMessage: String = """  /-----------------------------------\
   |       Schach - Chess - Game       |
   |-----------------------------------|
   |      Textbased User Interface     |
@@ -59,12 +85,63 @@ class tui(controller: Controller) extends Observer{
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-    def errorMessage: String =
-        "ERROR! Wrong usage! Try help !"
+def errorMessage: String =
+    "ERROR! Wrong usage! Try help !"
 
-    override def update: Boolean =
-        println(controller.board_to_string_c)
-        println(GameState.message(controller.game_state))
-        controller.game_state=GameState.IDLE
-        true
+case class Event(level: Int, title: String)
+
+//Base handler class
+abstract class Handler {
+  val successor: Option[Handler]
+  def handleEvent(event: Event): Unit
+}
+
+//Customer service agent
+class Agent(val successor: Option[Handler]) extends Handler {
+  override def handleEvent(event: Event): Unit = {
+    event match {
+      case e if e.level < 2 => println("Goodbye :)")
+        //println("CS Agent Handled event 1: " + e.title)
+      case e if e.level < 3 => println(helpString)
+        //println("CS Agent Handled event 2: " + e.title)
+      case e if e.level > 1 => {
+        successor match {
+          case Some(h: Handler) => h.handleEvent(e)
+          case None => println(errorMessage)
+        }
+      }
+    }
+  }
+}
+
+class Supervisor(val successor: Option[Handler]) extends Handler {
+    //val tui = new tui(controller: Controller)
+    //controller.add(this)
+    override def handleEvent(event: Event): Unit = {
+        event match {
+            case e if e.level < 3 =>
+            //println("Supervisor handled event 1: " + e.title)
+            case e if e.level < 4 =>
+                println("Supervisor handled event 2: " + e.title)
+            case e if e.level > 2 => {
+                successor match {
+                case Some(h: Handler) => h.handleEvent(e)
+                case None => println(errorMessage)
+                }
+            }
+        }
+    }
+}
+
+class Boss(val successor: Option[Handler]) extends Handler {
+  override def handleEvent(event: Event): Unit = {
+    event match {
+      case e if e.level < 5 =>
+        println("Boss handled event: " + e.title)
+      case e if e.level > 3 => successor match {
+        case Some(h: Handler) => h.handleEvent(e)
+        case None => println(errorMessage)
+      }
+    }
+  }
 }
