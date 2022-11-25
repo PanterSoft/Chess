@@ -33,9 +33,9 @@ class tui(controller: Controller) extends Observer{
         )
         //events foreach {(e : Event) => agent.handleEvent(e)}
         in.split(" ").toList match {
-            case "exit" :: Nil => println(agent.handleEvent(events(0))); None
+            case "exit" :: Nil => Some(agent.handleEvent(events(0)))
                 //Some("Goodbye :)")
-            case "help" :: Nil => println(agent.handleEvent(events(1))); None
+            case "help" :: Nil => Some(agent.handleEvent(events(1)))
                 //Some(helpString)
             case "undo" :: Nil => agent.handleEvent(events(2))
                 controller.undo; None
@@ -53,7 +53,7 @@ class tui(controller: Controller) extends Observer{
                 else
                     controller.check_winner
                 None
-            case _ => println(agent.handleEvent(events(4))); None
+            case _ => Some(agent.handleEvent(events(4)))
                 //Some(errorMessage)
         }
 
