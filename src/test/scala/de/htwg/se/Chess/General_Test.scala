@@ -84,16 +84,16 @@ class GeneralGameSpec extends AnyWordSpec:
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-    //"recognize invalid input" in {
-    //    match_pattern(tui_main_test.commands("hello")) should be
-    //    ("ERROR! Wrong usage! Try help !")
-    //}
-    //"recognize the input 'help' as returning a help signal" in {
-    //    tui_main_test.commands("help") should be(expected_help_field)
-    //}
-    //"recognize the input 'exit' as returning a quit signal" in {
-    //    match_pattern(tui_main_test.commands("exit")) should be("Goodbye :)")
-    //}
+    "recognize invalid input" in {
+        tui_main_test.commands("hello") should be
+        (Some("ERROR! Wrong usage! Try help !"))
+    }
+    "recognize the input 'help' as returning a help signal" in {
+        tui_main_test.commands("help") should be(Some(expected_help_field))
+    }
+    "recognize the input 'exit' as returning a quit signal" in {
+        tui_main_test.commands("exit") should be(Some("Goodbye :)"))
+    }
 
     /* TUI Game Tests */
 
