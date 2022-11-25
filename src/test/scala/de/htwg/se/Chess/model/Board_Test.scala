@@ -8,13 +8,12 @@ import scala.collection.immutable.VectorMap
 
 
 class BoardSpec extends AnyWordSpec:
-
-  val Test = new Board
+  val Test = Board()
   val eol = sys.props("line.separator")
 
-  val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"k2", "F8"->"B2", "G8"->"k2", "H8"->"R2", "A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2")
+  val test_map = VectorMap("A1"->"R1", "B1"-> "k1", "C1"->"B1", "D1"->"Q1", "E1"->"K1", "F1"->"B1", "G1"->"k1", "H1"->"R1", "A2"->"P1", "B2"->"P1", "C2"->"P1", "D2"->"P1", "E2"->"P1", "F2"->"P1", "G2"->"P1", "H2"->"P1","A7"->"P2", "B7"->"P2", "C7"->"P2", "D7"->"P2", "E7"->"P2", "F7"->"P2", "G7"->"P2", "H7"->"P2", "A8"->"R2", "B8"->"k2", "C8"->"B2", "D8"->"Q2", "E8"->"K2", "F8"->"B2", "G8"->"k2", "H8"->"R2")
 
-    val empty_map = VectorMap("A1"->"  ", "B1"-> "  ", "C1"->"  ", "D1"->"  ", "E1"->"  ", "F1"->"  ", "G1"->"  ", "H1"->"  ", "A2"->"  ", "B2"->"  ", "C2"->"  ", "D2"->"  ", "E2"->"  ", "F2"->"  ", "G2"->"  ", "H2"->"  ", "A3"->"  ", "B3"-> "  ", "C3"->"  ", "D3"->"  ", "E3"->"  ", "F3"->"  ", "G3"->"  ", "H3"->"  ", "A4"->"  ", "B4"->"  ", "C4"->"  ", "D4"->"  ", "E4"->"  ", "F4"->"  ", "G4"->"  ", "H4"->"  ", "A5"->"  ", "B5"-> "  ", "C5"->"  ", "D5"->"  ", "E5"->"  ", "F5"->"  ", "G5"->"  ", "H5"->"  ", "A6"->"  ", "B6"->"  ", "C6"->"  ", "D6"->"  ", "E6"->"  ", "F6"->"  ", "G6"->"  ", "H6"->"  ", "A7"->"  ", "B7"-> "  ", "C7"->"  ", "D7"->"  ", "E7"->"  ", "F7"->"  ", "G7"->"  ", "H7"->"  ", "A8"->"  ", "B8"->"  ", "C8"->"  ", "D8"->"  ", "E8"->"  ", "F8"->"  ", "G8"->"  ", "H8"->"  ")
+    val empty_map = VectorMap("A1"->"  ", "B1"->"  ", "C1"->"  ", "D1"->"  ", "E1"->"  ", "F1"->"  ", "G1"->"  ", "H1"->"  ", "A2"->"  ", "B2"->"  ", "C2"->"  ", "D2"->"  ", "E2"->"  ", "F2"->"  ", "G2"->"  ", "H2"->"  ","A3"->"  ", "B3"->"  ", "C3"->"  ", "D3"->"  ", "E3"->"  ", "F3"->"  ", "G3"->"  ", "H3"->"  ", "A4"->"  ", "B4"->"  ", "C4"->"  ", "D4"->"  ", "E4"->"  ", "F4"->"  ", "G4"->"  ", "H4"->"  ", "A5"->"  ", "B5"->"  ", "C5"->"  ", "D5"->"  ", "E5"->"  ", "F5"->"  ", "G5"->"  ", "H5"->"  ", "A6"->"  ", "B6"->"  ", "C6"->"  ", "D6"->"  ", "E6"->"  ", "F6"->"  ", "G6"->"  ", "H6"->"  ", "A7"->"  ", "B7"->"  ", "C7"->"  ", "D7"->"  ", "E7"->"  ", "F7"->"  ", "G7"->"  ", "H7"->"  ", "A8"->"  ", "B8"->"  ", "C8"->"  ", "D8"->"  ", "E8"->"  ", "F8"->"  ", "G8"->"  ", "H8"->"  ")
 
   val test_field = empty_map.++(test_map)
 
@@ -34,7 +33,7 @@ class BoardSpec extends AnyWordSpec:
 +----+----+----+----+----+----+----+----+
 | P2 | P2 | P2 | P2 | P2 | P2 | P2 | P2 | 7
 +----+----+----+----+----+----+----+----+
-| R2 | k2 | B2 | Q2 | k2 | B2 | k2 | R2 | 8
+| R2 | k2 | B2 | Q2 | K2 | B2 | k2 | R2 | 8
 \----+----+----+----+----+----+----+----/""" + eol
 
   /**
@@ -217,22 +216,3 @@ class BoardSpec extends AnyWordSpec:
   "match_pattern(null) should be 0" in {
     Test.match_pattern(option_I) should be (0)
   }
-
-  val game_end_map_0 = VectorMap("E1"->"K1", "E8"->"K2")
-
-  "game_end(map) (K1 and K2 in Game)" in {
-    Test.game_winner(game_end_map_0) should be (0)
-  }
-
-  val game_end_map_1 = VectorMap("E1"->"K1")
-
-  "game_end(map) (K1 not in Game)" in {
-    Test.game_winner(game_end_map_1) should be (1)
-  }
-
-  val game_end_map_2 = VectorMap("E8"->"K2")
-
-  "game_end(map) (K2 not in Game)" in {
-    Test.game_winner(game_end_map_2) should be (2)
-  }
-
