@@ -49,10 +49,12 @@ case class Controller(var field: Board, var history: History) extends Observable
 
   def undo: Unit = {
     history_manager.undoMove
+    playersystem.changeState()
     notifyObservers
   }
 
   def redo: Unit = {
     history_manager.redoMove
+    playersystem.changeState()
     notifyObservers
   }
