@@ -34,7 +34,7 @@ class tui(controller: Controller) extends Observer{
         in.split(" ").toList match {
             case "exit" :: Nil => Some(agent.handleEvent(events(0)))
             case "help" :: Nil => Some(agent.handleEvent(events(1)))
-            case "undo" Nil => agent.handleEvent(events(2))
+            case "undo" :: Nil => agent.handleEvent(events(2))
                 controller.undo(); None
             case "redo" :: Nil => agent.handleEvent(events(3))
                 controller.redo(); None
