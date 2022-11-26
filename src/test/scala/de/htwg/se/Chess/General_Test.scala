@@ -137,8 +137,6 @@ class GeneralGameSpec extends AnyWordSpec:
         controller_test.field should be (test_map_8)
     }
 
-
-
     val test_map_9 = combine_map_test(test_map_8, "D8", "D3")
 
     "Check move via TUI (D8 => D3)" in {
@@ -186,45 +184,53 @@ class GeneralGameSpec extends AnyWordSpec:
         controller_test.field should be (test_map_13)
     }
 
-    val test_map_14 = combine_map_test(test_map_13, "E2", "E1")
+    val test_map_14 = combine_map_test(test_map_12, "E3", "F3")
 
-    "Check move via TUI (E2 => E1)" in {
+    "Check move via TUI (E3 => F3)" in {
         tui_main_test.commands("undo")
-        tui_main_test.process("move E2 E1")
+        tui_main_test.process("move E3 F3")
         controller_test.field should be (test_map_14)
     }
 
-    val test_map_15 = combine_map_test(test_map_14, "E7", "E6")
 
-    "Check move via TUI (E7 => E6)" in {
-        tui_main_test.process("move E7 E6")
+    val test_map_15 = combine_map_test(test_map_14, "E2", "E1")
+
+    "Check move via TUI (E2 => E1)" in {
+        tui_main_test.process("move E2 E1")
         controller_test.field should be (test_map_15)
     }
 
-    val test_map_16 = combine_map_test(test_map_15, "F1", "B5")
+    val test_map_16 = combine_map_test(test_map_15, "E7", "E6")
 
-    "Check move via TUI (F1 => B5)" in {
-        tui_main_test.process("move F1 B5")
+    "Check move via TUI (E7 => E6)" in {
+        tui_main_test.process("move E7 E6")
         controller_test.field should be (test_map_16)
     }
 
-    val test_map_17 = combine_map_test(test_map_16, "A7", "A6")
+    val test_map_17 = combine_map_test(test_map_16, "F1", "B5")
 
-    "Check move via TUI (A7 => A6)" in {
-        tui_main_test.process("move A7 A6")
+    "Check move via TUI (F1 => B5)" in {
+        tui_main_test.process("move F1 B5")
         controller_test.field should be (test_map_17)
     }
 
-    val test_map_18 = combine_map_test(test_map_17, "B5", "E8")
+    val test_map_18 = combine_map_test(test_map_17, "A7", "A6")
+
+    "Check move via TUI (A7 => A6)" in {
+        tui_main_test.process("move A7 A6")
+        controller_test.field should be (test_map_18)
+    }
+
+    val test_map_19 = combine_map_test(test_map_18, "B5", "E8")
 
     "Check move via TUI (B5 => E8) (Player 1 Wins)" in {
         tui_main_test.process("move B5 E8")
-        controller_test.field should be (test_map_18)
+        controller_test.field should be (test_map_19)
     }
 
     // Invalid Moves
 
     "Check move via TUI (A2 => A5) (Invalid)" in {
       tui_main_test.process("move A2 A5")
-      controller_test.field should be (test_map_18)
+      controller_test.field should be (test_map_19)
     }

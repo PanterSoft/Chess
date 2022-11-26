@@ -22,7 +22,6 @@ class tui(controller: Controller) extends Observer{
         }
 
     def commands(in: String) : Option[String] =
-        //println("Passing events")
         val events = Array(
           Event(1, "exit"),
           Event(2, "help"),
@@ -35,30 +34,79 @@ class tui(controller: Controller) extends Observer{
         in.split(" ").toList match {
             case "exit" :: Nil => Some(agent.handleEvent(events(0)))
             case "help" :: Nil => Some(agent.handleEvent(events(1)))
-            case "undo" :: Nil => agent.handleEvent(events(2))
-                controller.undo; None
+            case "undo" Nil => agent.handleEvent(events(2))
+                controller.undo(); None
             case "redo" :: Nil => agent.handleEvent(events(3))
-                controller.redo; None
-            case "move" :: pos_old :: pos_new :: Nil => agent.handleEvent(events(5))
-                val before_move = controller.field
-                if (controller.last_turn() == controller.get_player_c(pos_old))
-                    controller.domove
-                    controller.move_c(pos_old, pos_new)
+                controller.redo(); None
+            case "move" :: pos_now_in :: pos_new_in :: Nil =>
+              val before_move = controller.field
+              if (controller.last_turn() == controller.get_player_c(pos_now_in))
+                controller.domove()
+                controller.move_c(pos_now_in, pos_new_in)
+              val after_move = controller.field
 
-                val after_move = controller.field
-                if (before_move == after_move)
-                    println("No valid move.")
-                else
-                    controller.check_winner
-                None
+              if (before_move == after_move && GameState.message(controller.    game_state) == "")
+              None
+                Some(agent.handleEvent(events(5)))
             case _ => Some(agent.handleEvent(events(4)))
         }
 
     override def update: Boolean =
-        println(controller.board_to_string_c)
+        println(controller.board_to_string_c())
         println(GameState.message(controller.game_state))
-        controller.game_state=GameState.IDLE
+        controller.game_state=GameState.NO_WINNER_YET
         true
+
+    case class Event(level: Int, title: String)
+
+    //Base handler class
+    abstract class Handler {
+      val successor: Option[Handler]
+      def handleEvent(event: Event): String
+    }
+
+    //Customer service agent
+    class Agent(val successor: Option[Handler]) extends Handler {
+      override def handleEvent(event: Event): String = {
+        event match {
+          case e if e.level < 2 => "Goodbye :)"
+          case e if e.level < 3 => helpString
+          case e if e.level > 1 => {
+            successor match {
+              case Some(h: Handler) => h.handleEvent(e)
+              case None => errorMessage
+            }
+          }
+        }
+      }
+    }
+
+    class Supervisor(val successor: Option[Handler]) extends Handler {
+        override def handleEvent(event: Event): String = {
+            event match {
+                case e if e.level < 4 =>
+                    "Supervisor handled event 2: " + e.title
+                case e if e.level > 2 => {
+                    successor match {
+                    case Some(h: Handler) => h.handleEvent(e)
+                    case None => errorMessage
+                    }
+                }
+            }
+        }
+    }
+    class Boss(val successor: Option[Handler]) extends Handler {
+      override def handleEvent(event: Event): String = {
+        event match {
+          // Handle Move Command
+          case e if e.level < 5 => ""
+          case e if e.level > 3 => successor match {
+            case Some(h: Handler) => h.handleEvent(e)
+            case None => errorMessage
+          }
+        }
+      }
+    }
 }
 
 val eol = sys.props("line.separator")
@@ -82,56 +130,4 @@ val welcomeMessage = """  /-----------------------------------\
   |              v1.0.0               |
   \-----------------------------------/""" + eol
 
-val errorMessage: String = "ERROR! Wrong usage! Try help !"
-
-case class Event(level: Int, title: String)
-
-//Base handler class
-abstract class Handler {
-  val successor: Option[Handler]
-  def handleEvent(event: Event): String
-}
-
-//Customer service agent
-class Agent(val successor: Option[Handler]) extends Handler {
-  override def handleEvent(event: Event): String = {
-    event match {
-      case e if e.level < 2 => "Goodbye :)"
-      case e if e.level < 3 => helpString
-      case e if e.level > 1 => {
-        successor match {
-          case Some(h: Handler) => h.handleEvent(e)
-          case None => errorMessage
-        }
-      }
-    }
-  }
-}
-
-class Supervisor(val successor: Option[Handler]) extends Handler {
-    override def handleEvent(event: Event): String = {
-        event match {
-            case e if e.level < 3 => ""
-            case e if e.level < 4 =>
-                "Supervisor handled event 2: " + e.title
-            case e if e.level > 2 => {
-                successor match {
-                case Some(h: Handler) => h.handleEvent(e)
-                case None => errorMessage
-                }
-            }
-        }
-    }
-}
-
-class Boss(val successor: Option[Handler]) extends Handler {
-  override def handleEvent(event: Event): String = {
-    event match {
-      case e if e.level < 5 => ""
-      case e if e.level > 3 => successor match {
-        case Some(h: Handler) => h.handleEvent(e)
-        case None => errorMessage
-      }
-    }
-  }
-}
+val errorMessage = "ERROR! Wrong usage! Try help !"

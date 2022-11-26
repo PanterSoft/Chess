@@ -2,15 +2,14 @@ package de.htwg.se.Chess.controller
 
 object GameState extends Enumeration{
   type GameState = Value
-  val IDLE, PLAYER1, PLAYER2, NO_WINNER = Value
+  val PLAYER1, PLAYER2, NO_WINNER_YET = Value
 
   val map = Map[GameState, String](
-    IDLE -> "",
     PLAYER1 ->"Player 1 wins!!!",
     PLAYER2 ->"Player 2 wins!!!",
-    NO_WINNER ->"")
+    NO_WINNER_YET ->"")
 
-  def message(game_status: GameState) = {
-    map(game_status)
+  def message(game_state: GameState) = {
+    map(game_state)
   }
 }
