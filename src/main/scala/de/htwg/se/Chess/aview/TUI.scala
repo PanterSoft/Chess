@@ -5,6 +5,8 @@ import de.htwg.se.Chess.controller.SolveCommand
 import de.htwg.se.Chess.controller.GameState
 import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
+import scala.util.{Try,Success,Failure}
+import scala.util.matching.Regex
 
 class tui(controller: Controller) extends Observer{
     val boss = new Boss(None)
@@ -30,7 +32,10 @@ class tui(controller: Controller) extends Observer{
           Event(5, "sth else"),
           Event(4, "move")
         )
-
+        def readTextIn(in:String) : Try[List[String]] = {
+          Try(in.split(" ").toList)
+        }
+        val moveRegex = new Regex("[m]{1}[o]{1}[v]{1}[e]{1} [A-H]{1}[1-8]{1} [A-H]{1}[1-8]{1}")
         in.split(" ").toList match {
             case "exit" :: Nil => Some(agent.handleEvent(events(0)))
             case "help" :: Nil => Some(agent.handleEvent(events(1)))
@@ -38,17 +43,22 @@ class tui(controller: Controller) extends Observer{
                 controller.undo(); None
             case "redo" :: Nil => agent.handleEvent(events(3))
                 controller.redo(); None
-            case "move" :: pos_now_in :: pos_new_in :: Nil =>
-              val before_move = controller.field
-              if (controller.last_turn() == controller.get_player_c(pos_now_in))
-                controller.domove()
-                controller.move_c(pos_now_in, pos_new_in)
-              val after_move = controller.field
-
-              if (before_move == after_move && GameState.message(controller.    game_state) == "")
-              None
-                Some(agent.handleEvent(events(5)))
-            case _ => Some(agent.handleEvent(events(4)))
+            case "move" :: pos_now_in :: pos_new_in :: Nil => in.split(" ").toList match {
+              //case "move" :: pos_now_in :: pos_new_in :: Nil =>
+              case moveRegex =>
+                val before_move = controller.field
+                if (controller.last_turn() == controller.get_player_c(pos_now_in))
+                  controller.domove()
+                  controller.move_c(pos_now_in, pos_new_in)
+                else
+                  println("No Valid Move!")
+                val after_move = controller.field
+                if (before_move == after_move && GameState.message(controller.game_state) == "")
+                  Some(agent.handleEvent(events(5)))
+                None
+              case _ => Some(agent.handleEvent(events(4)))
+              }
+                case _ => Some(agent.handleEvent(events(4)))
         }
 
     override def update: Boolean =
