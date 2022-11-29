@@ -56,9 +56,9 @@ class tui(controller: Controller) extends Observer{
                 if (before_move == after_move && GameState.message(controller.game_state) == "")
                   Some(agent.handleEvent(events(5)))
                 None
-              case _ => Some(agent.handleEvent(events(4)))
+              //case _ => Some(agent.handleEvent(events(4)))
               }
-                case _ => Some(agent.handleEvent(events(4)))
+              case _ => Some(agent.handleEvent(events(4)))
         }
 
     override def update: Boolean =
