@@ -32,10 +32,10 @@ class tui(controller: Controller) extends Observer{
           Event(5, "sth else"),
           Event(4, "move")
         )
-        def readTextIn(in:String) : Try[List[String]] = {
-          Try(in.split(" ").toList)
+        def readTextIn(in_new:String) : Try[List[String]] = {
+          Try(in_new.split(" ").toList)
         }
-        val moveRegex = new Regex("[m]{1}[o]{1}[v]{1}[e]{1} [A-H]{1}[1-8]{1} [A-H]{1}[1-8]{1}")
+        val moveRegex = raw"[m]{1}[o]{1}[v]{1}[e]{1} [A-H]{1}[1-8]{1} [A-H]{1}[1-8]{1}".r
         in.split(" ").toList match {
             case "exit" :: Nil => Some(agent.handleEvent(events(0)))
             case "help" :: Nil => Some(agent.handleEvent(events(1)))
@@ -43,7 +43,7 @@ class tui(controller: Controller) extends Observer{
                 controller.undo(); None
             case "redo" :: Nil => agent.handleEvent(events(3))
                 controller.redo(); None
-            case "move" :: pos_now_in :: pos_new_in :: Nil => in.split(" ").toList match {
+            case "move" :: pos_now_in :: pos_new_in :: Nil => readTextIn(in) match {
               //case "move" :: pos_now_in :: pos_new_in :: Nil =>
               case moveRegex =>
                 val before_move = controller.field
