@@ -8,22 +8,21 @@ import de.htwg.se.Chess.controller.GameState._
 
 
 
-case class Controller(var field: Board, var history: History) extends Observable:
+case class Controller(var field: Board) extends Observable:
 
-  var game_state: GameState = IDLE
+  var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
   val playersystem:PlayerSystem = new PlayerSystem()
 
-  def board_to_string_c : String = field.board_to_string()
+  def board_to_string_c() : String = field.board_to_string()
 
   def move_c(pos_now : String, pos_new : String) : Unit =
-    //val old_field = field
     field = field.move(pos_now, pos_new)
-    //if (old_field != field)
-    //  history = history.add_to_history(pos_now, pos_new)
-    //notifyObservers
+    change_player()
+    check_winner()
+    notifyObservers
 
-  def domove: Unit = {
+  def domove(): Unit = {
     history_manager.doMove(new SolveCommand(this))
   }
 
@@ -39,22 +38,23 @@ case class Controller(var field: Board, var history: History) extends Observable
     else
         "1"
 
-  def check_winner: Unit = {
+  def check_winner(): Unit = {
     val success = field.game_finished(field.board)
     if (success == 1) game_state = PLAYER1
     else if (success == 2) game_state = PLAYER2
-      else game_state = NO_WINNER
-    notifyObservers
+      else game_state = NO_WINNER_YET
   }
 
-  def undo: Unit = {
+  def undo(): Unit = {
     history_manager.undoMove
-    playersystem.changeState()
+    change_player()
+    check_winner()
     notifyObservers
   }
 
-  def redo: Unit = {
+  def redo(): Unit = {
     history_manager.redoMove
-    playersystem.changeState()
+    change_player()
+    check_winner()
     notifyObservers
   }

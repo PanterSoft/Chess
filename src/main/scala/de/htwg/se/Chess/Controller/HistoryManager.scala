@@ -7,6 +7,7 @@ import de.htwg.se.Chess.util.Command
 class HistoryManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
+
   def doMove(command: Command) = {
     undoStack = command::undoStack
     command.doMove
@@ -14,7 +15,7 @@ class HistoryManager {
 
   def undoMove = {
     undoStack match {
-      case  Nil =>
+      case Nil =>
       case head::stack => {
         head.undoMove
         undoStack=stack
