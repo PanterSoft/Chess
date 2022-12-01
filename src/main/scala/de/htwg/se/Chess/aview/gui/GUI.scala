@@ -5,7 +5,6 @@ import scalafx.application.JFXApp3
 import scalafx.scene.Scene
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
-
 object HelloStageDemo extends JFXApp3 {
 
   override def start(): Unit = {
