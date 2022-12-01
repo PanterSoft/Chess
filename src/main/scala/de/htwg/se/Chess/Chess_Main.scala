@@ -19,5 +19,7 @@ object Chess {
       tui_main.process(input)
       input != "exit"
     do()
+    /* GUI */
+
   }
 }

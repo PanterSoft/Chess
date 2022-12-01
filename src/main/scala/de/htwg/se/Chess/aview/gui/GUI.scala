@@ -5,21 +5,22 @@ import scalafx.application.JFXApp3
 import scalafx.scene.Scene
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
-object HelloStageDemo extends JFXApp3 {
+import scalafx.scene.paint.Color
 
+object ChessStage extends JFXApp3 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
-      title.value = "Hello Stage"
-      width = 600
-      height = 450
+      title.value = "Chess"
+      width = 1000
+      height = 1000
       scene = new Scene {
-        fill = LightGreen
+        fill = Black
         content = new Rectangle {
-          x = 25
-          y = 40
-          width = 100
-          height = 100
-          fill <== when(hover) choose Green otherwise Red
+          x = 250
+          y = 250
+          width = 800
+          height = 800
+          fill = Color.rgb(255, 0, 0)
         }
       }
     }
