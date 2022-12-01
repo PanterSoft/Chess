@@ -13,15 +13,24 @@ class tui(controller: Controller) extends Observer{
     val supervisor = new Supervisor(Some(boss))
     val agent = new Agent(Some(supervisor))
 
+    val moveRegex: Regex = "move [A-H][1-8] [A-H][1-8]".r
+
     controller.add(this)
     println(welcomeMessage)
     update
 
     def process(in: String): Unit =
-        commands(in) match {
-            case None =>
-            case Some(s) => println(s)
-        }
+      commands(in) match
+        case None =>
+        case Some(s) => println(s)
+
+    def readTextIn(in_new:String) : Try[List[String]] =
+      Try(in_new.split(" ").toList)
+
+    def checkRegex(input_string: String, regex_pattern: Regex): Boolean =
+      regex_pattern.findPrefixOf(input_string) match
+        case Some(s) => true
+        case None => false
 
     def commands(in: String) : Option[String] =
         val events = Array(
@@ -29,36 +38,31 @@ class tui(controller: Controller) extends Observer{
           Event(2, "help"),
           Event(3, "undo"),
           Event(3, "redo"),
-          Event(5, "sth else"),
-          Event(4, "move")
+          Event(4, "sth else"),
+          Event(5, "move")
         )
-        def readTextIn(in_new:String) : Try[List[String]] = {
-          Try(in_new.split(" ").toList)
-        }
-        val moveRegex = new Regex("move [A-H][1-8] [A-H][1-8]")
-        in.split(" ").toList match {
-            case "exit" :: Nil => Some(agent.handleEvent(events(0)))
-            case "help" :: Nil => Some(agent.handleEvent(events(1)))
-            case "undo" :: Nil => agent.handleEvent(events(2))
-                controller.undo(); None
-            case "redo" :: Nil => agent.handleEvent(events(3))
-                controller.redo(); None
-            case "move" :: pos_now_in :: pos_new_in :: Nil =>
-              readTextIn(in) match {
-                case Success(in.matches(moveRegex)) =>
-                  val before_move = controller.field
-                  if (controller.last_turn() == controller.get_player_c(pos_now_in))
+
+        readTextIn(in) match {
+          case Success(value) =>
+            value match
+              case "exit" :: Nil => Some(agent.handleEvent(events(0)))
+              case "help" :: Nil => Some(agent.handleEvent(events(1)))
+              case "undo" :: Nil => agent.handleEvent(events(2))
+                  controller.undo(); None
+              case "redo" :: Nil => agent.handleEvent(events(3))
+                  controller.redo(); None
+              case "move" :: pos_now_in :: pos_new_in :: Nil =>
+                if (checkRegex(in, moveRegex))
+                  if (controller.last_turn() == controller.get_player_c   (pos_now_in))
                     controller.domove()
                     controller.move_c(pos_now_in, pos_new_in)
+                    Some(agent.handleEvent(events(4)))
                   else
-                    println("No Valid Move!")
-                  val after_move = controller.field
-                  if (before_move == after_move && GameState.message(controller.game_state) == "")
-                    Some(agent.handleEvent(events(5)))
-                  None
-                case Failure(_) => Some(agent.handleEvent(events(4)))
-              }
-            case _ => Some(agent.handleEvent(events(4)))
+                    Some("Invalid Move!")
+                else
+                  Some(agent.handleEvent(events(5)))
+              case _ => Some(agent.handleEvent(events(5)))
+          case Failure(_) => Some(agent.handleEvent(events(4)))
         }
 
     override def update: Boolean =
@@ -92,23 +96,22 @@ class tui(controller: Controller) extends Observer{
     }
 
     class Supervisor(val successor: Option[Handler]) extends Handler {
-        override def handleEvent(event: Event): String = {
-            event match {
-                case e if e.level < 4 =>
-                    "Supervisor handled event 2: " + e.title
-                case e if e.level > 2 => {
-                    successor match {
-                    case Some(h: Handler) => h.handleEvent(e)
-                    case None => errorMessage
-                    }
-                }
+      override def handleEvent(event: Event): String = {
+        event match {
+            case e if e.level < 4 =>
+              "Supervisor handled event 2: " + e.title
+            case e if e.level > 2 => {
+              successor match {
+              case Some(h: Handler) => h.handleEvent(e)
+              case None => errorMessage
             }
+          }
         }
+      }
     }
     class Boss(val successor: Option[Handler]) extends Handler {
       override def handleEvent(event: Event): String = {
         event match {
-          // Handle Move Command
           case e if e.level < 5 => ""
           case e if e.level > 3 => successor match {
             case Some(h: Handler) => h.handleEvent(e)
