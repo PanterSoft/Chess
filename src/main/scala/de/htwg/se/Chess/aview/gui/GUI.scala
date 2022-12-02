@@ -29,7 +29,6 @@ class gui(controller: Controller) extends JFXApp3 with Observer {
     true
   }
 
-//object GUI extends JFXApp3 {
   override def start(): Unit = {
     stage = new PrimaryStage {
       title = "Chess Game"
@@ -78,9 +77,9 @@ class gui(controller: Controller) extends JFXApp3 with Observer {
     }
 
     def show_g: Unit = {
-      centerPane.children = showBoard(centerPane.width.get, centerPane.height.get)
+      centerPane.children = showBoard(centerPane.width.get, centerPane.height.  get)
       leftPane.children = showHistory(leftPane.width.get, leftPane.height.get)
-      bottomPane.children = showButtonBar(bottomPane.width.get, bottomPane.height.get)
+      bottomPane.children = showButtonBar(bottomPane.width.get, bottomPane. height.get)
     }
 
     def showBoard(paneWidth: Double = 784.0, paneHeight: Double = 562.0) = {
