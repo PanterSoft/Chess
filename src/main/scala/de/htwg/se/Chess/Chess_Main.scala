@@ -22,6 +22,11 @@ object Chess {
       input != "exit"
     do()
     /* GUI */
+    val guiThread = new Thread(() => {
+      System.exit(0)
+    })
+    guiThread.setDaemon(true)
+    guiThread.start()
 
   }
 }
