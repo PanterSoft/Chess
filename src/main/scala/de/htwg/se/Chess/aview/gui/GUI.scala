@@ -29,7 +29,7 @@ class gui(controller: Controller) extends JFXApp3 with Observer {
     true
   }
 
-object GUI extends JFXApp3 {
+//object GUI extends JFXApp3 {
   override def start(): Unit = {
     stage = new PrimaryStage {
       title = "Chess Game"
