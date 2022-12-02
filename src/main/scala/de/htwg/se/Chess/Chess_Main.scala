@@ -1,7 +1,7 @@
 package de.htwg.se.Chess
 
 import de.htwg.se.Chess.aview.tui
-import de.htwg.se.Chess.aview.gui.GUI
+import de.htwg.se.Chess.aview.gui.gui
 import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.model._
 
