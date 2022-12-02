@@ -9,8 +9,25 @@ import javafx.scene.paint.{ Color => JFXColor }
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.shape.Circle
-import scalafx.scene.layout.VBox
-import scalafx.scene.control.Label
+import scalafx.scene.layout.HBox
+import scalafx.geometry.Insets
+import scalafx.scene.paint.LinearGradient
+import scalafx.scene.paint.Stops
+import scalafx.scene.text.Text
+import scalafx.scene.effect.DropShadow
+import scala.io.Source._
+import de.htwg.se.Chess.controller._
+import de.htwg.se.Chess.util.Observer
+
+class gui(controller: Controller) extends JFXApp3 with Observer {
+  controller.add(this)
+
+  override def update: Boolean = {
+    println(controller.board_to_string_c())
+    println(GameState.message(controller.game_state))
+    controller.game_state=GameState.NO_WINNER_YET
+    true
+  }
 
 object GUI extends JFXApp3 {
   override def start(): Unit = {
