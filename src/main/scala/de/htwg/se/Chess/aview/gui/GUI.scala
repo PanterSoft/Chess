@@ -5,7 +5,7 @@ import scalafx.stage.Stage
 import scalafx.scene.Scene
 import scalafx.scene.layout.{ Pane, BorderPane }
 import scalafx.scene.shape.Rectangle
-import javafx.scene.paint.{ Color => JFXColor }
+import scalafx.scene.paint.{ Color => JFXColor }
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.shape.Circle
@@ -19,7 +19,7 @@ import scala.io.Source._
 import de.htwg.se.Chess.controller._
 import de.htwg.se.Chess.util.Observer
 
-class gui(controller: Controller) extends JFXApp3 with Observer {
+class GUI(controller: Controller) extends JFXApp3 with Observer {
   controller.add(this)
 
   override def update: Boolean = {
@@ -28,6 +28,7 @@ class gui(controller: Controller) extends JFXApp3 with Observer {
     controller.game_state=GameState.NO_WINNER_YET
     true
   }
+
 
   override def start(): Unit = {
     stage = new PrimaryStage {
