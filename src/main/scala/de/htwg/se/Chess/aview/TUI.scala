@@ -3,7 +3,7 @@ package de.htwg.se.Chess.aview
 import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.controller.SolveCommand
 import de.htwg.se.Chess.controller.GameState
-import de.htwg.se.Chess.model.Board
+//import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 import scala.util.{Try,Success,Failure}
 import scala.util.matching.Regex
