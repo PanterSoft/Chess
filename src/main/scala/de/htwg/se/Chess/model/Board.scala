@@ -102,17 +102,25 @@ case class Board(val board: VectorMap[String, String]) {
 
         return false
 
+    def get_x(pos: String): Int =
+        val x_map = Map("A"->1, "B"->2, "C"->3, "D"->4, "E"->5, "F"->6, "G"->7, "H"->8)
+
+        match_pattern(x_map.get(pos.splitAt(1)(0)))
+
+    def get_y(pos: String): Int =
+        pos.splitAt(1)(1).toInt
+
     def x_diff(pos_now: String, pos_new: String): Int =
         val x_map = Map("A"->1, "B"->2, "C"->3, "D"->4, "E"->5, "F"->6, "G"->7, "H"->8)
 
-        val x_now = match_pattern(x_map.get(pos_now.splitAt(1)(0)))
-        val x_new = match_pattern(x_map.get(pos_new.splitAt(1)(0)))
+        val x_now = get_x(pos_now)
+        val x_new = get_x(pos_new)
 
         return Math.abs(x_now - x_new)
 
     def y_diff(pos_now: String, pos_new: String): Int =
-        val y_now = pos_now.splitAt(1)(1).toInt
-        val y_new = pos_new.splitAt(1)(1).toInt
+        val y_now = get_y(pos_now)
+        val y_new = get_y(pos_new)
 
         return Math.abs(y_now - y_new)
 
