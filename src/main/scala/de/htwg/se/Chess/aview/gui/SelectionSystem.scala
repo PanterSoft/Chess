@@ -7,6 +7,8 @@ class TrafficSystem {
     var yellow:State=new Yellow(this,new YellowReceiver)
     var currentState:State=new Green(this,intialReceiver)
     var previousState:State=new Green(this,intialReceiver)
+    var pos1: String = ""
+    var pos2: String = ""
 
     def changeState(): Unit = currentState.changeState()
 
