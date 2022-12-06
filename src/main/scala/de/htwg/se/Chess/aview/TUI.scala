@@ -65,11 +65,10 @@ class tui(controller: Controller) extends Observer{
           case Failure(_) => Some(agent.handleEvent(events(4)))
         }
 
-    override def update: Boolean =
+    override def update: Unit =
         println(controller.board_to_string_c())
         println(GameState.message(controller.game_state))
         controller.game_state=GameState.NO_WINNER_YET
-        true
 
     case class Event(level: Int, title: String)
 

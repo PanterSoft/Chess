@@ -1,7 +1,7 @@
 package de.htwg.se.Chess.util
 
 trait Observer:
-  def update: Boolean
+  def update: Unit
 
 class Observable:
   var subscribers: Vector[Observer] = Vector()
