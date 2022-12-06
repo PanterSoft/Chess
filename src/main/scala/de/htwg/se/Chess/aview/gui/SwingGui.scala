@@ -8,9 +8,13 @@ import de.htwg.se.Chess.controller.GameState
 import javax.swing.border.EmptyBorder
 import scala.swing.event.Key
 import scala.swing.event.ButtonClicked
+import scalafx.scene.input.KeyCode.R
+import scalafx.scene.input.KeyCode.G
+import scala.swing.event.PopupMenuCanceled
 
 class SwingGUI(controller: Controller) extends Frame with Observer:
-
+    var pos1: String = ""
+    var pos2: String = ""
     val selection_system:TrafficSystem = new TrafficSystem()
 
     override def update: Unit =
@@ -20,7 +24,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
 
     new Frame {
         title = "Chess Game"
-        preferredSize = new Dimension(800, 600)
+        preferredSize = new Dimension(800, 800)
         resizable = true
 
         menuBar = new MenuBar {
@@ -39,9 +43,11 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
                 mnemonic = Key.E
                 contents += new MenuItem(Action("Undo") {
                     controller.undo()
+                    update
                 })
                 contents += new MenuItem(Action("Redo") {
                     controller.redo()
+                    update
                 })
             }
         }
@@ -74,11 +80,25 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
             }
 
         def selectionHandler(pos: String, figure: String) =
-                if(selection_system.currentState.isInstanceOf[Yellow])
+            if (pos1 != pos && pos2 != pos)
+                if(selection_system.currentState.isInstanceOf[Green] && controller.last_turn() == controller.get_player_c(pos))
+                    pos1 = pos
+                    println(pos1)
                     selection_system.changeState()
-                    println("Move!!!")
-                else
+                    println(selection_system.currentState.isInstanceOf[Green])
+                    println(selection_system.currentState.isInstanceOf[Yellow])
+                else if (selection_system.currentState.isInstanceOf[Yellow])
+                    pos2 = pos
+                    println(pos2)
                     selection_system.changeState()
+                    controller.domove()
+                    controller.move_c(pos1, pos2)
+                    update
+                    selection_system.changeState()
+                    pos1 = ""
+                    pos2 = ""
+            else
+                println("Invalid Move" + pos1 + " " + pos2)
 
 
         pack()
