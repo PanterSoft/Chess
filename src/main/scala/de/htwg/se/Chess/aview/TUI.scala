@@ -48,9 +48,11 @@ class tui(controller: Controller) extends Observer{
               case "exit" :: Nil => Some(agent.handleEvent(events(0)))
               case "help" :: Nil => Some(agent.handleEvent(events(1)))
               case "undo" :: Nil => agent.handleEvent(events(2))
-                  controller.undo(); None
+                  controller.undo()
+                  None
               case "redo" :: Nil => agent.handleEvent(events(3))
-                  controller.redo(); None
+                  controller.redo()
+                  None
               case "move" :: pos_now_in :: pos_new_in :: Nil =>
                 if (checkRegex(in, moveRegex))
                   if (controller.last_turn() == controller.get_player_c   (pos_now_in))

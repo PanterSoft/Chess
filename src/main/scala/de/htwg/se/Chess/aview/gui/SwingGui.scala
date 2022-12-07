@@ -30,9 +30,6 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
         menuBar = new MenuBar {
             contents += new Menu("File") {
                 mnemonic = Key.F
-                contents += new MenuItem(Action("New") {
-                    // implement newGame() method in Controller (unwichtig)
-                })
                 contents += new Separator
                 contents += new MenuItem(Action("Quit") {
                     println("Bye!")
