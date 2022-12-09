@@ -3,7 +3,7 @@ package de.htwg.se.Chess.aview
 import de.htwg.se.Chess.controller.Controller
 import de.htwg.se.Chess.controller.SolveCommand
 import de.htwg.se.Chess.controller.GameState
-import de.htwg.se.Chess.model.Board
+//import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 import scala.util.{Try,Success,Failure}
 import scala.util.matching.Regex
@@ -48,9 +48,11 @@ class tui(controller: Controller) extends Observer{
               case "exit" :: Nil => Some(agent.handleEvent(events(0)))
               case "help" :: Nil => Some(agent.handleEvent(events(1)))
               case "undo" :: Nil => agent.handleEvent(events(2))
-                  controller.undo(); None
+                  controller.undo()
+                  None
               case "redo" :: Nil => agent.handleEvent(events(3))
-                  controller.redo(); None
+                  controller.redo()
+                  None
               case "move" :: pos_now_in :: pos_new_in :: Nil =>
                 if (checkRegex(in, moveRegex))
                   if (controller.last_turn() == controller.get_player_c   (pos_now_in))
@@ -65,11 +67,10 @@ class tui(controller: Controller) extends Observer{
           case Failure(_) => Some(agent.handleEvent(events(4)))
         }
 
-    override def update: Boolean =
+    override def update: Unit =
         println(controller.board_to_string_c())
         println(GameState.message(controller.game_state))
         controller.game_state=GameState.NO_WINNER_YET
-        true
 
     case class Event(level: Int, title: String)
 

@@ -46,15 +46,17 @@ case class Controller(var field: Board) extends Observable:
   }
 
   def undo(): Unit = {
-    history_manager.undoMove
-    change_player()
-    check_winner()
-    notifyObservers
+    if (history_manager.undoStack != Nil)
+      history_manager.undoMove
+      change_player()
+      check_winner()
+      notifyObservers
   }
 
   def redo(): Unit = {
-    history_manager.redoMove
-    change_player()
-    check_winner()
-    notifyObservers
+    if (history_manager.redoStack != Nil)
+      history_manager.redoMove
+      change_player()
+      check_winner()
+      notifyObservers
   }
