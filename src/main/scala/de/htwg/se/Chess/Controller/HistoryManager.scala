@@ -5,8 +5,8 @@ import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Command
 
 class HistoryManager {
-  private var undoStack: List[Command]= Nil
-  private var redoStack: List[Command]= Nil
+  var undoStack: List[Command]= Nil
+  var redoStack: List[Command]= Nil
 
   def doMove(command: Command) = {
     undoStack = command::undoStack
