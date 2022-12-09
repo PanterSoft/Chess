@@ -51,6 +51,9 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
     contents = contentPanel
 
     def contentPanel = new BorderPanel {
+        if (GameState.message(controller.game_state) != "")
+            infoBox(GameState.message(controller.game_state), GameState.message(controller.game_state));
+
         add(new Label("Welcome to Chess:"), BorderPanel.Position.North)
         add(new CellPanel(), BorderPanel.Position.Center)
     }
@@ -91,7 +94,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
                 selection_system.changeState()
                 controller.domove()
                 controller.move_c(pos1, pos2)
-                update
+                //update
                 selection_system.changeState()
                 pos1 = ""
                 pos2 = ""

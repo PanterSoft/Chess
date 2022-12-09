@@ -70,7 +70,6 @@ class tui(controller: Controller) extends Observer{
     override def update: Unit =
         println(controller.board_to_string_c())
         println(GameState.message(controller.game_state))
-        controller.game_state=GameState.NO_WINNER_YET
 
     case class Event(level: Int, title: String)
 

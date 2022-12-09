@@ -9,7 +9,7 @@ object GameState extends Enumeration{
     PLAYER2 ->"Player 2 wins!!!",
     NO_WINNER_YET ->"")
 
-  def message(game_state: GameState) = {
+  def message(game_state: GameState): String = {
     map(game_state)
   }
 }
