@@ -24,3 +24,6 @@ object Chess {
     /* GUI */
   }
 }
+
+//Interfaces: trait, Components: private and public notations
+//interface nach oben minimal, muss klein und konsequent sein um über lange zeit bearbeitbar sein
