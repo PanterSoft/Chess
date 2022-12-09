@@ -5,21 +5,21 @@ trait Receiver {
 def off(): Unit
 }
 
-class GreenReceiver extends Receiver {
+class FirstReceiver extends Receiver {
     //def on() =
     //    println("Swithing on green light")
     def off() =
         println("One Button Selected")
 }
 
-class RedReceiver extends Receiver {
+class ThirdReceiver extends Receiver {
     //def on() =
     //    println("Swithing on red light")
     def off() =
         println("Move Execute")
 }
 
-class YellowReceiver extends Receiver {
+class SecondReceiver extends Receiver {
     //def on() =
     //    println("Swithing on yellow light")
     def off() =
