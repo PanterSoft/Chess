@@ -5,10 +5,11 @@ import scala.collection.immutable.VectorMap
 import de.htwg.se.Chess.controller._
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.GameState._
+import de.htwg.se.Chess.model.BoardInterface
 
 
 
-case class Controller(var field: Board) extends Observable:
+case class Controller(var field: Board) extends ControllerInterface:
 
   var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
