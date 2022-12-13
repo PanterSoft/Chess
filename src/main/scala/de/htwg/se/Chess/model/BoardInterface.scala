@@ -7,7 +7,3 @@ trait BoardInterface{
     def game_finished(game_map: VectorMap[String, String]): Int
     def board_to_string(): String
 }
-
-trait PlayerInterface {
-
-}

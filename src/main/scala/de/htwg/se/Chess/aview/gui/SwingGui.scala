@@ -2,7 +2,7 @@ package de.htwg.se.Chess.aview
 
 import scala.swing._
 import de.htwg.se.Chess.util.Observer
-import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.controller._
 import scala.swing.Reactions.Reaction
 import de.htwg.se.Chess.controller.GameState
 import javax.swing.border.EmptyBorder
