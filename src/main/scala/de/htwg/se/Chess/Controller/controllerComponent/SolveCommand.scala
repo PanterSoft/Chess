@@ -1,4 +1,4 @@
-package de.htwg.se.Chess.controller
+package de.htwg.se.Chess.controller.controllerComponent
 
 import de.htwg.se.Chess.util.Command
 import de.htwg.se.Chess.model.Board

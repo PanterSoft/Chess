@@ -25,9 +25,9 @@ import scala.collection.immutable.VectorMap
 
 
 
-case class Board(val board: VectorMap[String, String]) {
+case class Board(val board: VectorMap[String, String]) extends BoardInterface {
 
-    def move(pos_now: String, pos_new: String): Board =
+    override def move(pos_now: String, pos_new: String): Board =
         val figure = board.get(pos_now)
 
         if (match_pattern(figure) != "Invalid" && check_move(board, pos_now, pos_new))
@@ -46,7 +46,7 @@ case class Board(val board: VectorMap[String, String]) {
         case None => (0)
     }
 
-    def game_finished(game_map: VectorMap[String, String]): Int =
+    override def game_finished(game_map: VectorMap[String, String]): Int =
         if (!game_map.values.exists(_ == "K2"))
             return 1
         else if (!game_map.values.exists(_ == "K1"))
@@ -187,7 +187,7 @@ case class Board(val board: VectorMap[String, String]) {
 
     def border_row(x_size:Int = 8) = ("+" + "-" * 4) * x_size + "+" + eol
 
-    def board_to_string(): String =
+    override def board_to_string(): String =
         val map_values = board.values.mkString("| ", " | ", " |").toString()
         val cell_array = map_values.grouped(40).toArray
 

@@ -1,14 +1,14 @@
 package de.htwg.se.Chess.aview
 
-import de.htwg.se.Chess.controller.Controller
-import de.htwg.se.Chess.controller.SolveCommand
-import de.htwg.se.Chess.controller.GameState
+import de.htwg.se.Chess.controller.ControllerInterface
+import de.htwg.se.Chess.controller.controllerComponent.SolveCommand
+import de.htwg.se.Chess.controller.controllerComponent.GameState
 //import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 import scala.util.{Try,Success,Failure}
 import scala.util.matching.Regex
 
-class tui(controller: Controller) extends Observer{
+class tui(controller: ControllerInterface) extends Observer{
     val boss = new Boss(None)
     val supervisor = new Supervisor(Some(boss))
     val agent = new Agent(Some(supervisor))

@@ -1,7 +1,7 @@
 package de.htwg.se.Chess
 
 import de.htwg.se.Chess.aview.tui
-import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.controller.controllerComponent.Controller
 import de.htwg.se.Chess.model._
 
 import scala.io.StdIn.readLine

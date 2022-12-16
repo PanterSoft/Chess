@@ -2,9 +2,9 @@ package de.htwg.se.Chess.aview
 
 import scala.swing._
 import de.htwg.se.Chess.util.Observer
-import de.htwg.se.Chess.controller.Controller
+import de.htwg.se.Chess.controller.ControllerInterface
 import scala.swing.Reactions.Reaction
-import de.htwg.se.Chess.controller.GameState
+import de.htwg.se.Chess.controller.controllerComponent.GameState
 import javax.swing.border.EmptyBorder
 import scala.swing.event.Key
 import scala.swing.event.ButtonClicked
@@ -13,17 +13,12 @@ import scalafx.scene.input.KeyCode.G
 import scala.swing.event.PopupMenuCanceled
 import javax.swing.JOptionPane
 
-class SwingGUI(controller: Controller) extends Frame with Observer:
+class SwingGUI(controller: ControllerInterface) extends Frame with Observer:
     controller.add(this)
 
     var pos1: String = ""
     var pos2: String = ""
-    val selection_system:TrafficSystem = new TrafficSystem()
-
-    //override def update: Unit =
-    //    println(controller.board_to_string_c())
-    //    println(GameState.message(controller.game_state))
-    //    controller.game_state=GameState.NO_WINNER_YET
+    val selection_system:SelectionSystem = new SelectionSystem()
 
     title = "Chess Game"
     preferredSize = new Dimension(800, 800)
@@ -51,18 +46,17 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
     contents = contentPanel
 
     def contentPanel = new BorderPanel {
-        if (GameState.message(controller.game_state) != "")
-            infoBox(GameState.message(controller.game_state), GameState.message(controller.game_state));
-
         add(new Label("Welcome to Chess:"), BorderPanel.Position.North)
         add(new CellPanel(), BorderPanel.Position.Center)
+        if (GameState.message(controller.game_state) != "")
+            infoBox(GameState.message(controller.game_state), GameState.message(controller.game_state));
     }
 
     override def update: Unit =
         contents = contentPanel
 
     def infoBox(infoMessage: String, titleBar: String) =
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
 
     class CellPanel() extends GridPanel(8, 8):
         border = EmptyBorder(20,20,20,20)
@@ -82,19 +76,16 @@ class SwingGUI(controller: Controller) extends Frame with Observer:
 
     def selectionHandler(pos: String, figure: String) =
         if (pos1 != pos && pos2 != pos)
-            if(selection_system.currentState.isInstanceOf[Green] &&controller.last_turn() == controller.get_player_c(pos))
+            if(selection_system.currentState.isInstanceOf[First] &&controller.last_turn() == controller.get_player_c(pos))
                 pos1 = pos
                 println(pos1)
                 selection_system.changeState()
-                //println(selection_system.currentState.isInstanceOf[Green])
-                //println(selection_system.currentState.isInstanceOf[Yellow])
-            else if (selection_system.currentState.isInstanceOf[Yellow])
+            else if (selection_system.currentState.isInstanceOf[Second])
                 pos2 = pos
                 println(pos2)
                 selection_system.changeState()
                 controller.domove()
                 controller.move_c(pos1, pos2)
-                //update
                 selection_system.changeState()
                 pos1 = ""
                 pos2 = ""
