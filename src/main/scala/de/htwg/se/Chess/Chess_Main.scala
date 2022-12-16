@@ -10,7 +10,6 @@ import de.htwg.se.Chess.aview.SwingGUI
 
 object Chess {
   val injector = Guice.createInjector(new ChessModule)
-//  val controller = injector.getInstance(classOf[ControllerInterface])
   val field = Board()
   val controller = injector.getInstance(classOf[ControllerInterface])
   val tui_main = new tui(controller)
