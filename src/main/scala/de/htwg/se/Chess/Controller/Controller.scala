@@ -9,7 +9,7 @@ import de.htwg.se.Chess.model.BoardInterface
 
 
 
-case class Controller(var field: Board) extends ControllerInterface:
+case class Controller(var field: BoardInterface) extends ControllerInterface:
 
   var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
@@ -18,10 +18,13 @@ case class Controller(var field: Board) extends ControllerInterface:
   def board_to_string_c() : String = field.board_to_string()
 
   def move_c(pos_now : String, pos_new : String) : Unit =
+  if(check_valid(pos_now : String, pos_new : String) == true)
     field = field.move(pos_now, pos_new)
     change_player()
     check_winner()
     notifyObservers
+  else
+    println("Invalid Move!")
 
   def domove(): Unit = {
     history_manager.doMove(new SolveCommand(this))
@@ -40,7 +43,7 @@ case class Controller(var field: Board) extends ControllerInterface:
         "1"
 
   def check_winner(): Unit = {
-    val success = field.game_finished(field.board)
+    val success = field.game_finished(field.board_c)
     if (success == 1) game_state = PLAYER1
     else if (success == 2) game_state = PLAYER2
       else game_state = NO_WINNER_YET
@@ -60,4 +63,12 @@ case class Controller(var field: Board) extends ControllerInterface:
       change_player()
       check_winner()
       notifyObservers
+  }
+
+  def check_valid(pos_now : String, pos_new : String): Boolean = {
+    if (field.check_move(field.board ,pos_now, pos_new) == true)
+      domove()
+      return true
+    else
+      return false
   }

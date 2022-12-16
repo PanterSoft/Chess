@@ -56,7 +56,6 @@ class tui(controller: ControllerInterface) extends Observer{
               case "move" :: pos_now_in :: pos_new_in :: Nil =>
                 if (checkRegex(in, moveRegex))
                   if (controller.last_turn() == controller.get_player_c   (pos_now_in))
-                    controller.domove()
                     controller.move_c(pos_now_in, pos_new_in)
                     Some(agent.handleEvent(events(4)))
                   else

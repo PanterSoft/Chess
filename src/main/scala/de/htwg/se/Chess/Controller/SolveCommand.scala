@@ -1,10 +1,10 @@
 package de.htwg.se.Chess.controller
 
 import de.htwg.se.Chess.util.Command
-import de.htwg.se.Chess.model.Board
+import de.htwg.se.Chess.model.BoardInterface
 
 class SolveCommand(controller: Controller) extends Command {
-  var memento: Board = controller.field
+  var memento: BoardInterface = controller.field
 
   override def doMove: Unit = {
     memento = controller.field
