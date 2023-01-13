@@ -1,10 +1,22 @@
+# Build Base Image
+FROM hseeberger/scala-sbt:17.0.2_1.6.2_3.1.1
 
-FROM hseeberger/scala-sbt:8u141-jdk_2.12.3_1.0.2
-#8u222_1.3.5_2.13.1
 WORKDIR /Chess
 ADD . /Chess
 CMD sbt run
-#Then build the image with a tag
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/*\
+	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_DE.utf8
+
+# Install Project Dependencys
+#RUN apt-get install -y sbt libxrender1 libxtst6 libxi6
+
+
+### How tu Build/Run ###
+
+# Build
 #docker build -t chess:v1 .
-#And run your app
+
+# Run
 #docker run -ti chess:v1
