@@ -18,6 +18,7 @@ trait ControllerInterface extends Observable{
     def change_player(): Unit
     def last_turn(): String
     def check_winner(): Unit
+    def load: Board
     def undo(): Unit
     def redo(): Unit
 }

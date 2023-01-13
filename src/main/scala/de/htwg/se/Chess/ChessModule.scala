@@ -10,6 +10,9 @@ import de.htwg.se.Chess.model.BoardInterface
 import de.htwg.se.Chess.model.Board
 import javax.sound.midi.ControllerEventListener
 
+import model.FileIOComponent.FileIOInterface
+import model.FileIOComponent.FileIOjsonImpl.FileIO
+
 class ChessModule extends AbstractModule {
     override def configure(): Unit = {
         bind(classOf[ControllerInterface]).toInstance(new Controller(field = Board()))

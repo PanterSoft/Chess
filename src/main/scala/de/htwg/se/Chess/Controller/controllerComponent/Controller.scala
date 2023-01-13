@@ -8,12 +8,13 @@ import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
 import de.htwg.se.Chess.model.BoardInterface
+import de.htwg.se.Chess.model.FileIOComponent
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
 
 
-case class Controller @Inject() (var field: Board) extends ControllerInterface:
+case class Controller @Inject() (var field: Board, var FileIO: FileIOInterface) extends ControllerInterface:
 
   var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
@@ -48,6 +49,12 @@ case class Controller @Inject() (var field: Board) extends ControllerInterface:
     if (success == 1) game_state = PLAYER1
     else if (success == 2) game_state = PLAYER2
       else game_state = NO_WINNER_YET
+  }
+
+  def load: Unit = {
+    field = fileIO.load(field)
+    notifyObservers
+    field
   }
 
   def undo(): Unit = {
