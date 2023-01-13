@@ -16,6 +16,6 @@ lazy val root = project
     libraryDependencies += "org.scalafx" %% "scalafx" % "18.0.1-R28",
     libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
     libraryDependencies += "com.google.inject" % "guice" % "4.2.3",
-    libraryDependencies += ("net.codingwell" %% "scala-guice" % "5.0.2").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += ("net.codingwell" %% "scala-guice" % "5.1.0").cross(CrossVersion.for3Use2_13),
   )
   .enablePlugins(CoverallsPlugin)
