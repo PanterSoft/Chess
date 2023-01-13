@@ -2,13 +2,13 @@ package de.htwg.se.Chess
 
 import com.google.inject.Guice
 import de.htwg.se.Chess.aview.tui
-import de.htwg.se.Chess.controller.controllerComponent.Controller
+import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 
 import scala.io.StdIn.readLine
 import de.htwg.se.Chess.aview.SwingGUI
 
-object Chess {
+object Chess extends Thread{
   val injector = Guice.createInjector(new ChessModule)
   val field = Board()
   val controller = injector.getInstance(classOf[ControllerInterface])
