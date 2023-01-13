@@ -2,6 +2,8 @@ package de.htwg.se.Chess.model
 
 import scala.collection.immutable.VectorMap
 
+import com.google.inject.Inject
+
  /** empty game board
      *  8x8 Grid
      * /----+----+----+----+----+----+----+----\
@@ -25,7 +27,7 @@ import scala.collection.immutable.VectorMap
 
 
 
-case class Board(val board: VectorMap[String, String]) extends BoardInterface {
+case class Board @Inject() (val board: VectorMap[String, String]) extends BoardInterface {
 
     override def move(pos_now: String, pos_new: String): Board =
         val figure = board.get(pos_now)
