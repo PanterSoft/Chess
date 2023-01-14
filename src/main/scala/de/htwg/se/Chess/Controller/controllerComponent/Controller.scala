@@ -8,13 +8,13 @@ import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
 import de.htwg.se.Chess.model.BoardInterface
-import de.htwg.se.Chess.model.FileIOComponent
+import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
 
 
-case class Controller @Inject() (var field: Board, var FileIO: FileIOInterface) extends ControllerInterface:
+case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) extends ControllerInterface:
 
   var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
