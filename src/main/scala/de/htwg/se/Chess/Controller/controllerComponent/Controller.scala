@@ -1,7 +1,7 @@
 package de.htwg.se.Chess.controller.controllerComponent
 
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.util._
+import de.htwg.se.Chess.util.*
 import scala.collection.immutable.VectorMap
 import de.htwg.se.Chess.controller.controllerComponent._
 import de.htwg.se.Chess.controller.ControllerInterface
@@ -52,9 +52,13 @@ case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) 
   }
 
   def load: Unit = {
-    field = fileIO.load(field)
+    field = fileIO.load()
     notifyObservers
-    field
+    field.board
+  }
+
+  def save: Unit = {
+    fileIO.save(field)
   }
 
   def undo(): Unit = {

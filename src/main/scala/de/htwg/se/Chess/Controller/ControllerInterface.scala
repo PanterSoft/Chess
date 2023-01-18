@@ -8,8 +8,6 @@ import de.htwg.se.Chess.model._
 
 trait ControllerInterface extends Observable{
     var field: Board
-
-    //def field : BoardInterface
     def game_state: GameState
     def board_to_string_c(): String
     def move_c(pos_now : String, pos_new : String) : Unit
@@ -18,7 +16,8 @@ trait ControllerInterface extends Observable{
     def change_player(): Unit
     def last_turn(): String
     def check_winner(): Unit
-    def load: Board
+    def load:Board
+    def save:Unit
     def undo(): Unit
     def redo(): Unit
 }

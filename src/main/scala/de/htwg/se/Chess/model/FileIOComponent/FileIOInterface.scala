@@ -1,9 +1,9 @@
 package de.htwg.se.Chess.model.FileIOComponent
 
-import de.htwg.se.Chess.model._
+import de.htwg.se.Chess.model.Board
+import de.htwg.se.Chess.model.BoardInterface
 trait FileIOInterface {
 
-  def save(game: BoardInterface) : Unit
-  def load(game: BoardInterface) : BoardInterface
-
+  def save(field: BoardInterface) : Unit
+  def load() : Board
 }
