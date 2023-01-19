@@ -45,7 +45,7 @@ class FileIO extends FileIOInterface {
     if(seletedFile != null) {
       val source: String = Source.fromFile(seletedFile).getLines.mkString
       val json: JsValue = Json.parse(source)
-      JsonToGame(json)
+      jsonToVectorMap(json)
     } else {
       game
     }
@@ -94,7 +94,7 @@ class FileIO extends FileIOInterface {
     vector.toJson
   }
 
-  def jsonToVectorMap(json: Json): VectorMap = {
+  def jsonToVectorMap(json: Json): VectorMap[String, String] = {
     json.convertTo[VectorMap]
   }
 
@@ -103,10 +103,10 @@ class FileIO extends FileIOInterface {
     Json.obj(
       "entry" -> {for(i <- queue) yield (Json.obj("pos:" -> queue.dequeue()), "name" -> vector.get(queue.dequeue()))}
     )
-  */
+
 
   def JsonToGame(gameJson: JsValue) = {
     Board()
   }
-
+*/
 }
