@@ -45,6 +45,7 @@ class FileIO extends FileIOInterface {
     if(seletedFile != null) {
       val source: String = Source.fromFile(seletedFile).getLines.mkString
       val json: JsValue = Json.parse(source)
+      //@todo need BoardInterafce, not Vectormap
       jsonToVectorMap(json)
     } else {
       game

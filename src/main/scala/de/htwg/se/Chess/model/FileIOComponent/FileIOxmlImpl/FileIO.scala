@@ -25,7 +25,7 @@ class FileIO extends FileIOInterface {
     val source = scala.io.Source.fromFile("game.xml")
     val xml = XML.loadString(source.mkString)
     source.close()
-
+    //@todo add xml to boardInterface
     return game
 
 
