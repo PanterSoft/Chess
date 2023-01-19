@@ -12,10 +12,13 @@ import scala.io.Source
 
 import java.io._
 import scala.xml._
+import scala.collection.immutable.VectorMap
+import scala.collection.mutable.Queue
+
 
 class FileIO extends FileIOInterface {
 
-  override def load(game: BoardInterface): BoardInterface = 
+  override def load(game: BoardInterface): BoardInterface =
     import java.io._
     import scala.xml._
 
@@ -33,21 +36,32 @@ class FileIO extends FileIOInterface {
     pw.write(gameToXml(game).toString())
     pw.close()
 
+  def match_pattern(option: Option[Int]) = option match {
+    case Some(s) => (s)
+    case None => (0)
+  }
+
+  def match_pattern(option: Option[String]) = option match {
+      case Some(s) => (s)
+      case None => ("Invalid")
+  }
+
+  def get_pos() : Queue[String] =
+    val x_map = Map(1->"A", 2->"B", 3->"C", 4->"D", 5->"E", 6->"F", 7->"G", 8->"H")
+
+    var queue = Queue[String]()
+
+    for (i <- 0 to 8) yield
+      for (j <- 0 to 8) yield
+        val tmp_1 = match_pattern(x_map.get(i))
+        val tmp_2 = j
+        queue += tmp_1.toString + tmp_2.toString()
+    queue
+
   def gameToXml(game: BoardInterface) =
     <game>
-      <rows>
-        {game.field.matrix.rows}
-      </rows>
-      <cols>
-        {game.field.matrix.cols}
-      </cols>
-      {matrixToXml(game.field.matrix.asInstanceOf[Matrix[Object]])}
-      {hmatrixToXml(game.field.hmatrix.asInstanceOf[Matrix[Object]])}
-      <turns>
-        {game.getCurrentTurn()}
-      </turns>
       <code>
-        {game.getCode().code}
+        {for(i <- get_pos()) yield (get_pos().dequeue())}
       </code>
     </game>
 }
