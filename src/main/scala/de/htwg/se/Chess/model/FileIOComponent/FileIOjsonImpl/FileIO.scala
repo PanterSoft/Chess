@@ -11,28 +11,26 @@ import java.time.format.DateTimeFormatter
 import scala.collection.immutable.VectorMap
 
 import scala.util.{Failure, Success, Try}
-import play.api.libs.json.*
 
 import scala.io.Source
 import de.htwg.se.Chess.model.Board
-//import de.htwg.se.Chess.controller.controllerComponent.GameState
+
 import de.htwg.se.Chess.model.*
 import scala.annotation.meta.field
 import scala.collection.mutable._
 import scala.collection.mutable.Queue
 
+import scalafx.stage.FileChooser
+import scalafx.stage.FileChooser.ExtensionFilter
+import java.io.File
+
+// Json Libs
 import spray.json._
 import DefaultJsonProtocol._
-import java.io._
-import scala.xml._
 
 class FileIO extends FileIOInterface {
 
   override def load(game: BoardInterface): BoardInterface =
-    import scalafx.stage.FileChooser
-    import scalafx.stage.FileChooser.ExtensionFilter
-    import java.io.File
-
     val fileChooser = new FileChooser()
     fileChooser.setTitle("Load Game")
     fileChooser.setInitialDirectory(new File("src/main/savegames/"))
@@ -40,13 +38,13 @@ class FileIO extends FileIOInterface {
     fileChooser.extensionFilters.addAll(
       new ExtensionFilter("JSON Files", "*.json")
     )
-    val seletedFile = fileChooser.showOpenDialog(null)
+    val selectedFile = fileChooser.showOpenDialog(null)
 
-    if(seletedFile != null) {
-      val source: String = Source.fromFile(seletedFile).getLines.mkString
-      val json: JsValue = Json.parse(source)
+    if(selectedFile != null) {
+      val source: String = Source.fromFile(selectedFile).getLines.mkString
+      val jsonAst = source.parseJson
       //@todo need BoardInterafce, not Vectormap
-      jsonToVectorMap(json)
+      jsonToVectorMap(jsonAst)
     } else {
       game
     }
