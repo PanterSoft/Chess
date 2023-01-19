@@ -78,8 +78,9 @@ class FileIO extends FileIOInterface {
 
   def vectorMapToJson(vector: VectorMap[String, String]) =
     Json.obj(
-      "entry" -> Json.obj("pos:" -> {for((i:String)<-get_pos()) yield (vector.get(i))},
-                          "name" -> {for((i:String)<-get_pos()) yield (vector.get(i))})
+      "entry" -> {for(i <- queue) yield (Json.obj("pos:" -> vector.get(i)),
+                                      "name" -> vector.get(i))
+                  }
     )
 
   def JsonToVectorMap(vectorMapJson: JsValue, mtype: String) = {
