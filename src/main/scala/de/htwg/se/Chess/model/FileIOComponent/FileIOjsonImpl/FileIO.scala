@@ -65,21 +65,29 @@ class FileIO extends FileIOInterface {
     //"state" -> JsString(game.field.controller.last_turn)
   )
 
+  def match_pattern(option: Option[Int]) = option match {
+    case Some(s) => (s)
+    case None => (0)
+  }
+
   def get_pos() =
-    var y = Range.inclusive(1,8)
     val x_map = Map(1->"A", 2->"B", 3->"C", 4->"D", 5->"E", 6->"F", 7->"G", 8->"H")
 
-    for (i<-x_map) yield
-      for (j<-y) yield
-        var queue = Queue()
-        queue.enqueue(x_map.get(i(1)(0)) + j.toString())
-    //@todo  alle elemente in queue einfügen
-    // ein element rausziehen
+    var queue = new Queue[String]()
+
+    for (i <- 0 to 8) yield
+      for (j <- 0 to 8) yield
+        val tmp_1 = match_pattern(x_map.get(i))
+        val tmp_2 = j
+        queue += tmp_1.toString + tmp_2.toString()
 
   def vectorMapToJson(vector: VectorMap[String, String]) =
+
+    val pos_tmp = queue.dequeue() // "A1"
+
     Json.obj(
       "entry" -> Json.obj("pos:" -> {for((i:String)<-get_pos()) yield (vector.get(i))},
-                          "name" -> {for((i:String)<-get_pos()) yield (vector.get(i))})
+                          "name" -> {for((i:String)<-get_pos()) yield (vector.get(pos_tmp))})
     )
 
   def JsonToVectorMap(vectorMapJson: JsValue, mtype: String) = {
