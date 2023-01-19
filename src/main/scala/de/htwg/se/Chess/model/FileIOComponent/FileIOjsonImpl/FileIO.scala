@@ -10,7 +10,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import scala.collection.immutable.VectorMap
 
-
 import scala.util.{Failure, Success, Try}
 import play.api.libs.json.*
 
@@ -21,6 +20,11 @@ import de.htwg.se.Chess.model.*
 import scala.annotation.meta.field
 import scala.collection.mutable._
 import scala.collection.mutable.Queue
+
+import spray.json._
+import DefaultJsonProtocol._
+import java.io._
+import scala.xml._
 
 class FileIO extends FileIOInterface {
 
@@ -48,8 +52,7 @@ class FileIO extends FileIOInterface {
 
 
   override def save(game: BoardInterface): Unit =
-    import java.io._
-    import scala.xml._
+
     //get timestamp, path and create filename
     val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
     val path = "src/main/savegames/"
@@ -75,9 +78,8 @@ class FileIO extends FileIOInterface {
       case None => ("Invalid")
   }
 
-  def get_pos() : Queue[String] =
+  def get_pos() : Queue[String] = {
     val x_map = Map(1->"A", 2->"B", 3->"C", 4->"D", 5->"E", 6->"F", 7->"G", 8->"H")
-
     var queue = Queue[String]()
 
     for (i <- 0 to 8) yield
@@ -86,20 +88,25 @@ class FileIO extends FileIOInterface {
         val tmp_2 = j
         queue += tmp_1.toString + tmp_2.toString()
     queue
+  }
 
-  def vectorMapToJson(vector: VectorMap[String, String]) =
-    //val pos_tmp = queue.dequeue() // "A1"
+  def vectorMapToJson(vector: VectorMap[String, String]) = {
+    vector.toJson
+  }
+
+  def jsonToVectorMap(json: Json): VectorMap = {
+    json.convertTo[VectorMap]
+  }
+
+  /*def vectorMapToJson(vector: VectorMap[String, String]) =
     var queue = get_pos()
     Json.obj(
       "entry" -> {for(i <- queue) yield (Json.obj("pos:" -> queue.dequeue()), "name" -> vector.get(queue.dequeue()))}
     )
-
-  def JsonToVectorMap(vectorMapJson: JsValue, mtype: String) = {
-
-  }
+  */
 
   def JsonToGame(gameJson: JsValue) = {
-
     Board()
   }
+
 }
