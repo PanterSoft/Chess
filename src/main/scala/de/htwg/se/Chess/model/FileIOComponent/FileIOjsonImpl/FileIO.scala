@@ -66,36 +66,13 @@ class FileIO extends FileIOInterface {
   def gameToJson(game: BoardInterface) =
   Json.obj(
     "game" -> vectorMapToJson(game.field.board),
-    //"state" -> JsString(game.field.controller.last_turn)
   )
-
-  def match_pattern(option: Option[Int]) = option match {
-    case Some(s) => (s)
-    case None => (0)
-  }
-
-  def match_pattern(option: Option[String]) = option match {
-      case Some(s) => (s)
-      case None => ("Invalid")
-  }
-
-  def get_pos() : Queue[String] = {
-    val x_map = Map(1->"A", 2->"B", 3->"C", 4->"D", 5->"E", 6->"F", 7->"G", 8->"H")
-    var queue = Queue[String]()
-
-    for (i <- 0 to 8) yield
-      for (j <- 0 to 8) yield
-        val tmp_1 = match_pattern(x_map.get(i))
-        val tmp_2 = j
-        queue += tmp_1.toString + tmp_2.toString()
-    queue
-  }
 
   def vectorMapToJson(vector: VectorMap[String, String]) = {
     vector.toJson
   }
 
-  def jsonToVectorMap(json: Json): VectorMap[String, String] = {
+  def jsonToVectorMap(json): VectorMap[String, String] = {
     json.convertTo[VectorMap]
   }
 
