@@ -19,6 +19,8 @@ import de.htwg.se.Chess.model.Board
 //import de.htwg.se.Chess.controller.controllerComponent.GameState
 import de.htwg.se.Chess.model.*
 import scala.annotation.meta.field
+import scala.collection.mutable._
+import scala.collection.mutable.Queue
 
 class FileIO extends FileIOInterface {
 
@@ -63,19 +65,21 @@ class FileIO extends FileIOInterface {
     //"state" -> JsString(game.field.controller.last_turn)
   )
 
-  def get_pos() : String =
-    val x_map = Map(1->"A", 2->"B", "C"->3, "D"->4, "E"->5, "F"->6, "G"->7, "H"->8)
-    for(i<-8) yield
-      for(j<-8) yield
-        var data = x_map.get(j) + j
+  def get_pos() =
+    var y = Range.inclusive(1,8)
+    val x_map = Map(1->"A", 2->"B", 3->"C", 4->"D", 5->"E", 6->"F", 7->"G", 8->"H")
+
+    for (i<-x_map) yield
+      for (j<-y) yield
+        var queue = Queue()
+        queue.enqueue(x_map.get(i(1)(0)) + j.toString())
     //@todo  alle elemente in queue einfügen
     // ein element rausziehen
 
   def vectorMapToJson(vector: VectorMap[String, String]) =
     Json.obj(
-      "entry" ->{"pos:" -> for(i<-get_pos()) yield (for(j<-8) yield (vector.get())),
-                 "name" -> (vector.get())
-                }
+      "entry" -> Json.obj("pos:" -> {for((i:String)<-get_pos()) yield (vector.get(i))},
+                          "name" -> {for((i:String)<-get_pos()) yield (vector.get(i))})
     )
 
   def JsonToVectorMap(vectorMapJson: JsValue, mtype: String) = {
@@ -85,6 +89,5 @@ class FileIO extends FileIOInterface {
   def JsonToGame(gameJson: JsValue) = {
 
     Board()
-    //state
   }
 }
