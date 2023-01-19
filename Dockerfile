@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y libxrender1 libxtst6 libxi6
 RUN apt-get install apt-transport-https curl gnupg -yqq
 
 RUN apt install -y xauth
-#RUN xauth add MacBook-Pro-von-Nico-Mattes.fritz.box/unix:0  MIT-MAGIC-COOKIE-1  54659796d3cf6ac68b016d4d98ef2c9d
 RUN xauth list
 
 RUN sbt update
