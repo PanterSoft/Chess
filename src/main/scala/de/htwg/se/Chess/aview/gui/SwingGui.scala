@@ -2,9 +2,7 @@ package de.htwg.se.Chess.aview
 
 import scala.swing._
 import de.htwg.se.Chess.util.Observer
-import de.htwg.se.Chess.util._
 import de.htwg.se.Chess.controller.ControllerInterface
-import scala.swing.Reactions.Reaction
 import de.htwg.se.Chess.controller.controllerComponent.GameState
 import javax.swing.border.EmptyBorder
 import scala.swing.event.Key
@@ -13,7 +11,6 @@ import scalafx.scene.input.KeyCode.R
 import scalafx.scene.input.KeyCode.G
 import scala.swing.event.PopupMenuCanceled
 import javax.swing.JOptionPane
-import de.htwg.se.Chess.model._
 
 class SwingGUI(controller: ControllerInterface) extends Frame with Observer:
     controller.add(this)

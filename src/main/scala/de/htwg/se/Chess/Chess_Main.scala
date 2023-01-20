@@ -16,7 +16,7 @@ object Chess extends Thread{
   val gui = new SwingGUI(controller)
 
   def main(args: Array[String]): Unit = {
-    /* TUI */
+    /* TUI AND GUI start */
     var input: String = ""
     while
       input = readLine("->")
