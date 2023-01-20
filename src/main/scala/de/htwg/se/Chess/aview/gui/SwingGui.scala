@@ -43,6 +43,14 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer:
                 println("Bye!")
                 System.exit(0)
             })
+            contents += new Separator
+            contents += new MenuItem(Action("Save") {
+                controller.save
+            })
+            contents += new Separator
+            contents += new MenuItem(Action("Load") {
+                controller.load
+            })
         }
     }
     contents = contentPanel

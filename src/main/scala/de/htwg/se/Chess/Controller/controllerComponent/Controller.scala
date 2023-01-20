@@ -1,19 +1,20 @@
 package de.htwg.se.Chess.controller.controllerComponent
 
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.util._
+import de.htwg.se.Chess.util.*
 import scala.collection.immutable.VectorMap
 import de.htwg.se.Chess.controller.controllerComponent._
 import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
 import de.htwg.se.Chess.model.BoardInterface
+import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
 
 
-case class Controller @Inject() (var field: Board) extends ControllerInterface:
+case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) extends ControllerInterface:
 
   var game_state: GameState = NO_WINNER_YET
   private val history_manager = new HistoryManager
@@ -48,6 +49,16 @@ case class Controller @Inject() (var field: Board) extends ControllerInterface:
     if (success == 1) game_state = PLAYER1
     else if (success == 2) game_state = PLAYER2
       else game_state = NO_WINNER_YET
+  }
+
+  def load: Board = {
+    field = fileIO.load()
+    notifyObservers
+    field
+  }
+
+  def save: Unit = {
+    fileIO.save(field)
   }
 
   def undo(): Unit = {
