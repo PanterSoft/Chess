@@ -22,67 +22,62 @@ import scala.collection.mutable.Queue
 
 import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter
-import java.io.File
+
 
 // Json Libs
-import spray.json._
-import DefaultJsonProtocol._
+import java.io._
+import play.api.libs.json._
 
 class FileIO extends FileIOInterface {
 
   override def load(game: BoardInterface): BoardInterface =
-    val fileChooser = new FileChooser()
-    fileChooser.setTitle("Load Game")
-    fileChooser.setInitialDirectory(new File("src/main/savegames/"))
-    // Set shown file filter to JSON files only
-    fileChooser.extensionFilters.addAll(
-      new ExtensionFilter("JSON Files", "*.json")
-    )
-    val selectedFile = fileChooser.showOpenDialog(null)
+    val source: String = Source.fromFile("board.json").getLines.mkString
+    val json: JsValue = Json.parse(source)
+    var field: BoardInterface = Board()
 
-    if(selectedFile != null) {
-      val source: String = Source.fromFile(selectedFile).getLines.mkString
-      val jsonAst = source.parseJson
-      //@todo need BoardInterafce, not Vectormap
-      jsonToVectorMap(jsonAst)
-    } else {
-      game
+
+    // @TODO: hier weitermachen
+    for (index <- 0 until size * size) {
+      val row = (json \\ "row")(index).as[Int]
+      val col = (json \\ "col")(index).as[Int]
+      val value = (json \\ "cell")(index).as[String]
+      value match {
+        case " " => field = field.put(Stone.Empty, row, col)
+        case "□" => field = field.put(Stone.B, row, col)
+        case "■" => field = field.put(Stone.W, row, col)
+        case _ =>
+      }
     }
+    game
 
 
-  override def save(game: BoardInterface): Unit =
 
+  override def save(game: BoardInterface) =
     //get timestamp, path and create filename
     val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
     val path = "src/main/savegames/"
     val filename = path + "game_" + timestamp + ".json"
     //write to game file
     val pw = new PrintWriter(new File(filename))
-    pw.write(gameToJson(game).toString())
+    pw.write(vectorMapToJson(game))
     pw.close()
 
-  def gameToJson(game: BoardInterface) =
-  Json.obj(
-    "game" -> vectorMapToJson(game.field.board),
-  )
-
-  def vectorMapToJson(vector: VectorMap[String, String]) = {
-    vector.toJson
-  }
-
-  def jsonToVectorMap(json): VectorMap[String, String] = {
-    json.convertTo[VectorMap]
-  }
-
-  /*def vectorMapToJson(vector: VectorMap[String, String]) =
-    var queue = get_pos()
+  def vectorMapToJson(board_object: BoardInterface) =
+    val tmp = board_object.field.board
     Json.obj(
-      "entry" -> {for(i <- queue) yield (Json.obj("pos:" -> queue.dequeue()), "name" -> vector.get(queue.dequeue()))}
+      "field" -> Json.obj(
+        "field_entry" -> Json.toJson(
+          for {
+            pos <- 1 until board_array.size + 1
+            figure <- 1 until board_array.size + 1
+          } yield {
+            Json.obj(
+              "pos" -> pos,
+              "figure" -> figure,
+            )
+          }
+        )
+      )
     )
 
-
-  def JsonToGame(gameJson: JsValue) = {
-    Board()
-  }
-*/
 }
