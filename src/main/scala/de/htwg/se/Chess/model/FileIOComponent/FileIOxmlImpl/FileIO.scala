@@ -33,7 +33,7 @@ class FileIO extends FileIOInterface {
     import java.io._
     import scala.xml._
     val pw = new PrintWriter(new File("game.xml"))
-    pw.write(gameToXml(game).toString())
+    pw.write(vectorMapToXml(game).toString())
     pw.close()
 
   def match_pattern(option: Option[Int]) = option match {
@@ -58,10 +58,15 @@ class FileIO extends FileIOInterface {
         queue += tmp_1.toString + tmp_2.toString()
     queue
 
-  def gameToXml(game: BoardInterface) =
+  def vectorMapToXml(game: BoardInterface) =
     <game>
       <code>
-        {for(i <- get_pos()) yield (get_pos().dequeue())}
+        <pos>
+          {for(i <- get_pos()) yield (get_pos().dequeue())}
+        </pos>
+        <name>
+          {for(i <- get_pos()) yield (get_pos())}
+        </name>
       </code>
     </game>
 }
