@@ -40,5 +40,3 @@ null/
 .cache-main
 Notizen.txt
 .coveralls.yml
-board.json
-board.xml
