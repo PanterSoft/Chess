@@ -13,6 +13,7 @@ import scala.collection.immutable.VectorMap
 class FileIO extends FileIOInterface {
 
   override def load(): Board =
+    // load game from file
     val source = scala.xml.XML.loadFile("board.xml")
     val xml = XML.loadString(source.mkString)
     var field: VectorMap[String, String] = VectorMap[String, String]()
@@ -29,12 +30,10 @@ class FileIO extends FileIOInterface {
       }
 
     }
-    print(field)
     Board(field)
 
   override def save(game: BoardInterface): Unit =
-    import java.io._
-    import scala.xml._
+    // write game to file
     val pw = new PrintWriter(new File("board.xml"))
     pw.write(vectorMapToXml(game).toString())
     pw.close()

@@ -1,4 +1,4 @@
-val scala3Version = "3.2.2-RC1-bin-20221101-d84007c-NIGHTLY"
+val scala3Version = "3.2.2-RC1-bin-20221101-d84007c-NIGHTLY" // This version is needed on MacOS with Apple Silicon Chip
 
 import org.scoverage.coveralls.Imports.CoverallsKeys._
 

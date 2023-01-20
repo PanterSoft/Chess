@@ -81,7 +81,7 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer:
                 selectionHandler(pos, figure)
         }
 
-    def selectionHandler(pos: String, figure: String) =
+    def selectionHandler(pos: String, figure: String) = {
         if (pos1 != pos && pos2 != pos)
             if(selection_system.currentState.isInstanceOf[First] &&controller.last_turn() == controller.get_player_c(pos))
                 pos1 = pos
@@ -99,6 +99,7 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer:
         else
             println("Invalid Move" + pos1 + " " + pos2)
 
-    pack()
-    centerOnScreen()
-    open()
+        pack()
+        centerOnScreen()
+        open()
+    }

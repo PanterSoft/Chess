@@ -11,6 +11,4 @@ class SelectionSystem {
     var pos2: String = ""
 
     def changeState(): Unit = currentState.changeState()
-
-    //def displayState(): Unit = currentState.displayState()
 }
