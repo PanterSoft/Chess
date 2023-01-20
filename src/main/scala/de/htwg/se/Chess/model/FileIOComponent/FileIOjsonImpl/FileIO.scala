@@ -22,7 +22,6 @@ import scala.collection.mutable.Queue
 import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter
 
-// Json Libs
 import java.io._
 import play.api.libs.json._
 import scala.languageFeature.postfixOps
@@ -30,6 +29,7 @@ import scala.languageFeature.postfixOps
 class FileIO extends FileIOInterface {
 
   override def load(): Board =
+    // load game from file
     val source: String = Source.fromFile("board.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     var field: VectorMap[String, String] = VectorMap[String, String]()

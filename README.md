@@ -10,6 +10,24 @@
 
 ---
 
+# How to run docker container with X11
+
+## Building the Container
+```docker build -t chess:v1 .```
+
+## Running the Container
+```
+xhost +
+
+ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+
+docker run -e DISPLAY=$ip:0 -v /tmp/.X11-unix:/tmp/.X11-unix -ti chess:v1
+
+xhost -
+ ```
+
+---
+
 ## Contributors
 | [PanterSoft](https://github.com/PanterSoft)  |  [TeefanDev](https://github.com/TeefanDev) |
 |---|---|
