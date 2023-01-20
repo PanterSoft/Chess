@@ -10,7 +10,7 @@
 
 ---
 
-# How to run docker container with X11
+# How to run Docker container with X11
 
 ## Building the Container
 ```docker build -t chess:v1 .```
