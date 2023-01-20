@@ -16,16 +16,12 @@ object Chess extends Thread{
   val gui = new SwingGUI(controller)
 
   def main(args: Array[String]): Unit = {
-    /* TUI */
+    /* TUI AND GUI start */
     var input: String = ""
     while
       input = readLine("->")
       tui_main.process(input)
       input != "exit"
     do()
-    /* GUI */
   }
 }
-
-//Interfaces: trait, Components: private and public notations
-//interface nach oben minimal, muss klein und konsequent sein um über lange zeit bearbeitbar sein

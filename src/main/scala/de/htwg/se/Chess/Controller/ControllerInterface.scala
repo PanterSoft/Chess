@@ -1,8 +1,6 @@
 package de.htwg.se.Chess.controller
 
-import de.htwg.se.Chess.util.Observer
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.util._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
 import de.htwg.se.Chess.model._
 

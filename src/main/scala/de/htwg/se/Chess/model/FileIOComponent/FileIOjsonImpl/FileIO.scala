@@ -1,23 +1,11 @@
 package de.htwg.se.Chess.model.FileIOComponent.FileIOjsonImpl
 
 import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
-import de.htwg.se.Chess.model.BoardInterface
-//import de.htwg.se.Chess.model.Board
-import com.google.inject.Guice
-import com.google.inject.name.Names
-import net.codingwell.scalaguice.InjectorExtensions.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import scala.collection.immutable.VectorMap
-
-import scala.util.{Failure, Success, Try}
 
 import scala.io.Source
 
 import de.htwg.se.Chess.model.*
-import scala.annotation.meta.field
-import scala.collection.mutable._
-import scala.collection.mutable.Queue
 
 import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter

@@ -1,8 +1,6 @@
 package de.htwg.se.Chess.model
 
 import scala.collection.immutable.VectorMap
-import de.htwg.se.Chess.model.*
-import de.htwg.se.Chess.model.Board
 
 trait BoardInterface(){
     var board: VectorMap[String, String]

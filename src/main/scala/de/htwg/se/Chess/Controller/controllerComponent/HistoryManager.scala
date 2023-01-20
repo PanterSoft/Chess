@@ -1,7 +1,5 @@
 package de.htwg.se.Chess.controller.controllerComponent
 
-import de.htwg.se.Chess.controller.controllerComponent.Controller
-import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Command
 
 class HistoryManager {

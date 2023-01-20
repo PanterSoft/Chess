@@ -1,13 +1,9 @@
 package de.htwg.se.Chess.controller.controllerComponent
 
 import de.htwg.se.Chess.util.Observable
-import de.htwg.se.Chess.util.*
-import scala.collection.immutable.VectorMap
-import de.htwg.se.Chess.controller.controllerComponent._
 import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
-import de.htwg.se.Chess.model.BoardInterface
 import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
 
 import com.google.inject.name.Names

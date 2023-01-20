@@ -2,18 +2,12 @@ package de.htwg.se.Chess.model.FileIOComponent.FileIOxmlImpl
 
 import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
 import de.htwg.se.Chess.model.*
-import com.google.inject.Guice
-import com.google.inject.name.Names
-import net.codingwell.scalaguice.InjectorExtensions.*
 
 import play.api.libs.json.*
-
 import scala.io.Source
-
 import java.io._
 import scala.xml._
 import scala.collection.immutable.VectorMap
-import scala.collection.mutable.Queue
 
 
 class FileIO extends FileIOInterface {

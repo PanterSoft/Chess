@@ -1,9 +1,7 @@
 package de.htwg.se.Chess.aview
 
 import de.htwg.se.Chess.controller.ControllerInterface
-import de.htwg.se.Chess.controller.controllerComponent.SolveCommand
 import de.htwg.se.Chess.controller.controllerComponent.GameState
-//import de.htwg.se.Chess.model.Board
 import de.htwg.se.Chess.util.Observer
 import scala.util.{Try,Success,Failure}
 import scala.util.matching.Regex
@@ -80,6 +78,7 @@ class tui(controller: ControllerInterface) extends Observer{
     }
 
     //Customer service agent
+    //help string
     class Agent(val successor: Option[Handler]) extends Handler {
       override def handleEvent(event: Event): String = {
         event match {
@@ -95,6 +94,7 @@ class tui(controller: ControllerInterface) extends Observer{
       }
     }
 
+    // undo / redo
     class Supervisor(val successor: Option[Handler]) extends Handler {
       override def handleEvent(event: Event): String = {
         event match {
@@ -109,6 +109,8 @@ class tui(controller: ControllerInterface) extends Observer{
         }
       }
     }
+    
+    // handle move
     class Boss(val successor: Option[Handler]) extends Handler {
       override def handleEvent(event: Event): String = {
         event match {
