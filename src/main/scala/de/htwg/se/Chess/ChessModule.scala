@@ -14,13 +14,13 @@ import net.codingwell.scalaguice.ScalaModule
 
 import model.FileIOComponent.FileIOInterface
 import model.FileIOComponent.*
-import model.FileIOComponent.FileIOjsonImpl.FileIO
-//import model.FileIOComponent.FileIOxmlImpl.FileIO
+//import model.FileIOComponent.FileIOjsonImpl.FileIO
+import model.FileIOComponent.FileIOxmlImpl.FileIO
 
 class ChessModule extends AbstractModule {
     override def configure(): Unit = {
         bind(classOf[ControllerInterface]).toInstance(new Controller(field = Board(), fileIO = FileIO()))
         bind[FileIOInterface](new TypeLiteral[FileIOInterface] {}).to(classOf[FileIOxmlImpl.FileIO])
-        bind[FileIOInterface](new TypeLiteral[FileIOInterface] {}).to(classOf[FileIOjsonImpl.FileIO])
+        //bind[FileIOInterface](new TypeLiteral[FileIOInterface] {}).to(classOf[FileIOjsonImpl.FileIO])
     }
 }

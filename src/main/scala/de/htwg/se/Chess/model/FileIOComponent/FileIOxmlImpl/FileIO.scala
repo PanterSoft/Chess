@@ -19,15 +19,23 @@ import scala.collection.mutable.Queue
 class FileIO extends FileIOInterface {
 
   override def load(): Board =
-    val source = scala.xml.XML.loadFile("field.xml")
+    val source = scala.xml.XML.loadFile("board.xml")
     val xml = XML.loadString(source.mkString)
     var field: VectorMap[String, String] = VectorMap[String, String]()
 
     for (index <- 0 until 8 * 8) {
-      val pos = (xml \ "pos").toString()
-      val figure = (xml \ "figure").toString()
-      field = field.updated(pos, figure)
+      val pos = ((xml \\ "pos")(index)).text.trim()
+      val figure = ((xml \\ "figure")(index)).text.trim()
+
+      if (figure == "__") {
+        val figure_r = "  "
+        field = field.updated(pos, figure_r)
+      } else {
+        field = field.updated(pos, figure)
+      }
+
     }
+    print(field)
     Board(field)
 
   override def save(game: BoardInterface): Unit =
@@ -38,18 +46,21 @@ class FileIO extends FileIOInterface {
     pw.close()
 
   def vectorMapToXml(board_object: BoardInterface) =
-    val tmp:VectorMap[String, String] = board_object.board
     <game>
-      <field_entrys>
-        {for ((pos, figure) <- tmp) {
-            <pos>
-              {pos}
-            </pos>
-            <figure>
-              {figure}
-            </figure>
+      {for ((pos, figure) <- board_object.board) yield {
+        <pos>
+          {pos}
+        </pos>
+        <figure>
+          {
+            if (figure == "  ") {
+              "__"
+            } else {
+              figure
+            }
           }
+        </figure>
         }
-      </field_entrys>
+      }
     </game>
 }
