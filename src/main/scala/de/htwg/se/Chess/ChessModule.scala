@@ -13,13 +13,13 @@ import model.FileIOComponent.FileIOInterface
 import model.FileIOComponent.*
 
 /*
-* Uncoment the line below and in the Imports above to Save and Load
+* Uncoment the line below and in the binds down under to Save and Load
 * from XML
 */
 //import model.FileIOComponent.FileIOxmlImpl.FileIO
 
 /*
-* Uncoment the line below and in the Imports above to Save and Load
+* Uncoment the line below and in the binds down under to Save and Load
 * from JSON
 */
 import model.FileIOComponent.FileIOjsonImpl.FileIO
