@@ -1,0 +1,10 @@
+version: "1"
+services:
+  app:
+    image: chess:v1
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: host
