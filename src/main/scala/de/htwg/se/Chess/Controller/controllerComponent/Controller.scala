@@ -51,10 +51,10 @@ case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) 
       else game_state = NO_WINNER_YET
   }
 
-  def load: Unit = {
+  def load: Board = {
     field = fileIO.load()
     notifyObservers
-    field.board
+    field
   }
 
   def save: Unit = {

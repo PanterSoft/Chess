@@ -5,7 +5,7 @@ import de.htwg.se.Chess.model.*
 import de.htwg.se.Chess.model.Board
 
 trait BoardInterface(){
-    var field: Board
+    var board: VectorMap[String, String]
     def move(pos_now: String, pos_new: String): Board
     def game_finished(game_map: VectorMap[String, String]): Int
     def board_to_string(): String

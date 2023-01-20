@@ -44,16 +44,16 @@ class FileIO extends FileIOInterface {
 
   override def save(game: BoardInterface) =
     // write game to file
-    val pw = new PrintWriter(new File("field.json"))
+    val pw = new PrintWriter(new File("board.json"))
     pw.write(vectorMapToJson(game))
     pw.close
 
   def vectorMapToJson(board_object: BoardInterface): String =
-    val tmp:VectorMap[String, String] = board_object.field.board
+    val tmp:VectorMap[String, String] = board_object.board
     var jsonData = Json.obj(
       "field" -> Json.obj(
         "field_entry" -> Json.toJson(
-          for ((pos, figure) <- tmp) {
+          for ((pos, figure) <- tmp) yield {
             Json.obj(
             "pos" -> pos,
             "figure" -> figure
