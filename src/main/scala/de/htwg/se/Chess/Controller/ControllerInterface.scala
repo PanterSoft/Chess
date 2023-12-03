@@ -4,7 +4,9 @@ import de.htwg.se.Chess.util.Observable
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
 import de.htwg.se.Chess.model._
 
-trait ControllerInterface extends Observable{
+import scala.swing.Publisher
+
+trait ControllerInterface extends Observable with Publisher{
     var field: Board
     def game_state: GameState
     def board_to_string_c(): String
