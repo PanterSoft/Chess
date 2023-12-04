@@ -4,6 +4,7 @@ import de.htwg.se.Chess.util.Observable
 import de.htwg.se.Chess.controller.ControllerInterface
 import de.htwg.se.Chess.model._
 import de.htwg.se.Chess.controller.controllerComponent.GameState._
+import de.htwg.se.Chess.controller.CellChanged
 import de.htwg.se.Chess.model.FileIOComponent.FileIOInterface
 
 import com.google.inject.name.Names
@@ -23,6 +24,7 @@ case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) 
     change_player()
     check_winner()
     notifyObservers
+    publish(new CellChanged)
 
   def domove(): Unit = {
     history_manager.doMove(new SolveCommand(this))
@@ -63,6 +65,7 @@ case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) 
       change_player()
       check_winner()
       notifyObservers
+      publish(new CellChanged)
   }
 
   def redo(): Unit = {
@@ -71,4 +74,5 @@ case class Controller @Inject() (var field: Board, var fileIO: FileIOInterface) 
       change_player()
       check_winner()
       notifyObservers
+      publish(new CellChanged)
   }

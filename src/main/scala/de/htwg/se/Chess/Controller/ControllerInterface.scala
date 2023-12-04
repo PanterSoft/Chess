@@ -21,3 +21,5 @@ trait ControllerInterface extends Observable with Publisher{
     def undo(): Unit
     def redo(): Unit
 }
+
+class CellChanged extends Event
